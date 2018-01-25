@@ -19,8 +19,13 @@ public class RobotMap {
 
     private static AHRS ahrs;
 
-    private RobotMap() {
-    }
+
+    private static TalonSRX leftAcquisition;
+    private static TalonSRX rightAcquisition;
+
+    private static DigitalInput cubeDetector;
+
+    private RobotMap() {}
 
     /**
      * Initializes all of the motors, sensors, etc.
@@ -28,10 +33,13 @@ public class RobotMap {
      */
     public static void init() {
         if (!initialized) {
-            leftDrive = new TalonSRX(3);
-            rightDrive = new TalonSRX(1);
-
+            leftDrive = new TalonSRX(1);
+            rightDrive = new TalonSRX(2);
             ahrs = new AHRS(SPI.Port.kMXP);
+
+            leftAcquisition = new TalonSRX(3);
+            rightAcquisition = new TalonSRX(4);
+            cubeDetector = new DigitalInput(0);
 
             initialized = true;
         }
@@ -47,5 +55,17 @@ public class RobotMap {
 
     public static AHRS getAhrs() {
         return ahrs;
+    }
+
+    public static TalonSRX getLeftAcquisition() {
+        return leftAcquisition;
+    }
+
+    public static TalonSRX getRightAcquisition() {
+        return rightAcquisition;
+    }
+
+    public static DigitalInput getCubeDetector() {
+        return cubeDetector;
     }
 }
