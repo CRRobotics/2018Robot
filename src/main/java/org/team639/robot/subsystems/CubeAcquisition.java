@@ -1,7 +1,9 @@
 package org.team639.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team639.robot.RobotMap;
 
@@ -15,6 +17,10 @@ public class CubeAcquisition extends Subsystem {
     private TalonSRX right;
 
     private DigitalInput cubeDetector;
+
+    private Solenoid cubeRaise;
+    private Solenoid acqOpen1;
+    private Solenoid acqOpen2;
 
     private PistonMode mode;
 
@@ -31,7 +37,13 @@ public class CubeAcquisition extends Subsystem {
         left = RobotMap.getLeftAcquisition();
         right = RobotMap.getRightAcquisition();
 
+        right.setInverted(true);
+
         cubeDetector = RobotMap.getCubeDetector();
+
+        cubeRaise = RobotMap.getCubeRaise();
+        acqOpen1 = RobotMap.getAcqOpen1();
+        acqOpen2 = RobotMap.getAcqOpen2();
 
         mode = PistonMode.Closed;
         setPistonMode(mode);
@@ -59,7 +71,7 @@ public class CubeAcquisition extends Subsystem {
      * @param raised Whether or not the acquisition should be raised.
      */
     public void setRaised(boolean raised) {
-        // TODO: actually move piston
+        cubeRaise.set(!raised); // TODO: Check that this is correct.
     }
 
     /**
@@ -67,8 +79,7 @@ public class CubeAcquisition extends Subsystem {
      * @return Whether or not the aqcuisition is raised.
      */
     public boolean isRaised() {
-        // TODO: actually check if raised
-        return false;
+        return !cubeRaise.get(); // TODO: Check that this is correct.
     }
 
     /**
@@ -77,7 +88,8 @@ public class CubeAcquisition extends Subsystem {
      * @param rSpeed The percentage of max speed to set the right side.
      */
     public void setSpeedsPercent(double lSpeed, double rSpeed) {
-        // TODO: actually spin the wheels
+        left.set(ControlMode.Current, lSpeed);
+        right.set(ControlMode.Current, rSpeed);
     }
 
     /**

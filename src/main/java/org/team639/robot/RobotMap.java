@@ -32,6 +32,9 @@ public class RobotMap {
     private static TalonSRX leftAcquisition;
     private static TalonSRX rightAcquisition;
     private static DigitalInput cubeDetector;
+    private static Solenoid cubeRaise;
+    private static Solenoid acqOpen1;
+    private static Solenoid acqOpen2;
 
     // Lift
     private static TalonSRX liftMain;
@@ -62,6 +65,10 @@ public class RobotMap {
             leftAcquisition = new TalonSRX(8);
             rightAcquisition = new TalonSRX(9);
             cubeDetector = new DigitalInput(0);
+            cubeRaise = new Solenoid(0);
+            acqOpen1 = new Solenoid(1);
+            acqOpen2 = new Solenoid(2);
+
 
             // Lift
             liftMain = new TalonSRX(6);
@@ -149,5 +156,33 @@ public class RobotMap {
      */
     public static DigitalInput getCubeDetector() {
         return cubeDetector;
+    }
+
+    /**
+     * Returns the main Talon that controls the lift.
+     * @return The main Talon that controls the lift.
+     */
+    public static TalonSRX getLiftMain() {
+        return liftMain;
+    }
+
+    /**
+     * Returns the follower Talon of the lift.
+     * @return The follower Talon of the lift.
+     */
+    public static TalonSRX getLiftFollower() {
+        return liftFollower;
+    }
+
+    public static Solenoid getCubeRaise() {
+        return cubeRaise;
+    }
+
+    public static Solenoid getAcqOpen1() {
+        return acqOpen1;
+    }
+
+    public static Solenoid getAcqOpen2() {
+        return acqOpen2;
     }
 }
