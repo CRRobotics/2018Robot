@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team639.robot.RobotMap;
 
 /**
- * Created by Jack Greenberg <theProgrammerJack@gmail.com> on 1/25/2018.
- * Part of 2018Robot.
+ * The cube acquisition subsystem.
+ * Responsible for manipulating cubes.
  */
 public class CubeAcquisition extends Subsystem {
 
@@ -81,8 +81,8 @@ public class CubeAcquisition extends Subsystem {
     }
 
     /**
-     * Returns whether a cube is in the 
-     * @return
+     * Returns whether or not a cube is in the acquisition.
+     * @return Whether or not a cube is in the acquisition.
      */
     public boolean isCubeDetected() {
         return cubeDetector.get();

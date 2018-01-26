@@ -10,7 +10,7 @@ import org.team639.lib.sensor.distance.DistanceSensor;
 import org.team639.lib.sensor.distance.MaxSonarEZ4Analog;
 
 /**
- * Contains references to all of the motors, sensors, pneumatics, etc. Controls access by the rest of the code from a central location
+ * Contains references to all of the motors, sensors, pneumatics, etc. Controls access by the rest of the code from a central location.
  */
 public class RobotMap {
     private static boolean initialized = false;

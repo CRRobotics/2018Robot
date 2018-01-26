@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,7 +18,12 @@ import org.team639.robot.commands.drive.JoystickDrive;
  */
 public class DriveTrain extends Subsystem {
     private TalonSRX leftDrive;
+    private VictorSPX leftFollower1;
+    private VictorSPX leftFollower2;
+
     private TalonSRX rightDrive;
+    private VictorSPX rightFollower1;
+    private VictorSPX rightFollower2;
 
     private double kP;
     private double kI;
@@ -43,13 +49,18 @@ public class DriveTrain extends Subsystem {
 
     public DriveTrain() {
         leftDrive = RobotMap.getLeftDrive();
+        leftFollower1 = RobotMap.getLeftFollower1();
+        leftFollower2 = RobotMap.getLeftFollower2();
+
         rightDrive = RobotMap.getRightDrive();
+        rightFollower1 = RobotMap.getRightFollower1();
+        rightFollower2 = RobotMap.getRightFollower2();
 
         leftDrive.configAllowableClosedloopError(0,50,10);
         rightDrive.configAllowableClosedloopError(0,50,10);
 
-        leftDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-        rightDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+        leftDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+        rightDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 
         leftDrive.setSensorPhase(true);
         rightDrive.setSensorPhase(true);
@@ -59,6 +70,12 @@ public class DriveTrain extends Subsystem {
 
         leftDrive.setNeutralMode(NeutralMode.Brake);
         rightDrive.setNeutralMode(NeutralMode.Brake);
+
+        leftFollower1.follow(leftDrive);
+        leftFollower2.follow(leftDrive);
+
+        rightFollower1.follow(rightDrive);
+        rightFollower2.follow(rightDrive);
 
         setCurrentControlMode(ControlMode.Velocity);
 
@@ -152,8 +169,6 @@ public class DriveTrain extends Subsystem {
      * @param rSpeed The value for the right side
      */
     public void setSpeedsRaw(double lSpeed, double rSpeed) {
-
-
         rightDrive.set(currentControlMode, -1 * rSpeed);
         leftDrive.set(currentControlMode, lSpeed);
     }
