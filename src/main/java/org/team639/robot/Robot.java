@@ -3,25 +3,31 @@ package org.team639.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.team639.robot.commands.drive.DriveMode;
+import org.team639.robot.subsystems.CubeAcquisition;
 import org.team639.robot.subsystems.DriveTrain;
 
 /**
- * Created by Jack Greenberg <theProgrammerJack@gmail.com> on 1/25/2018.
- * Part of 2018Robot.
+ * The main robot class.
  */
 public class Robot extends TimedRobot {
 
     // Subsystems
     private static DriveTrain driveTrain;
+    private static CubeAcquisition cubeAcquisition;
 
     // Driver options
-    private static SendableChooser<DriveTrain.DriveMode> driveMode;
+    private static SendableChooser<DriveMode> driveMode;
 
     public static DriveTrain getDriveTrain() {
         return driveTrain;
     }
 
-    public static DriveTrain.DriveMode getDriveMode() {
+    public static CubeAcquisition getCubeAcquisition() {
+        return cubeAcquisition;
+    }
+
+    public static DriveMode getDriveMode() {
         return driveMode.getSelected();
     }
 
@@ -41,14 +47,15 @@ public class Robot extends TimedRobot {
 
         // Subsystem initializations
         driveTrain = new DriveTrain();
+        cubeAcquisition = new CubeAcquisition();
 
         // Driver options init
         driveMode = new SendableChooser<>();
-        driveMode.addDefault("1 Joystick Arcade", DriveTrain.DriveMode.ARCADE_1_JOYSTICK);
-        driveMode.addObject("Tank", DriveTrain.DriveMode.TANK);
-        driveMode.addObject("Field Oriented 1 joystick", DriveTrain.DriveMode.FIELD_1_JOYSTICK);
-        driveMode.addObject("Field Oriented 2 joysticks", DriveTrain.DriveMode.FIELD_2_JOYSTICK);
-        driveMode.addObject("2 Joystick Arcade", DriveTrain.DriveMode.ARCADE_2_JOYSTICK);
+        driveMode.addDefault("1 Joystick Arcade", DriveMode.Aracde1Joystick);
+        driveMode.addObject("Tank", DriveMode.Tank);
+        driveMode.addObject("Field Oriented 1 joystick", DriveMode.Field1Joystick);
+        driveMode.addObject("Field Oriented 2 joysticks", DriveMode.Field2Joystick);
+        driveMode.addObject("2 Joystick Arcade", DriveMode.Arcade2Joystick);
         SmartDashboard.putData("Drive Mode", driveMode);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)

@@ -10,7 +10,6 @@ import org.team639.robot.Robot;
 import org.team639.robot.subsystems.DriveTrain;
 
 import static org.team639.robot.Constants.DriveTrain.*;
-import static org.team639.robot.Constants.DriveTrain.ARCADE_RATE;
 
 /**
  * Controls DriveTrain with Joysticks.
@@ -55,14 +54,14 @@ public class JoystickDrive extends Command {
 //            driveTrain.setCurrentControlMode(Robot.getTalonMode());
 //        }
         driveTrain.setRampRate(0);
-        driveTrain.setPID(DRIVE_P, DRIVE_I, DRIVE_D, DRIVE_F);
+        driveTrain.setCurrentGear(driveTrain.getCurrentGear()); // Resets to default pid values for current gear.
     }
 
     /**
      * Called repeatedly while the command is running.
      */
     protected void execute() {
-        DriveTrain.DriveMode mode;
+        DriveMode mode;
         double x;
         double y;
         double speed;
@@ -71,28 +70,28 @@ public class JoystickDrive extends Command {
         double scale = 1 - OI.manager.getControllerAxis(LogitechF310.ControllerAxis.RightTrigger);
         if (scale < 0.2) scale = 0.2;
         if (OI.manager.getButtonPressed(LogitechF310.Buttons.LB)) {
-            mode = DriveTrain.DriveMode.FIELD_2_JOYSTICK;
+            mode = DriveMode.Field2Joystick;
         } else {
             mode = Robot.getDriveMode(); //Get drive mode from SmartDashboard
         }
         switch (mode) {
-            case TANK:
+            case Tank:
                 tankDrive(OI.manager.getLeftStickY() * scale, OI.manager.getRightStickY() * scale);
                 break;
-            case ARCADE_1_JOYSTICK:
+            case Aracde1Joystick:
                 arcadeDrive(OI.manager.getLeftStickY() * scale, OI.manager.getLeftStickX() * scale);
                 break;
-            case ARCADE_2_JOYSTICK:
+            case Arcade2Joystick:
                 arcadeDrive(OI.manager.getLeftStickY() * scale, OI.manager.getRightStickX() * scale);
                 break;
-            case FIELD_1_JOYSTICK:
+            case Field1Joystick:
                 x = OI.manager.getRightStickX();
                 y = OI.manager.getRightStickY();
                 angle = Math.abs(x) >= Constants.JOYSTICK_DEADZONE || Math.abs(y) >= Constants.JOYSTICK_DEADZONE ? OI.manager.getRightDriveAngle() : 500;
                 speed = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
                 fieldOrientedDrive(angle, speed, 1);
                 break;
-            case FIELD_2_JOYSTICK:
+            case Field2Joystick:
                 x = OI.manager.getLeftStickX();
                 y = OI.manager.getLeftStickY();
                 angle = Math.abs(x) >= Constants.JOYSTICK_DEADZONE || Math.abs(y) >= Constants.JOYSTICK_DEADZONE ? OI.manager.getLeftDriveAngle() : 500;
@@ -138,12 +137,13 @@ public class JoystickDrive extends Command {
     public void arcadeDrive(double speed, double turning) {
         speed /= 2;
         turning /= 3;
+        double rate = driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
 
-        if (Math.abs(speed - lastSetpointSpeed) > ARCADE_RATE) {
-            speed = speed < lastSetpointSpeed ? lastSetpointSpeed - ARCADE_RATE : lastSetpointSpeed + ARCADE_RATE;
+        if (Math.abs(speed - lastSetpointSpeed) > rate) {
+            speed = speed < lastSetpointSpeed ? lastSetpointSpeed - rate : lastSetpointSpeed + rate;
         }
-        if (Math.abs(turning - lastSetpointTurning) > Constants.DriveTrain.ARCADE_RATE) {
-            turning = turning < lastSetpointTurning ? lastSetpointTurning - ARCADE_RATE : lastSetpointTurning + ARCADE_RATE;
+        if (Math.abs(turning - lastSetpointTurning) > rate) {
+            turning = turning < lastSetpointTurning ? lastSetpointTurning - rate : lastSetpointTurning + rate;
         }
         lastSetpointSpeed = speed;
         lastSetpointTurning = turning;
@@ -159,12 +159,14 @@ public class JoystickDrive extends Command {
     public void tankDrive(double lSpeed, double rSpeed) {
         lSpeed /= 2;
         rSpeed /= 2;
-        //RAMPING
-        if (Math.abs(lSpeed - lastSetpointLeft) > ARCADE_RATE) {
-            lSpeed = lSpeed < lastSetpointLeft ? lastSetpointLeft - ARCADE_RATE : lastSetpointLeft + ARCADE_RATE;
+        double rate = driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
+
+
+        if (Math.abs(lSpeed - lastSetpointLeft) > rate) {
+            lSpeed = lSpeed < lastSetpointLeft ? lastSetpointLeft - rate : lastSetpointLeft + rate;
         }
-        if (Math.abs(rSpeed - lastSetpointRight) > Constants.DriveTrain.ARCADE_RATE) {
-            rSpeed = rSpeed < lastSetpointRight ? lastSetpointRight - ARCADE_RATE : lastSetpointRight + ARCADE_RATE;
+        if (Math.abs(rSpeed - lastSetpointRight) > rate) {
+            rSpeed = rSpeed < lastSetpointRight ? lastSetpointRight - rate : lastSetpointRight + rate;
         }
 
         lastSetpointRight = rSpeed;

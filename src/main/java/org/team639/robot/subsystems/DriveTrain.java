@@ -7,11 +7,13 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.team639.robot.Constants;
 import org.team639.robot.RobotMap;
 import org.team639.robot.commands.drive.JoystickDrive;
+
+import static org.team639.robot.Constants.DriveTrain.*;
 
 /**
  * Contains all methods relating to the drivetrain
@@ -25,6 +27,8 @@ public class DriveTrain extends Subsystem {
     private VictorSPX rightFollower1;
     private VictorSPX rightFollower2;
 
+    private Solenoid shifter;
+
     private double kP;
     private double kI;
     private double kD;
@@ -34,19 +38,20 @@ public class DriveTrain extends Subsystem {
 
     private AHRS ahrs;
 
+    private DriveGear currentGear;
     private ControlMode currentControlMode;
 
     /**
-     * Defines drive modes
+     * The gears of the robot.
      */
-    public enum DriveMode {
-        TANK,
-        ARCADE_1_JOYSTICK,
-        ARCADE_2_JOYSTICK,
-        FIELD_1_JOYSTICK,
-        FIELD_2_JOYSTICK
+    public enum DriveGear {
+        High,
+        Low
     }
 
+    /**
+     * Constructs a new DriveTrain and configures all of the motor controllers and sensors.
+     */
     public DriveTrain() {
         leftDrive = RobotMap.getLeftDrive();
         leftFollower1 = RobotMap.getLeftFollower1();
@@ -79,8 +84,10 @@ public class DriveTrain extends Subsystem {
 
         setCurrentControlMode(ControlMode.Velocity);
 
-        setPID(Constants.DriveTrain.DRIVE_P, Constants.DriveTrain.DRIVE_I, Constants.DriveTrain.DRIVE_D, Constants.DriveTrain.DRIVE_F);
-        setRampRate(rampRate);
+        shifter = RobotMap.getDriveShifter();
+        setCurrentGear(DriveGear.High);
+
+        setRampRate(rampRate); // TODO: Maybe change ramp rate with gear
 
         ahrs = RobotMap.getAhrs();
         ahrs.zeroYaw();
@@ -143,6 +150,7 @@ public class DriveTrain extends Subsystem {
      * @param rSpeed The value for the right side
      */
     public void setSpeedsPercent(double lSpeed, double rSpeed) {
+        double range = currentGear == DriveGear.High ? HIGH_SPEED_RANGE : LOW_SPEED_RANGE;
 //        if (Math.abs(lSpeed) < Constants.JOYSTICK_DEADZONE) lSpeed = 0;
 //        if (Math.abs(rSpeed) < Constants.JOYSTICK_DEADZONE) rSpeed = 0;
 
@@ -154,10 +162,10 @@ public class DriveTrain extends Subsystem {
                 setSpeedsRaw(lSpeed, rSpeed);
                 break;
             case Velocity:
-                SmartDashboard.putNumber("right setpoint", -1 * rSpeed * Constants.DriveTrain.SPEED_RANGE);
-                SmartDashboard.putNumber("left setpoint", lSpeed * Constants.DriveTrain.SPEED_RANGE);
-                double ls = lSpeed * Constants.DriveTrain.SPEED_RANGE;
-                double rs = rSpeed * Constants.DriveTrain.SPEED_RANGE;
+                SmartDashboard.putNumber("right setpoint", -1 * rSpeed * range);
+                SmartDashboard.putNumber("left setpoint", lSpeed * range);
+                double ls = lSpeed * range;
+                double rs = rSpeed * range;
                 setSpeedsRaw(ls, rs);
                 break;
         }
@@ -172,9 +180,6 @@ public class DriveTrain extends Subsystem {
         rightDrive.set(currentControlMode, -1 * rSpeed);
         leftDrive.set(currentControlMode, lSpeed);
     }
-
-
-
 
     /**
      * Returns the position of the left encoder
@@ -283,5 +288,31 @@ public class DriveTrain extends Subsystem {
         this.rampRate = rampRate;
         leftDrive.configClosedloopRamp(rampRate, 10);
         rightDrive.configClosedloopRamp(rampRate, 10);
+    }
+
+    /**
+     * Changes the gear, including adjusting the PID values.
+     * @param gear The gear to change to.
+     */
+    public void setCurrentGear(DriveGear gear) {
+        this.currentGear = gear;
+        switch (gear) {
+            case Low:
+                shifter.set(false);
+                setPID(HIGH_DRIVE_P, HIGH_DRIVE_I, HIGH_DRIVE_D, HIGH_DRIVE_F);
+                break;
+            case High:
+                shifter.set(true);
+                setPID(LOW_DRIVE_P, LOW_DRIVE_I, LOW_DRIVE_D, LOW_DRIVE_F);
+                break;
+        }
+    }
+
+    /**
+     * Returns the current drive gear.
+     * @return The current drive gear.
+     */
+    public DriveGear getCurrentGear() {
+        return currentGear;
     }
 }

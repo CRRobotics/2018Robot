@@ -25,6 +25,9 @@ public class RobotMap {
     private static VictorSPX rightFollower1;
     private static VictorSPX rightFollower2;
 
+    // Drive shifter
+    private static Solenoid driveShifter;
+
     // NAVX
     private static AHRS ahrs;
 
@@ -57,6 +60,8 @@ public class RobotMap {
             rightDrive = new TalonSRX(3);
             rightFollower1 = new VictorSPX(4);
             rightFollower2 = new VictorSPX(5);
+
+            driveShifter = new Solenoid(3);
 
             // NAVX
             ahrs = new AHRS(SPI.Port.kMXP);
@@ -124,6 +129,14 @@ public class RobotMap {
      */
     public static VictorSPX getRightFollower2() {
         return rightFollower2;
+    }
+
+    /**
+     * Returns the solenoid that controls gear shifting on the drivetrain.
+     * @return The solenoid that controls gear shifting on the drivetrain.
+     */
+    public static Solenoid getDriveShifter() {
+        return driveShifter;
     }
 
     /**

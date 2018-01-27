@@ -6,14 +6,24 @@ package org.team639.robot;
  */
 public class Constants {
     public static class DriveTrain {
-        public static final double MIN_DRIVE_PERCENT = 0.09;
+        // TODO: Tune everything.
+        public static final double HIGH_MIN_DRIVE_PERCENT = 0.09;
 
-        public static final double SPEED_RANGE = 3400;
-        public static final double DRIVE_P = 1.6;
-        public static final double DRIVE_I = 0;
-        public static final double DRIVE_D = 0;
-        public static final double DRIVE_F = 0.25;
-        public static final double ARCADE_RATE = 0.03;
+        public static final double HIGH_SPEED_RANGE = 3400;
+        public static final double HIGH_DRIVE_P = 1.6;
+        public static final double HIGH_DRIVE_I = 0;
+        public static final double HIGH_DRIVE_D = 0;
+        public static final double HIGH_DRIVE_F = 0.25;
+        public static final double HIGH_ARCADE_RATE = 0.03;
+
+        public static final double LOW_MIN_DRIVE_PERCENT = 0.09;
+
+        public static final double LOW_SPEED_RANGE = 3400;
+        public static final double LOW_DRIVE_P = 1.6;
+        public static final double LOW_DRIVE_I = 0;
+        public static final double LOW_DRIVE_D = 0;
+        public static final double LOW_DRIVE_F = 0.25;
+        public static final double LOW_ARCADE_RATE = 0.03;
 
         public static final double WHEEL_DIAMETER_INCHES = 6;
         public static final double WHEEL_CIRCUMFERENCE_INCHES = Math.PI * WHEEL_DIAMETER_INCHES;
