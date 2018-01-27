@@ -28,4 +28,4 @@
 ### Pneumatics
 * Gear Shifter 
 ## Climbing 
-* Pneumatic Cylinder x2 
+* Solenoid x2 (2 cylinders each) 
