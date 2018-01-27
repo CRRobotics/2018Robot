@@ -31,6 +31,6 @@ public class WaitForCube extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return cubeAcquisition.isCubeDetected();
+        return cubeAcquisition.isCubeDetectedAtBack();
     }
 }

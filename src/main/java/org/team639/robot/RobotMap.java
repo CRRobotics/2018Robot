@@ -6,8 +6,6 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
-import org.team639.lib.sensor.distance.DistanceSensor;
-import org.team639.lib.sensor.distance.MaxSonarEZ4Analog;
 
 /**
  * Contains references to all of the motors, sensors, pneumatics, etc. Controls access by the rest of the code from a central location.
@@ -34,7 +32,8 @@ public class RobotMap {
     // Acquisition
     private static TalonSRX leftAcquisition;
     private static TalonSRX rightAcquisition;
-    private static DigitalInput cubeDetector;
+    private static DigitalInput innerCubeDetector;
+    private static DigitalInput armsClosed;
     private static Solenoid cubeRaise;
     private static Solenoid acqOpen1;
     private static Solenoid acqOpen2;
@@ -69,7 +68,8 @@ public class RobotMap {
             // Acquisition
             leftAcquisition = new TalonSRX(8);
             rightAcquisition = new TalonSRX(9);
-            cubeDetector = new DigitalInput(0);
+            innerCubeDetector = new DigitalInput(0);
+            armsClosed = new DigitalInput(1);
             cubeRaise = new Solenoid(0);
             acqOpen1 = new Solenoid(1);
             acqOpen2 = new Solenoid(2);
@@ -167,8 +167,16 @@ public class RobotMap {
      * Returns the IR cube detector on the acquisition.
      * @return The IR cube detector on the acquisition.
      */
-    public static DigitalInput getCubeDetector() {
-        return cubeDetector;
+    public static DigitalInput getInnerCubeDetector() {
+        return innerCubeDetector;
+    }
+
+    /**
+     * Returns the DigitalInput detecting whether the arms are open or closed.
+     * @return The DigitalInput detecting whether the arms are open or closed.
+     */
+    public static DigitalInput getArmsClosed() {
+        return armsClosed;
     }
 
     /**

@@ -12,11 +12,11 @@ import org.team639.robot.RobotMap;
  * Responsible for manipulating cubes.
  */
 public class CubeAcquisition extends Subsystem {
-
     private TalonSRX left;
     private TalonSRX right;
 
-    private DigitalInput cubeDetector;
+    private DigitalInput innerCubeDetector;
+    private DigitalInput armsClosed;
 
     private Solenoid cubeRaise;
     private Solenoid acqOpen1;
@@ -42,7 +42,8 @@ public class CubeAcquisition extends Subsystem {
 
         right.setInverted(true);
 
-        cubeDetector = RobotMap.getCubeDetector();
+        innerCubeDetector = RobotMap.getInnerCubeDetector();
+        armsClosed = RobotMap.getArmsClosed();
 
         cubeRaise = RobotMap.getCubeRaise();
         acqOpen1 = RobotMap.getAcqOpen1();
@@ -110,13 +111,20 @@ public class CubeAcquisition extends Subsystem {
     }
 
     /**
-     * Returns whether or not a cube is in the acquisition.
-     * @return Whether or not a cube is in the acquisition.
+     * Returns whether or not a cube is at the back of the acquisition.
+     * @return Whether or not a cube is at the back of the acquisition.
      */
-    public boolean isCubeDetected() {
-        return cubeDetector.get();
+    public boolean isCubeDetectedAtBack() {
+        return innerCubeDetector.get();
     }
 
+    /**
+     * Returns whether or not the arms are closed far enough for the cube to be positioned correctly.
+     * @return Whether or not the arms are closed far enough for the cube to be positioned correctly.
+     */
+    public boolean isClosed() {
+        return armsClosed.get();
+    }
 
     /**
      * Initialize the default command for a subsystem By default subsystems have no default command,
