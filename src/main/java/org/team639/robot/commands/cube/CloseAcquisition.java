@@ -14,6 +14,7 @@ public class CloseAcquisition extends Command {
      * Constructs a new CloseAcquisition and requires needed subsystem.
      */
     public CloseAcquisition() {
+        super("CloseAcquisition");
         cubeAcquisition = new CubeAcquisition();
         requires(cubeAcquisition);
     }

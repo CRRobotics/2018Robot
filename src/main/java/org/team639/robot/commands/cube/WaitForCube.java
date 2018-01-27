@@ -5,27 +5,18 @@ import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
 /**
- * A command that tells the acquisition to open and then immediately finishes.
- * @see CubeAcquisition
+ * A command that waits for a cube to be detected in the acquisition.
  */
-public class OpenAcquisition extends Command {
+public class WaitForCube extends Command {
     private CubeAcquisition cubeAcquisition;
 
     /**
-     * Creates a new CubeAcquisition and requires needed subsystem.
+     * Constructs a new WaitForCube and requires needed subsystem.
      */
-    public OpenAcquisition() {
-        super("OpenAcquisition");
+    public WaitForCube() {
+        super("WaitForCube");
         cubeAcquisition = Robot.getCubeAcquisition();
         requires(cubeAcquisition);
-    }
-
-    /**
-     * The initialize method is called the first time this Command is run after being started.
-     */
-    @Override
-    protected void initialize() {
-        cubeAcquisition.setPistonMode(CubeAcquisition.PistonMode.Open);
     }
 
     /**
@@ -34,11 +25,12 @@ public class OpenAcquisition extends Command {
      * <p>
      * <p>It may be useful for a team to reference the {@link Command#isTimedOut() isTimedOut()}
      * method for time-sensitive commands.
+     *
      * @return whether this command is finished.
      * @see Command#isTimedOut() isTimedOut()
      */
     @Override
     protected boolean isFinished() {
-        return true;
+        return cubeAcquisition.isCubeDetected();
     }
 }
