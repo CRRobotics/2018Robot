@@ -50,6 +50,7 @@ public class RobotMap {
      */
     public static void init() {
         if (!initialized) {
+            /*
             // Left drive
             leftDrive = new TalonSRX(0);
             leftFollower1 = new VictorSPX(1);
@@ -61,7 +62,7 @@ public class RobotMap {
             rightFollower2 = new VictorSPX(5);
 
             driveShifter = new Solenoid(3);
-
+            */
             // NAVX
             ahrs = new AHRS(SPI.Port.kMXP);
 
@@ -74,11 +75,11 @@ public class RobotMap {
             acqOpen1 = new Solenoid(1);
             acqOpen2 = new Solenoid(2);
 
-
+            /*
             // Lift
             liftMain = new TalonSRX(6);
             liftFollower = new TalonSRX(7);
-
+            */
             initialized = true;
         }
     }

@@ -1,6 +1,7 @@
 package org.team639.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.robot.commands.drive.DriveMode;
@@ -46,7 +47,7 @@ public class Robot extends TimedRobot {
         RobotMap.init(); // Initialize all sensors, motors, etc.
 
         // Subsystem initializations
-        driveTrain = new DriveTrain();
+//        driveTrain = new DriveTrain();
         cubeAcquisition = new CubeAcquisition();
 
         // Driver options init
@@ -110,7 +111,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        super.robotPeriodic();
     }
 
     /**
@@ -134,7 +134,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        super.teleopPeriodic();
+        Scheduler.getInstance().run();
     }
 
     /**

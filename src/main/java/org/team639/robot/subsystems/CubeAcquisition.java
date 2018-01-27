@@ -110,8 +110,8 @@ public class CubeAcquisition extends Subsystem {
      * @param rSpeed The percentage of max speed to set the right side.
      */
     public void setSpeedsPercent(double lSpeed, double rSpeed) {
-        left.set(ControlMode.Current, lSpeed);
-        right.set(ControlMode.Current, rSpeed);
+        left.set(ControlMode.PercentOutput, -1 * lSpeed);
+        right.set(ControlMode.PercentOutput, -1 * rSpeed);
     }
 
     /**

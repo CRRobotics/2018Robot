@@ -2,6 +2,8 @@ package org.team639.robot;
 
 import org.team639.lib.controls.JoystickManager;
 import org.team639.lib.controls.LogitechF310;
+import org.team639.robot.commands.cube.EjectCube;
+import org.team639.robot.commands.cube.IntakeCube;
 
 /**
  * Operator Interface
@@ -17,6 +19,8 @@ public class OI {
      * THIS MUST BE RUN AT THE END OF robotInit in Robot.java!!!
      */
     public static void mapButtons() {
+        manager.mapButton(LogitechF310.Buttons.RB, new EjectCube(), JoystickManager.MappingType.WhileHeld);
+        manager.mapButton(LogitechF310.Buttons.LB, new IntakeCube(), JoystickManager.MappingType.WhileHeld);
     }
 
     private OI() {
