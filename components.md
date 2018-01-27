@@ -19,3 +19,11 @@
 ### Pneumatics 
 * Normal Open Pneumatic Valve - cube grabber (two solenoids; three modes) 
 * Normal Open Pneumatic Valve - acquisiton retract
+## Drive
+### Sensors
+* Encoder x2 - right and left
+### Motors
+* Talon x2 - right and left 
+* Victor x4 - 2 right, 2 left; follow Talons
+### Pneumatics
+* Gear Shifter 
