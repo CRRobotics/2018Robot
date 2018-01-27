@@ -1,4 +1,5 @@
- ### Subsystems
+
+### Subsystems
 ## Lift 
 ### Commands 
 * MoveToPosition 
@@ -30,6 +31,17 @@
 * void setPistonMode(pistonMode mode)
 * PistonMode getPistonMode()
 * boolean isRaised() (possibly) 
+## Climbing 
+### Commands 
+* ReleaseRight
+* RelaseLeft 
+* RaiseRight
+* RaiseLeft
+### Methods 
+* boolean getLeftPosition() 
+* boolean getRightPosition() 
+* void setRightPosition(boolean position) 
+* void setLeftPosition(boolean position)
 ## DriveTrain
 ### Methods
 * ControlMode getControllerDriveMode()
