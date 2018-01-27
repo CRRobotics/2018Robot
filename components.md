@@ -6,7 +6,7 @@
 * Magnetic Limit Switch - 2nd stage, high limit
 * Encoder - 2 sim ball shifter
 ### Motors
-* 40 Amp Motor Controller x2
+* 40 Amp Motor Controller x2 (two motors)
 ### Actuators 
 * Normal Closed Pneumatic Valve - shift solenoid
 * Normal Closed Pneumatic Valve - 1st stage lock
