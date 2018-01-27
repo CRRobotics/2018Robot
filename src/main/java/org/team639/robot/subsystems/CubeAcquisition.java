@@ -11,6 +11,7 @@ import org.team639.robot.RobotMap;
 /**
  * The cube acquisition subsystem.
  * Responsible for manipulating cubes.
+ * The best subsystem.
  */
 public class CubeAcquisition extends Subsystem {
     private TalonSRX left;
@@ -44,7 +45,7 @@ public class CubeAcquisition extends Subsystem {
         left.setNeutralMode(NeutralMode.Brake);
         right.setNeutralMode(NeutralMode.Brake);
 
-        right.setInverted(true);
+        left.setInverted(true);
 
         innerCubeDetector = RobotMap.getInnerCubeDetector();
         armsClosed = RobotMap.getArmsClosed();
@@ -110,8 +111,8 @@ public class CubeAcquisition extends Subsystem {
      * @param rSpeed The percentage of max speed to set the right side.
      */
     public void setSpeedsPercent(double lSpeed, double rSpeed) {
-        left.set(ControlMode.PercentOutput, -1 * lSpeed);
-        right.set(ControlMode.PercentOutput, -1 * rSpeed);
+        left.set(ControlMode.PercentOutput, lSpeed);
+        right.set(ControlMode.PercentOutput, rSpeed);
     }
 
     /**
