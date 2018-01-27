@@ -1,4 +1,4 @@
-# Subsystems
+ ### Subsystems
 ## Lift 
 ### Commands 
 * MoveToPosition 
@@ -30,3 +30,29 @@
 * void setPistonMode(pistonMode mode)
 * PistonMode getPistonMode()
 * boolean isRaised() (possibly) 
+## DriveTrain
+### Methods
+* ControlMode getControllerDriveMode()
+* DriveGear getCurrentGear()
+* double getkD()
+* double getkF()
+* double getkI()
+* double getkP()
+* int getLeftEncPos()
+* int getLeftEncVelocity()
+* double etRampRate()
+* int getRightEncPos()
+* int getRightEncVelocity()
+* double getRobotYaw()
+* void zeroRobotYaw()
+* void initDefaultCommand()
+* boolean isNavXPresent()
+* void setCurrentControlMode()
+* void setCurrentGear(DriveTrain.DriveGear gear)
+* void setPID(double p, double i, double d, double f)
+* void setRampRate(double rampRate)
+* void setSpeedPercent(double lspeed, double rspeed)
+* void setSpeedRaw(double lspeed, double rspeed)
+### Commands 
+* JoystickDrive
+
