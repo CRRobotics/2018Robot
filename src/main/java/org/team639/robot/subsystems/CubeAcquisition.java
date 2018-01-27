@@ -1,6 +1,7 @@
 package org.team639.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -39,6 +40,9 @@ public class CubeAcquisition extends Subsystem {
     public CubeAcquisition() {
         left = RobotMap.getLeftAcquisition();
         right = RobotMap.getRightAcquisition();
+
+        left.setNeutralMode(NeutralMode.Brake);
+        right.setNeutralMode(NeutralMode.Brake);
 
         right.setInverted(true);
 

@@ -5,18 +5,27 @@ import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
 /**
- * A command that waits for a cube to be detected in the acquisition.
+ * A command that tells the acquisition to lower and then immediately finishes.
+ * @see CubeAcquisition
  */
-public class WaitForCube extends Command {
+public class LowerAcquisition extends Command {
     private CubeAcquisition cubeAcquisition;
 
     /**
-     * Constructs a new WaitForCube and requires needed subsystem.
+     * Constructs a new LowerAcquisition and requires needed subsystems.
      */
-    public WaitForCube() {
-        super("WaitForCube");
+    public LowerAcquisition() {
+        super("LowerAcquisition");
         cubeAcquisition = Robot.getCubeAcquisition();
         requires(cubeAcquisition);
+    }
+
+    /**
+     * The initialize method is called the first time this Command is run after being started.
+     */
+    @Override
+    protected void initialize() {
+        cubeAcquisition.setRaised(false);
     }
 
     /**
@@ -31,6 +40,6 @@ public class WaitForCube extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return cubeAcquisition.isCubeDetectedAtBack();
+        return true;
     }
 }
