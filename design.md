@@ -34,7 +34,7 @@
 ## Climbing 
 ### Commands 
 * ReleaseRight
-* RelaseLeft 
+* ReleaseLeft 
 * RaiseRight
 * RaiseLeft
 ### Methods 
