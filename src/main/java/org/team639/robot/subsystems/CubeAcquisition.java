@@ -33,6 +33,9 @@ public class CubeAcquisition extends Subsystem {
         Floating
     }
 
+    /**
+     * Creates a new CubeAcquisition.
+     */
     public CubeAcquisition() {
         left = RobotMap.getLeftAcquisition();
         right = RobotMap.getRightAcquisition();
@@ -55,7 +58,21 @@ public class CubeAcquisition extends Subsystem {
      */
     public void setPistonMode(PistonMode mode) {
         this.mode = mode;
-        // TODO: actually change the piston
+        // TODO: Check that the piston changes correctly
+        switch (this.mode) {
+            case Open:
+                acqOpen1.set(true);
+                acqOpen2.set(false);
+                break;
+            case Closed:
+                acqOpen1.set(false);
+                acqOpen2.set(true);
+                break;
+            case Floating:
+                acqOpen1.set(false);
+                acqOpen2.set(false);
+                break;
+        }
     }
 
     /**
