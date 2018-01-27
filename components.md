@@ -13,9 +13,9 @@
 * Normal Open Pneumatic Valve - brake 
 ## Acquistion 
 ### Sensors 
-* Beam Break - 2 pieces 
+* Beam Break x2
 ### Motors 
-* 775 Motors - 2 pieces w/ 30 amp breaker
+* 775 Motors x2 - 30 amp breaker
 ### Pneumatics 
 * Normal Open Pneumatic Valve - cube grabber (two solenoids; three modes) 
 * Normal Open Pneumatic Valve - acquisiton retract
@@ -27,3 +27,5 @@
 * Victor x4 - 2 right, 2 left; follow Talons
 ### Pneumatics
 * Gear Shifter 
+## Climbing 
+* Pneumatic Cylinder x2 
