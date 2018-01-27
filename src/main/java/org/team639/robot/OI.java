@@ -6,7 +6,6 @@ import org.team639.lib.controls.LogitechF310;
 /**
  * Operator Interface
  * Manages the interaction between the drive team and the robot
- * Created by Jack Greenberg <theProgrammerJack@gmail.com> on 1/25/2018.
  * Part of 2018Robot.
  */
 public class OI {
