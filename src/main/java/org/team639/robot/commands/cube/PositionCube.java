@@ -23,7 +23,7 @@ public class PositionCube extends Command {
 
     private State state;
 
-    private long startRotateTime; // 
+    private long startRotateTime;
 
     public PositionCube() {
         super("PositionCube");
@@ -52,10 +52,10 @@ public class PositionCube extends Command {
                 if (cubeAcquisition.isCubeDetectedAtBack() && cubeAcquisition.isClosed()) {
                     cubeAcquisition.setSpeedsPercent(0, 0);
                     state = State.Finished;
-                } else if (cubeAcquisition.isCubeDetectedAtBack() && !cubeAcquisition.isClosed()) {
-                    cubeAcquisition.setSpeedsPercent(0, 0);
-                    state = State.Rotate;
-                }
+                } // else if (cubeAcquisition.isCubeDetectedAtBack() && !cubeAcquisition.isClosed()) {
+//                    cubeAcquisition.setSpeedsPercent(0, 0);
+//                    state = State.Rotate;
+//                }
                 break;
             case Rotate:
                 if (startRotateTime == -1) startRotateTime = System.currentTimeMillis();
