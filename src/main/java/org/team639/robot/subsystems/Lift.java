@@ -98,10 +98,18 @@ public class Lift extends Subsystem {
         return secondStageLimit.get();
     }
 
-    public void setFirstStageLock(boolean locked) {
+    /**
+     * Locks or unlocks the first stage of the lift.
+     * @param locked Whether or not the first stage should be locked.
+     */
+    public void setFirstStageLocked(boolean locked) {
         firstStageLock.set(locked);
     }
 
+    /**
+     * Returns whether of not the first stage is locked.
+     * @return Whether of not the first stage is locked.
+     */
     public boolean isFirstStageLocked() {
         return firstStageLock.get();
     }

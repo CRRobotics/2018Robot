@@ -46,6 +46,10 @@ public class RobotMap {
     private static DigitalInput liftSecondStageLimit;
     private static Solenoid liftLock;
 
+    // Raising subsystem
+    private static Solenoid raisingLeft;
+    private static Solenoid raisingRight;
+
     private RobotMap() {}
 
     /**
@@ -75,19 +79,23 @@ public class RobotMap {
 //            rightAcquisition = new TalonSRX(9);
 //            innerCubeDetector = new DigitalInput(0);
 //            armsClosed = new DigitalInput(1);
-//            cubeRaise = new Solenoid(5);
-//            acqOpen1 = new Solenoid(1);
-//            acqOpen2 = new Solenoid(2);
+//            cubeRaise = new Solenoid(1);
+//            acqOpen1 = new Solenoid(2);
+//            acqOpen2 = new Solenoid(3);
 
             /*
             // Lift
             liftMain = new TalonSRX(6);
             liftFollower = new TalonSRX(7);
             */
-//            liftLock = new Solenoid(3);
+//            liftLock = new Solenoid(4);
 //            liftLowerLimit = new DigitalInput(2);
 //            liftFirstStageLimit = new DigitalInput(3);
 //            liftSecondStageLimit = new DigitalInput(4);
+
+            // Raising Subsystem
+            raisingLeft = new Solenoid(5);
+            raisingRight = new Solenoid(6);
 
             initialized = true;
         }
@@ -247,5 +255,21 @@ public class RobotMap {
 
     public static Solenoid getAcqOpen2() {
         return acqOpen2;
+    }
+
+    /**
+     * Returns the left piston of the raising subsystem.
+     * @return The left piston of the raising subsystem.
+     */
+    public static Solenoid getRaisingLeft() {
+        return raisingLeft;
+    }
+
+    /**
+     * Returns the right piston of the raising subsystem.
+     * @return The right piston of the raising subsystem.
+     */
+    public static Solenoid getRaisingRight() {
+        return raisingRight;
     }
 }
