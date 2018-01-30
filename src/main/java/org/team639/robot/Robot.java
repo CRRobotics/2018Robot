@@ -47,8 +47,8 @@ public class Robot extends TimedRobot {
         RobotMap.init(); // Initialize all sensors, motors, etc.
 
         // Subsystem initializations
-//        driveTrain = new DriveTrain();
-        cubeAcquisition = new CubeAcquisition();
+        driveTrain = new DriveTrain();
+//        cubeAcquisition = new CubeAcquisition();
 
         // Driver options init
         driveMode = new SendableChooser<>();
@@ -58,6 +58,10 @@ public class Robot extends TimedRobot {
         driveMode.addObject("Field Oriented 2 joysticks", DriveMode.Field2Joystick);
         driveMode.addObject("2 Joystick Arcade", DriveMode.Arcade2Joystick);
         SmartDashboard.putData("Drive Mode", driveMode);
+
+        SmartDashboard.putNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
+        SmartDashboard.putNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
+        SmartDashboard.putNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_I);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
     }

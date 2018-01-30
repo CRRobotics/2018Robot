@@ -41,6 +41,10 @@ public class RobotMap {
     // Lift
     private static TalonSRX liftMain;
     private static TalonSRX liftFollower;
+    private static DigitalInput liftLowerLimit;
+    private static DigitalInput liftFirstStageLimit;
+    private static DigitalInput liftSecondStageLimit;
+    private static Solenoid liftLock;
 
     private RobotMap() {}
 
@@ -50,36 +54,41 @@ public class RobotMap {
      */
     public static void init() {
         if (!initialized) {
-            /*
+
             // Left drive
-            leftDrive = new TalonSRX(0);
-            leftFollower1 = new VictorSPX(1);
-            leftFollower2 = new VictorSPX(2);
+            leftDrive = new TalonSRX(3);
+            leftFollower1 = new VictorSPX(4);
+            leftFollower2 = new VictorSPX(5);
 
             // Right drive
-            rightDrive = new TalonSRX(3);
-            rightFollower1 = new VictorSPX(4);
-            rightFollower2 = new VictorSPX(5);
+            rightDrive = new TalonSRX(0);
+            rightFollower1 = new VictorSPX(1);
+            rightFollower2 = new VictorSPX(2);
 
-            driveShifter = new Solenoid(3);
-            */
+            driveShifter = new Solenoid(0);
+
             // NAVX
             ahrs = new AHRS(SPI.Port.kMXP);
 
             // Acquisition
-            leftAcquisition = new TalonSRX(8);
-            rightAcquisition = new TalonSRX(9);
-            innerCubeDetector = new DigitalInput(0);
-            armsClosed = new DigitalInput(1);
-            cubeRaise = new Solenoid(0);
-            acqOpen1 = new Solenoid(1);
-            acqOpen2 = new Solenoid(2);
+//            leftAcquisition = new TalonSRX(8);
+//            rightAcquisition = new TalonSRX(9);
+//            innerCubeDetector = new DigitalInput(0);
+//            armsClosed = new DigitalInput(1);
+//            cubeRaise = new Solenoid(5);
+//            acqOpen1 = new Solenoid(1);
+//            acqOpen2 = new Solenoid(2);
 
             /*
             // Lift
             liftMain = new TalonSRX(6);
             liftFollower = new TalonSRX(7);
             */
+//            liftLock = new Solenoid(3);
+//            liftLowerLimit = new DigitalInput(2);
+//            liftFirstStageLimit = new DigitalInput(3);
+//            liftSecondStageLimit = new DigitalInput(4);
+
             initialized = true;
         }
     }
@@ -194,6 +203,38 @@ public class RobotMap {
      */
     public static TalonSRX getLiftFollower() {
         return liftFollower;
+    }
+
+    /**
+     * Returns the limit switch at the lower limit of the lift.
+     * @return The limit switch at the lower limit of the lift.
+     */
+    public static DigitalInput getLiftLowerLimit() {
+        return liftLowerLimit;
+    }
+
+    /**
+     * Returns the limit switch at the upper limit of the first stage of the lift.
+     * @return The limit switch at the upper limit of the first stage of the lift.
+     */
+    public static DigitalInput getLiftFirstStageLimit() {
+        return liftFirstStageLimit;
+    }
+
+    /**
+     * Returns the limit switch at the upper limit of the second stage of the lift.
+     * @return The limit switch at the upper limit of the second stage of the lift.
+     */
+    public static DigitalInput getLiftSecondStageLimit() {
+        return liftSecondStageLimit;
+    }
+
+    /**
+     * Returns the solenoid which locks the first stage in place.
+     * @return The solenoid which locks the first stage in place.
+     */
+    public static Solenoid getLiftLock() {
+        return liftLock;
     }
 
     public static Solenoid getCubeRaise() {

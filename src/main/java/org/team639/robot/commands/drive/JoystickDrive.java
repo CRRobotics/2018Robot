@@ -1,6 +1,8 @@
 package org.team639.robot.commands.drive;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.controls.LogitechF310;
 import org.team639.lib.math.AngleMath;
 import org.team639.lib.math.PID;
@@ -32,6 +34,7 @@ public class JoystickDrive extends Command {
     }
 
     protected void initialize() {
+        driveTrain.setCurrentControlMode(ControlMode.PercentOutput);
         // Field oriented drive turning PID constants from Constants.DriveTrain, prefixed with FOT_
         double p = FOT_P;
         double i = FOT_I;
@@ -41,9 +44,9 @@ public class JoystickDrive extends Command {
         double min = FOT_MIN;
         double max = FOT_MAX;
         double iCap = FOT_I_CAP;
-//        double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.DRIVE_P);
-//        double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.DRIVE_I);
-//        double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.DRIVE_I);
+//        double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
+//        double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
+//        double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_I);
 //        double rate = SmartDashboard.getNumber("rate", 0.1);
 //        double tolerance = SmartDashboard.getNumber("tolerance", 2);
 //        double min = SmartDashboard.getNumber("min", 0.2);
@@ -61,6 +64,12 @@ public class JoystickDrive extends Command {
      * Called repeatedly while the command is running.
      */
     protected void execute() {
+        double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
+        double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
+        double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_I);
+
+        driveTrain.setPID(p, i, d, 0);
+
         DriveMode mode;
         double x;
         double y;
