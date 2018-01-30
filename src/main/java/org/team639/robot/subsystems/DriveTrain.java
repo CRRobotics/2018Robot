@@ -61,6 +61,9 @@ public class DriveTrain extends Subsystem {
         rightFollower1 = RobotMap.getRightFollower1();
         rightFollower2 = RobotMap.getRightFollower2();
 
+        rightDrive.setInverted(true);
+        leftDrive.setInverted(true);
+
         leftDrive.configAllowableClosedloopError(0,50,10);
         rightDrive.configAllowableClosedloopError(0,50,10);
 
