@@ -27,6 +27,11 @@ public class Lift extends Subsystem {
 
     private ControlMode currentControlMode;
 
+    private double kP;
+    private double kI;
+    private double kD;
+    private double kF;
+
     public Lift() {
         mainTalon = RobotMap.getLiftMain();
         followerTalon = RobotMap.getLiftFollower();
@@ -112,6 +117,73 @@ public class Lift extends Subsystem {
      */
     public boolean isFirstStageLocked() {
         return firstStageLock.get();
+    }
+
+    /**
+     * Returns the current control mode.
+     * @return The current control mode.
+     */
+    public ControlMode getCurrentControlMode() {
+        return currentControlMode;
+    }
+
+    /**
+     * Sets the current control mode.
+     * @param controlMode The control mode.
+     */
+    public void setCurrentControlMode(ControlMode controlMode) {
+        this.currentControlMode = controlMode;
+    }
+
+    /**
+     * Sets the talon internal pid.
+     * @param p The p constant.
+     * @param i The i constant.
+     * @param d The d constant.
+     * @param f The f constant.
+     */
+    public void setPID(double p, double i, double d, double f) {
+        this.kP = p;
+        this.kI = i;
+        this.kD = d;
+        this.kF = f;
+
+        mainTalon.config_kP(0, p, 10);
+        mainTalon.config_kI(0, i, 10);
+        mainTalon.config_kD(0, d, 10);
+        mainTalon.config_kF(0, f, 10);
+    }
+
+    /**
+     * Returns the current p constant.
+     * @return The current p constant.
+     */
+    public double getkP() {
+        return kP;
+    }
+
+    /**
+     * Returns the current i constant.
+     * @return The current i constant.
+     */
+    public double getkI() {
+        return kI;
+    }
+
+    /**
+     * Returns the current d constant.
+     * @return The current d constant.
+     */
+    public double getkD() {
+        return kD;
+    }
+
+    /**
+     * Returns the current f constant.
+     * @return The current f constant.
+     */
+    public double getkF() {
+        return kF;
     }
 
     /**

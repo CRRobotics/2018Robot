@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
+/**
+ * Runs the acquisition motors inwards. Runs until interrupted.
+ */
 public class IntakeCube extends Command {
     private CubeAcquisition cubeAcquisition;
 

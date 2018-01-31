@@ -20,6 +20,14 @@ public class CloseAcquisition extends Command {
     }
 
     /**
+     * The initialize method is called the first time this Command is run after being started.
+     */
+    @Override
+    protected void initialize() {
+        cubeAcquisition.setPistonMode(CubeAcquisition.PistonMode.Closed);
+    }
+
+    /**
      * Returns whether this command is finished. If it is, then the command will be removed and {@link
      * Command#end() end()} will be called.
      * <p>

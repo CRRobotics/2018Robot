@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
+/**
+ * Ejects a held cube. Runs until interrupted.
+ */
 public class EjectCube extends Command {
     private CubeAcquisition cubeAcquisition;
 

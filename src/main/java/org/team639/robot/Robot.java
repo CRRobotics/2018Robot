@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.robot.commands.drive.DriveMode;
 import org.team639.robot.subsystems.CubeAcquisition;
 import org.team639.robot.subsystems.DriveTrain;
+import org.team639.robot.subsystems.Lift;
 
 /**
  * The main robot class.
@@ -16,7 +17,7 @@ public class Robot extends TimedRobot {
     // Subsystems
     private static DriveTrain driveTrain;
     private static CubeAcquisition cubeAcquisition;
-
+    private static Lift lift;
     // Driver options
     private static SendableChooser<DriveMode> driveMode;
 
@@ -30,6 +31,10 @@ public class Robot extends TimedRobot {
 
     public static DriveMode getDriveMode() {
         return driveMode.getSelected();
+    }
+
+    public static Lift getLift() {
+        return lift;
     }
 
     /**
@@ -49,6 +54,7 @@ public class Robot extends TimedRobot {
         // Subsystem initializations
         driveTrain = new DriveTrain();
 //        cubeAcquisition = new CubeAcquisition();
+        lift = new Lift();
 
         // Driver options init
         driveMode = new SendableChooser<>();
