@@ -4,6 +4,10 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team639.robot.RobotMap;
 
+/**
+ * The raising subsystem.
+ * Responsible for picking up other robots.
+ */
 public class RaisingSystem extends Subsystem {
     private Solenoid leftPiston;
     private Solenoid rightPiston;
@@ -52,6 +56,5 @@ public class RaisingSystem extends Subsystem {
      */
     @Override
     protected void initDefaultCommand() {
-
     }
 }

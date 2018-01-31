@@ -61,8 +61,10 @@ public class DriveTrain extends Subsystem {
         rightFollower1 = RobotMap.getRightFollower1();
         rightFollower2 = RobotMap.getRightFollower2();
 
-        rightDrive.setInverted(true);
+//        rightDrive.setInverted(true);
         leftDrive.setInverted(true);
+        leftFollower1.setInverted(true);
+        leftFollower2.setInverted(true);
 
         leftDrive.configAllowableClosedloopError(0,50,10);
         rightDrive.configAllowableClosedloopError(0,50,10);
@@ -70,14 +72,13 @@ public class DriveTrain extends Subsystem {
         leftDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
         rightDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 
-        leftDrive.setSensorPhase(true);
-        rightDrive.setSensorPhase(true);
+//        leftDrive.setSensorPhase(true);
 
         leftDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
         rightDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
 
-        leftDrive.setNeutralMode(NeutralMode.Brake);
-        rightDrive.setNeutralMode(NeutralMode.Brake);
+        leftDrive.setNeutralMode(NeutralMode.Coast);
+        rightDrive.setNeutralMode(NeutralMode.Coast);
 
         leftFollower1.follow(leftDrive);
         leftFollower2.follow(leftDrive);
@@ -126,12 +127,10 @@ public class DriveTrain extends Subsystem {
         kI = i;
         kD = d;
         kF = f;
-//        rightDrive.setPID(p, i, d);
         rightDrive.config_kP(0, kP, 10);
         rightDrive.config_kI(0, kI, 10);
         rightDrive.config_kD(0, kD, 10);
         rightDrive.config_kF(0, kF, 10);
-//        leftDrive.setPID(p, i, d);
         leftDrive.config_kP(0, kP, 10);
         leftDrive.config_kI(0, kI, 10);
         leftDrive.config_kD(0, kD, 10);
@@ -154,8 +153,6 @@ public class DriveTrain extends Subsystem {
      */
     public void setSpeedsPercent(double lSpeed, double rSpeed) {
         double range = currentGear == DriveGear.High ? HIGH_SPEED_RANGE : LOW_SPEED_RANGE;
-//        if (Math.abs(lSpeed) < Constants.JOYSTICK_DEADZONE) lSpeed = 0;
-//        if (Math.abs(rSpeed) < Constants.JOYSTICK_DEADZONE) rSpeed = 0;
 
         // Limits speeds to the range [-1, 1]
         if (Math.abs(lSpeed) > 1) lSpeed = lSpeed < 0 ? -1 : 1;
@@ -165,7 +162,7 @@ public class DriveTrain extends Subsystem {
                 setSpeedsRaw(lSpeed, rSpeed);
                 break;
             case Velocity:
-                SmartDashboard.putNumber("right setpoint", -1 * rSpeed * range);
+                SmartDashboard.putNumber("right setpoint", rSpeed * range);
                 SmartDashboard.putNumber("left setpoint", lSpeed * range);
                 double ls = lSpeed * range;
                 double rs = rSpeed * range;
@@ -180,7 +177,7 @@ public class DriveTrain extends Subsystem {
      * @param rSpeed The value for the right side
      */
     public void setSpeedsRaw(double lSpeed, double rSpeed) {
-        rightDrive.set(currentControlMode, -1 * rSpeed);
+        rightDrive.set(currentControlMode, rSpeed);
         leftDrive.set(currentControlMode, lSpeed);
     }
 
@@ -197,7 +194,7 @@ public class DriveTrain extends Subsystem {
      * @return The position of the right encoder
      */
     public int getRightEncPos() {
-        return -1 * rightDrive.getSelectedSensorPosition(0);
+        return rightDrive.getSelectedSensorPosition(0);
     }
 
     /**
@@ -213,7 +210,7 @@ public class DriveTrain extends Subsystem {
      * @return The velocity of the right encoder
      */
     public int getRightEncVelocity() {
-        return -1 * rightDrive.getSelectedSensorVelocity(0);
+        return rightDrive.getSelectedSensorVelocity(0);
     }
 
     /**

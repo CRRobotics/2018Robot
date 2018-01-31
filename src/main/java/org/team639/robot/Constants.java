@@ -10,7 +10,7 @@ public class Constants {
         public static final double HIGH_MIN_DRIVE_PERCENT = 0.09;
 
         public static final double HIGH_SPEED_RANGE = 3400;
-        public static final double HIGH_DRIVE_P = 1.6;
+        public static final double HIGH_DRIVE_P = 0.5;
         public static final double HIGH_DRIVE_I = 0;
         public static final double HIGH_DRIVE_D = 0;
         public static final double HIGH_DRIVE_F = 0.25;

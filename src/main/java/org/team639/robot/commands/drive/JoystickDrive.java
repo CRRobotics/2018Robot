@@ -34,7 +34,7 @@ public class JoystickDrive extends Command {
     }
 
     protected void initialize() {
-        driveTrain.setCurrentControlMode(ControlMode.PercentOutput);
+        driveTrain.setCurrentControlMode(ControlMode.Velocity);
         // Field oriented drive turning PID constants from Constants.DriveTrain, prefixed with FOT_
         double p = FOT_P;
         double i = FOT_I;
@@ -166,8 +166,8 @@ public class JoystickDrive extends Command {
      * @param rSpeed The value for the right side
      */
     public void tankDrive(double lSpeed, double rSpeed) {
-        lSpeed /= 2;
-        rSpeed /= 2;
+//        lSpeed /= 2;
+//        rSpeed /= 2;
         double rate = driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
 
 

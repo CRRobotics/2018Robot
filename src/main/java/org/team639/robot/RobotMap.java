@@ -94,8 +94,8 @@ public class RobotMap {
 //            liftSecondStageLimit = new DigitalInput(4);
 
             // Raising Subsystem
-            raisingLeft = new Solenoid(5);
-            raisingRight = new Solenoid(6);
+//            raisingLeft = new Solenoid(5);
+//            raisingRight = new Solenoid(6);
 
             initialized = true;
         }
