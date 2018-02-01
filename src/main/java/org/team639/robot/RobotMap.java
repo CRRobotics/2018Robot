@@ -1,5 +1,6 @@
 package org.team639.robot;
 
+import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
@@ -15,13 +16,13 @@ public class RobotMap {
 
     // Left drive
     private static TalonSRX leftDrive;
-    private static VictorSPX leftFollower1;
-    private static VictorSPX leftFollower2;
+    private static IMotorController leftFollower1;
+    private static IMotorController leftFollower2;
 
     // Right drive
     private static TalonSRX rightDrive;
-    private static VictorSPX rightFollower1;
-    private static VictorSPX rightFollower2;
+    private static IMotorController rightFollower1;
+    private static IMotorController rightFollower2;
 
     // Drive shifter
     private static Solenoid driveShifter;
@@ -61,13 +62,13 @@ public class RobotMap {
 
             // Left drive
             leftDrive = new TalonSRX(3);
-            leftFollower1 = new VictorSPX(4);
-            leftFollower2 = new VictorSPX(5);
+            leftFollower1 = new TalonSRX(4); // TODO: Change these back to victors
+            leftFollower2 = new TalonSRX(5);
 
             // Right drive
             rightDrive = new TalonSRX(0);
-            rightFollower1 = new VictorSPX(1);
-            rightFollower2 = new VictorSPX(2);
+            rightFollower1 = new TalonSRX(1); // TODO: Change these back to victors
+            rightFollower2 = new TalonSRX(2);
 
             driveShifter = new Solenoid(0);
 
@@ -113,7 +114,7 @@ public class RobotMap {
      * Returns the first left side Victor.
      * @return the first left side Victor.
      */
-    public static VictorSPX getLeftFollower1() {
+    public static IMotorController getLeftFollower1() {
         return leftFollower1;
     }
 
@@ -121,7 +122,7 @@ public class RobotMap {
      * Returns the second left side Victor.
      * @return the second left side Victor.
      */
-    public static VictorSPX getLeftFollower2() {
+    public static IMotorController getLeftFollower2() {
         return leftFollower2;
     }
 
@@ -137,7 +138,7 @@ public class RobotMap {
      * Returns the first right side Victor.
      * @return The first right side Victor.
      */
-    public static VictorSPX getRightFollower1() {
+    public static IMotorController getRightFollower1() {
         return rightFollower1;
     }
 
@@ -145,7 +146,7 @@ public class RobotMap {
      * Returns the second right side Victor.
      * @return The second right side Victor.
      */
-    public static VictorSPX getRightFollower2() {
+    public static IMotorController getRightFollower2() {
         return rightFollower2;
     }
 

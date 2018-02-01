@@ -1,9 +1,14 @@
 package org.team639.robot.commands.lift;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
+import org.team639.robot.OI;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.Lift;
 
+/**
+ * Allows for movement of the lift using joysticks.
+ */
 public class MoveLiftWithJoystick extends Command {
     private Lift lift;
 
@@ -18,8 +23,16 @@ public class MoveLiftWithJoystick extends Command {
      */
     @Override
     protected void initialize() {
-
+        lift.setCurrentControlMode(ControlMode.PercentOutput);
         lift.setSpeedPercent(0);
+    }
+
+    /**
+     * The execute method is called repeatedly until this Command either finishes or is canceled.
+     */
+    @Override
+    protected void execute() {
+        lift.setSpeedPercent(OI.manager.getLeftStickY() / 3);
     }
 
     /**

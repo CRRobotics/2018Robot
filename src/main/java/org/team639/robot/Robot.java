@@ -50,11 +50,10 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         RobotMap.init(); // Initialize all sensors, motors, etc.
-
         // Subsystem initializations
         driveTrain = new DriveTrain();
 //        cubeAcquisition = new CubeAcquisition();
-        lift = new Lift();
+//        lift = new Lift();
 
         // Driver options init
         driveMode = new SendableChooser<>();

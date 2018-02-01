@@ -1,9 +1,6 @@
 package org.team639.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
@@ -20,12 +17,12 @@ import static org.team639.robot.Constants.DriveTrain.*;
  */
 public class DriveTrain extends Subsystem {
     private TalonSRX leftDrive;
-    private VictorSPX leftFollower1;
-    private VictorSPX leftFollower2;
+    private IMotorController leftFollower1;
+    private IMotorController leftFollower2;
 
     private TalonSRX rightDrive;
-    private VictorSPX rightFollower1;
-    private VictorSPX rightFollower2;
+    private IMotorController rightFollower1;
+    private IMotorController rightFollower2;
 
     private Solenoid shifter;
 

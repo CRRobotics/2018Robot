@@ -34,7 +34,7 @@ public class JoystickDrive extends Command {
     }
 
     protected void initialize() {
-        driveTrain.setCurrentControlMode(ControlMode.Velocity);
+        driveTrain.setCurrentControlMode(ControlMode.PercentOutput);
         // Field oriented drive turning PID constants from Constants.DriveTrain, prefixed with FOT_
         double p = FOT_P;
         double i = FOT_I;

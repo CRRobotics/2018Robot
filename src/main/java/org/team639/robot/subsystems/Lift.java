@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team639.robot.RobotMap;
 
+import static org.team639.robot.Constants.*;
+
 /**
  * The lift subsystem.
  * Responsible for moving the acquisition system up and down.
@@ -52,6 +54,8 @@ public class Lift extends Subsystem {
         secondStageLimit = RobotMap.getLiftSecondStageLimit();
 
         firstStageLock = RobotMap.getLiftLock();
+
+        setPID(LIFT_P, LIFT_I, LIFT_D, LIFT_F);
     }
 
     /**

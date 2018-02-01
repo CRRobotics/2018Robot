@@ -58,4 +58,9 @@ public class Constants {
     }
 
     public static final double JOYSTICK_DEADZONE = 0.05;
+
+    public static final double LIFT_P = 0;
+    public static final double LIFT_I = 0;
+    public static final double LIFT_D = 0;
+    public static final double LIFT_F = 0;
 }
