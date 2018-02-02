@@ -87,12 +87,14 @@ public class JoystickDrive extends Command {
             case Tank:
                 tankDrive(OI.manager.getLeftStickY() * scale, OI.manager.getRightStickY() * scale);
                 break;
-            case Aracde1Joystick:
-                arcadeDrive(OI.manager.getLeftStickY() * scale, OI.manager.getLeftStickX() * scale);
+            case Arcade1Joystick:
+                arcadeDrive(OI.manager.getRightStickY() * scale, OI.manager.getRightStickX() * scale);
                 break;
-            case Arcade2Joystick:
+            case Arcade2JoystickLeftDrive:
                 arcadeDrive(OI.manager.getLeftStickY() * scale, OI.manager.getRightStickX() * scale);
                 break;
+            case Arcade2JoystickRightDrive:
+                arcadeDrive(OI.manager.getRightStickX() * scale, OI.manager.getLeftStickX() * scale);
             case Field1Joystick:
                 x = OI.manager.getRightStickX();
                 y = OI.manager.getRightStickY();
@@ -144,7 +146,7 @@ public class JoystickDrive extends Command {
      * @param turning The turning magnitude from -1 to 1
      */
     public void arcadeDrive(double speed, double turning) {
-        speed /= 2;
+//        speed /= 2;
         turning /= 3;
         double rate = driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
 

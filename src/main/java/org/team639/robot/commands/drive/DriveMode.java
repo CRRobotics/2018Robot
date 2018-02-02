@@ -4,8 +4,9 @@ package org.team639.robot.commands.drive;
  */
 public enum DriveMode {
     Tank,
-    Aracde1Joystick,
-    Arcade2Joystick,
+    Arcade1Joystick,
+    Arcade2JoystickLeftDrive,
+    Arcade2JoystickRightDrive,
     Field1Joystick,
     Field2Joystick
 }

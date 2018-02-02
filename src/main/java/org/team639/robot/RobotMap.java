@@ -61,14 +61,20 @@ public class RobotMap {
         if (!initialized) {
 
             // Left drive
-//            leftDrive = new TalonSRX(3);
-//            leftFollower1 = new VictorSPX(4); // TODO: Change these back to victors
-//            leftFollower2 = new VictorSPX(5);
+            leftDrive = new TalonSRX(3);
+            leftFollower1 = new VictorSPX(4);
+            leftFollower2 = new VictorSPX(5);
+
+//            leftFollower1 = new TalonSRX(4);
+//            leftFollower2 = new TalonSRX(5);
+
 
             // Right drive
-//            rightDrive = new TalonSRX(0);
-//            rightFollower1 = new VictorSPX(1); // TODO: Change these back to victors
-//            rightFollower2 = new VictorSPX(2);
+            rightDrive = new TalonSRX(0);
+            rightFollower1 = new VictorSPX(1);
+            rightFollower2 = new VictorSPX(2);
+//            rightFollower1 = new TalonSRX(1);
+//            rightFollower2 = new TalonSRX(2);
 
 //            driveShifter = new Solenoid(0);
 
