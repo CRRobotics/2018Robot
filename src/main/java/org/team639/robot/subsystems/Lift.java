@@ -72,7 +72,7 @@ public class Lift extends Subsystem {
      * Returns the current value read by the encoder.
      * @return The current value read by the encoder.
      */
-    public double getEncPos() {
+    public int getEncPos() {
         return mainTalon.getSelectedSensorPosition(0);
     }
 

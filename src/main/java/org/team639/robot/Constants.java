@@ -43,6 +43,7 @@ public class Constants {
         public static final double FOT_RATE = 0.015;
         public static final double FOT_I_CAP = 0.2;
         public static final double FOT_TOLERANCE = 2;
+
     }
 
     public static class Auto {
@@ -59,10 +60,28 @@ public class Constants {
 
     public static final double JOYSTICK_DEADZONE = 0.05;
 
+    //lift speed pid
     public static final double LIFT_P = 0;
     public static final double LIFT_I = 0;
     public static final double LIFT_D = 0;
     public static final double LIFT_F = 0;
+
+    //lift position pid
+    public static final double LIFT_POS_P = 0;
+    public static final double LIFT_POS_I = 0;
+    public static final double LIFT_POS_D = 0;
+    public static final double LIFT_POS_MIN = 0;
+    public static final double LIFT_POS_MAX =  0;
+    public static final double LIFT_POS_RATE = 0;
+    public static final double LIFT_POS_I_CAP = 0;
+    public static final double LIFT_POS_TOLERANCE = 0;
+
+    public static final double LIFT_MAX_HEIGHT = 100; //TODO: FIND REAL VALUEs!!!!
+    public static final double LIFT_STAGE_1_TICKS = 50;
+    public static final double LIFT_SCALE_HEIGHT = 0;
+    public static final double LIFT_SWITCH_HEIGHT = 0;
+    public static final double LIFT_EXCHANGE_HEIGHT = 0;
+
 
     public static final double DEFAULT_ACQ_SPEED = 0.3;
 }

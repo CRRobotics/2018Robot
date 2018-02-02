@@ -32,7 +32,11 @@ public class MoveLiftWithJoystick extends Command {
      */
     @Override
     protected void execute() {
-        lift.setSpeedPercent(OI.manager.getLeftStickY() / 3);
+        // TODO: Lock and unlock the first stage.
+        double speed = OI.manager.getLeftStickY() / 3;
+        if (lift.isAtSecondStageLimit() && speed > 0) speed = 0;
+        if (lift.isAtLowerLimit() && speed < 0) speed = 0;
+        lift.setSpeedPercent(speed);
     }
 
     /**
