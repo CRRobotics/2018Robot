@@ -63,4 +63,6 @@ public class Constants {
     public static final double LIFT_I = 0;
     public static final double LIFT_D = 0;
     public static final double LIFT_F = 0;
+
+    public static final double DEFAULT_ACQ_SPEED = 0.3;
 }

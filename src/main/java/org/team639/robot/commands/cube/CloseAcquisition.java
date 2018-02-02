@@ -16,7 +16,6 @@ public class CloseAcquisition extends Command {
     public CloseAcquisition() {
         super("CloseAcquisition");
         cubeAcquisition = new CubeAcquisition();
-        requires(cubeAcquisition);
     }
 
     /**
@@ -25,6 +24,7 @@ public class CloseAcquisition extends Command {
     @Override
     protected void initialize() {
         cubeAcquisition.setPistonMode(CubeAcquisition.PistonMode.Closed);
+        System.out.println("Closing");
     }
 
     /**

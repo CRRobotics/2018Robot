@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
+import static org.team639.robot.Constants.DEFAULT_ACQ_SPEED;
+
 /**
  * Runs the acquisition motors inwards. Runs until interrupted.
  */
@@ -21,7 +23,7 @@ public class IntakeCube extends Command {
      */
     @Override
     protected void initialize() {
-        cubeAcquisition.setSpeedsPercent(-0.5, -0.5);
+        cubeAcquisition.setSpeedsPercent(-1 * DEFAULT_ACQ_SPEED, -1 * DEFAULT_ACQ_SPEED);
     }
 
     /**
@@ -29,7 +31,7 @@ public class IntakeCube extends Command {
      */
     @Override
     protected void execute() {
-        cubeAcquisition.setSpeedsPercent(-0.5, -0.5);
+        cubeAcquisition.setSpeedsPercent(-1 * DEFAULT_ACQ_SPEED, -1 * DEFAULT_ACQ_SPEED);
     }
 
     /**

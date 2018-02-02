@@ -67,12 +67,12 @@ public class CubeAcquisition extends Subsystem {
         // TODO: Check that the piston changes correctly
         switch (this.mode) {
             case Open:
-                acqOpen1.set(true);
-                acqOpen2.set(false);
-                break;
-            case Closed:
                 acqOpen1.set(false);
                 acqOpen2.set(true);
+                break;
+            case Closed:
+                acqOpen1.set(true);
+                acqOpen2.set(false);
                 break;
             case Floating:
                 acqOpen1.set(false);

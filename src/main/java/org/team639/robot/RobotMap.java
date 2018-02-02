@@ -61,28 +61,28 @@ public class RobotMap {
         if (!initialized) {
 
             // Left drive
-            leftDrive = new TalonSRX(3);
-            leftFollower1 = new TalonSRX(4); // TODO: Change these back to victors
-            leftFollower2 = new TalonSRX(5);
+//            leftDrive = new TalonSRX(3);
+//            leftFollower1 = new VictorSPX(4); // TODO: Change these back to victors
+//            leftFollower2 = new VictorSPX(5);
 
             // Right drive
-            rightDrive = new TalonSRX(0);
-            rightFollower1 = new TalonSRX(1); // TODO: Change these back to victors
-            rightFollower2 = new TalonSRX(2);
+//            rightDrive = new TalonSRX(0);
+//            rightFollower1 = new VictorSPX(1); // TODO: Change these back to victors
+//            rightFollower2 = new VictorSPX(2);
 
-            driveShifter = new Solenoid(0);
+//            driveShifter = new Solenoid(0);
 
             // NAVX
             ahrs = new AHRS(SPI.Port.kMXP);
 
             // Acquisition
-//            leftAcquisition = new TalonSRX(8);
-//            rightAcquisition = new TalonSRX(9);
-//            innerCubeDetector = new DigitalInput(0);
-//            armsClosed = new DigitalInput(1);
-//            cubeRaise = new Solenoid(1);
-//            acqOpen1 = new Solenoid(2);
-//            acqOpen2 = new Solenoid(3);
+            leftAcquisition = new TalonSRX(8);
+            rightAcquisition = new TalonSRX(9);
+            innerCubeDetector = new DigitalInput(0);
+            armsClosed = new DigitalInput(1);
+            cubeRaise = new Solenoid(4);
+            acqOpen1 = new Solenoid(7);
+            acqOpen2 = new Solenoid(0);
 
             /*
             // Lift
