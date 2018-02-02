@@ -7,8 +7,6 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
-import org.team639.lib.sensor.distance.DistanceSensor;
-import org.team639.lib.sensor.distance.MaxSonarEZ4Analog;
 
 /**
  * Contains references to all of the motors, sensors, pneumatics, etc. Controls access by the rest of the code from a central location.
@@ -31,8 +29,6 @@ public class RobotMap {
 
     // NAVX
     private static AHRS ahrs;
-
-    private static MaxSonarEZ4Analog frontSonar;
 
     // Acquisition
     private static TalonSRX leftAcquisition;
@@ -85,8 +81,6 @@ public class RobotMap {
             // NAVX
             ahrs = new AHRS(SPI.Port.kMXP);
 
-            frontSonar = new MaxSonarEZ4Analog(0);
-
             // Acquisition
             leftAcquisition = new TalonSRX(8);
             rightAcquisition = new TalonSRX(9);
@@ -113,11 +107,6 @@ public class RobotMap {
             initialized = true;
         }
     }
-
-    /**
-     * @return The front sonar
-     */
-    public static MaxSonarEZ4Analog getFrontSonar() { return frontSonar; }
 
     /**
      * Returns the left side Talon.
