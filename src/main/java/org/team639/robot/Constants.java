@@ -66,6 +66,8 @@ public class Constants {
     public static final double LIFT_D = 0;
     public static final double LIFT_F = 0;
 
+    public static final double LIFT_MAX_SPEED = 1000; // TODO: Find real value.
+
     //lift position pid
     public static final double LIFT_POS_P = 0;
     public static final double LIFT_POS_I = 0;
@@ -76,7 +78,7 @@ public class Constants {
     public static final double LIFT_POS_I_CAP = 0;
     public static final double LIFT_POS_TOLERANCE = 0;
 
-    public static final double LIFT_MAX_HEIGHT = 100; //TODO: FIND REAL VALUEs!!!!
+    public static final double LIFT_MAX_HEIGHT = 100; // TODO: FIND REAL VALUEs!!!!
     public static final double LIFT_STAGE_1_TICKS = 50;
     public static final double LIFT_SCALE_HEIGHT = 0;
     public static final double LIFT_SWITCH_HEIGHT = 0;

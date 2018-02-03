@@ -6,8 +6,11 @@ import org.team639.robot.OI;
 import org.team639.robot.CliffordTheBigRedBot;
 import org.team639.robot.subsystems.Lift;
 
+import static org.team639.robot.Constants.JOYSTICK_DEADZONE;
+
 /**
  * Allows for movement of the lift using joysticks.
+ * @see Lift
  */
 public class MoveLiftWithJoystick extends Command {
     private Lift lift;
@@ -23,7 +26,8 @@ public class MoveLiftWithJoystick extends Command {
      */
     @Override
     protected void initialize() {
-        lift.setCurrentControlMode(ControlMode.PercentOutput);
+        if (!lift.encoderPresent()) lift.setCurrentControlMode(ControlMode.PercentOutput);
+        else lift.setCurrentControlMode(ControlMode.Velocity);
         lift.setSpeedPercent(0);
     }
 
@@ -33,9 +37,13 @@ public class MoveLiftWithJoystick extends Command {
     @Override
     protected void execute() {
         // TODO: Lock and unlock the first stage.
-        double speed = OI.manager.getLeftStickY() / 3;
+        double yVal = OI.manager.getLeftStickY();
+        if (Math.abs(yVal) < JOYSTICK_DEADZONE) yVal = 0;
+        double speed = yVal / 3;
         if (lift.isAtSecondStageLimit() && speed > 0) speed = 0;
         if (lift.isAtLowerLimit() && speed < 0) speed = 0;
+        if (speed == 0) lift.setFirstStageLocked(true);
+        else lift.setFirstStageLocked(false);
         lift.setSpeedPercent(speed);
     }
 

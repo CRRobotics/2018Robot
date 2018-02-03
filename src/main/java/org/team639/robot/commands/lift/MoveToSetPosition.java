@@ -31,8 +31,10 @@ public class MoveToSetPosition extends Command {
     @Override
     protected void initialize() {
         done = false;
+        lift.setFirstStageLocked(false);
         startPosition = lift.getEncPos();
         pid = new PID(LIFT_POS_P, LIFT_POS_I, LIFT_POS_D, LIFT_POS_MIN, LIFT_POS_MAX, LIFT_POS_RATE, LIFT_POS_TOLERANCE, LIFT_POS_I_CAP);
+        if (!lift.encoderPresent()) done = true;
     }
 
     /**
@@ -40,7 +42,6 @@ public class MoveToSetPosition extends Command {
      */
     @Override
     protected void execute() {
-        // TODO: Lock and unlock the first stage.
         double val = pid.compute(position.getPercentHeight() * LIFT_MAX_HEIGHT - lift.getEncPos());
         lift.setSpeedPercent(val);
         done = val == 0 || lift.isAtLowerLimit() || lift.isAtSecondStageLimit();
@@ -53,6 +54,7 @@ public class MoveToSetPosition extends Command {
     @Override
     protected void end() {
         lift.setSpeedPercent(0);
+        lift.setFirstStageLocked(true);
     }
 
     /**

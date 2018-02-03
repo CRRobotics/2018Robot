@@ -312,4 +312,12 @@ public class DriveTrain extends Subsystem {
     public DriveGear getCurrentGear() {
         return currentGear;
     }
+
+    /**
+     * Returns whether or not the encoders are both connected.
+     * @return Whether or not the encoders are both connected.
+     */
+    public boolean encodersPresent() {
+        return !(rightDrive.getSensorCollection().getPulseWidthRiseToRiseUs() == 0 || leftDrive.getSensorCollection().getPulseWidthRiseToRiseUs() == 0);
+    }
 }
