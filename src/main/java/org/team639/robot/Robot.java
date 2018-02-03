@@ -1,5 +1,6 @@
 package org.team639.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -20,6 +21,7 @@ public class Robot extends TimedRobot {
     private static Lift lift;
     // Driver options
     private static SendableChooser<DriveMode> driveMode;
+    private static SendableChooser<ControlMode> driveTalonControlMode;
 
     public static DriveTrain getDriveTrain() {
         return driveTrain;
@@ -31,6 +33,10 @@ public class Robot extends TimedRobot {
 
     public static DriveMode getDriveMode() {
         return driveMode.getSelected();
+    }
+
+    public static ControlMode getDriveTalonControlMode() {
+        return driveTalonControlMode.getSelected();
     }
 
     public static Lift getLift() {
@@ -64,6 +70,11 @@ public class Robot extends TimedRobot {
         driveMode.addObject("2 Joystick Arcade Right", DriveMode.Arcade2JoystickRightDrive);
         driveMode.addObject("2 Joystick Arcade Left", DriveMode.Arcade2JoystickLeftDrive);
         SmartDashboard.putData("Drive Mode", driveMode);
+
+        driveTalonControlMode = new SendableChooser<>();
+        driveTalonControlMode.addDefault("Closed loop", ControlMode.Velocity);
+        driveTalonControlMode.addObject("Open loop", ControlMode.PercentOutput);
+        SmartDashboard.putData("Control mode", driveTalonControlMode);
 
         SmartDashboard.putNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
         SmartDashboard.putNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
@@ -122,6 +133,8 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         SmartDashboard.putBoolean("drivetrain encoders", driveTrain.encodersPresent());
+        SmartDashboard.putNumber("Left speed", driveTrain.getLeftEncVelocity());
+        SmartDashboard.putNumber("Right speed", driveTrain.getRightEncVelocity());
     }
 
     /**

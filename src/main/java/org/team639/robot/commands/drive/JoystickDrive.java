@@ -61,7 +61,7 @@ public class JoystickDrive extends Command {
      */
     protected void execute() {
         if (!driveTrain.encodersPresent()) driveTrain.setCurrentControlMode(ControlMode.PercentOutput); // TODO: Time limit to wait before switching
-        else driveTrain.setCurrentControlMode(ControlMode.Velocity);
+        else driveTrain.setCurrentControlMode(Robot.getDriveTalonControlMode());
 
         double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
         double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
