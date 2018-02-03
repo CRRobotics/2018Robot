@@ -12,7 +12,7 @@ import org.team639.robot.subsystems.Lift;
 /**
  * The main robot class.
  */
-public class CliffordTheBigRedBot extends TimedRobot {
+public class Robot extends TimedRobot {
 
     // Subsystems
     private static DriveTrain driveTrain;
@@ -38,12 +38,12 @@ public class CliffordTheBigRedBot extends TimedRobot {
     }
 
     /**
-     * CliffordTheBigRedBot-wide initialization code should go here.
+     * Robot-wide initialization code should go here.
      * <p>
-     * <p>Users should override this method for default CliffordTheBigRedBot-wide initialization which will be called
+     * <p>Users should override this method for default Robot-wide initialization which will be called
      * when the robot is first powered on. It will be called exactly one time.
      * <p>
-     * <p>Warning: the Driver Station "CliffordTheBigRedBot Code" light and FMS "CliffordTheBigRedBot Ready" indicators will be off
+     * <p>Warning: the Driver Station "Robot Code" light and FMS "Robot Ready" indicators will be off
      * until RobotInit() exits. Code in RobotInit() that waits for enable will cause the robot to
      * never indicate that the code is ready, causing the robot to be bypassed in a match.
      */
@@ -51,8 +51,8 @@ public class CliffordTheBigRedBot extends TimedRobot {
     public void robotInit() {
         RobotMap.init(); // Initialize all sensors, motors, etc.
         // Subsystem initializations
-//        driveTrain = new DriveTrain();
-        cubeAcquisition = new CubeAcquisition();
+        driveTrain = new DriveTrain();
+//        cubeAcquisition = new CubeAcquisition();
 //        lift = new Lift();
 
         // Driver options init
@@ -121,6 +121,7 @@ public class CliffordTheBigRedBot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        SmartDashboard.putBoolean("drivetrain encoders", driveTrain.encodersPresent());
     }
 
     /**

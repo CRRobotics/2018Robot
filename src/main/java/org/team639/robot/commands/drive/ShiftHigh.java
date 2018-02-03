@@ -1,7 +1,7 @@
 package org.team639.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.team639.robot.CliffordTheBigRedBot;
+import org.team639.robot.Robot;
 import org.team639.robot.subsystems.DriveTrain;
 
 public class ShiftHigh extends Command {
@@ -9,7 +9,7 @@ public class ShiftHigh extends Command {
 
     public ShiftHigh() {
         super("ShiftHigh");
-        driveTrain = CliffordTheBigRedBot.getDriveTrain();
+        driveTrain = Robot.getDriveTrain();
     }
 
     /**

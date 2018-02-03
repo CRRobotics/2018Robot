@@ -3,7 +3,7 @@ package org.team639.robot.commands.lift;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import org.team639.robot.OI;
-import org.team639.robot.CliffordTheBigRedBot;
+import org.team639.robot.Robot;
 import org.team639.robot.subsystems.Lift;
 
 import static org.team639.robot.Constants.JOYSTICK_DEADZONE;
@@ -17,7 +17,7 @@ public class MoveLiftWithJoystick extends Command {
 
     public MoveLiftWithJoystick() {
         super("MoveLiftWithJoystick");
-        lift = CliffordTheBigRedBot.getLift();
+        lift = Robot.getLift();
         requires(lift);
     }
 

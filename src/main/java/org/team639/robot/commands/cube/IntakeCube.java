@@ -1,7 +1,7 @@
 package org.team639.robot.commands.cube;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.team639.robot.CliffordTheBigRedBot;
+import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
 import static org.team639.robot.Constants.DEFAULT_ACQ_SPEED;
@@ -14,7 +14,7 @@ public class IntakeCube extends Command {
 
     public IntakeCube() {
         super("IntakeCube");
-        cubeAcquisition = CliffordTheBigRedBot.getCubeAcquisition();
+        cubeAcquisition = Robot.getCubeAcquisition();
         requires(cubeAcquisition);
     }
 

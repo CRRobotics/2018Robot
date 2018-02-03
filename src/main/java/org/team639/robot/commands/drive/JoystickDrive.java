@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.controls.LogitechF310;
 import org.team639.lib.math.AngleMath;
 import org.team639.lib.math.PID;
-import org.team639.robot.CliffordTheBigRedBot;
+import org.team639.robot.Robot;
 import org.team639.robot.Constants;
 import org.team639.robot.OI;
 import org.team639.robot.subsystems.DriveTrain;
@@ -18,7 +18,7 @@ import static org.team639.robot.Constants.DriveTrain.*;
  * Default DriveTrain command.
  */
 public class JoystickDrive extends Command {
-    private DriveTrain driveTrain = CliffordTheBigRedBot.getDriveTrain();
+    private DriveTrain driveTrain = Robot.getDriveTrain();
 
     private PID turnPID;
 
@@ -53,8 +53,8 @@ public class JoystickDrive extends Command {
 //        double max = SmartDashboard.getNumber("max", 0.5);
         turnPID = new PID(p, i, d, min, max, rate, tolerance, iCap);
 
-//        if (CliffordTheBigRedBot.getTalonMode() != driveTrain.getCurrentControlMode()) {
-//            driveTrain.setCurrentControlMode(CliffordTheBigRedBot.getTalonMode());
+//        if (Robot.getTalonMode() != driveTrain.getCurrentControlMode()) {
+//            driveTrain.setCurrentControlMode(Robot.getTalonMode());
 //        }
         driveTrain.setRampRate(0);
         driveTrain.setCurrentGear(driveTrain.getCurrentGear()); // Resets to default pid values for current gear.
@@ -81,7 +81,7 @@ public class JoystickDrive extends Command {
         if (OI.manager.getButtonPressed(LogitechF310.Buttons.LB)) {
             mode = DriveMode.Field2Joystick;
         } else {
-            mode = CliffordTheBigRedBot.getDriveMode(); //Get drive mode from SmartDashboard
+            mode = Robot.getDriveMode(); //Get drive mode from SmartDashboard
         }
         switch (mode) {
             case Tank:

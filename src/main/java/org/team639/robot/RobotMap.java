@@ -55,7 +55,7 @@ public class RobotMap {
 
     /**
      * Initializes all of the motors, sensors, etc.
-     * THIS MUST BE RUN AT THE BEGINNING OF robotInit in CliffordTheBigRedBot.java!!!
+     * THIS MUST BE RUN AT THE BEGINNING OF robotInit in Robot.java!!!
      */
     public static void init() {
         if (!initialized) {
@@ -76,19 +76,19 @@ public class RobotMap {
 //            rightFollower1 = new TalonSRX(1);
 //            rightFollower2 = new TalonSRX(2);
 
-//            driveShifter = new Solenoid(0);
+            driveShifter = new Solenoid(0);
 
             // NAVX
             ahrs = new AHRS(SPI.Port.kMXP);
 
             // Acquisition
-            leftAcquisition = new TalonSRX(8);
-            rightAcquisition = new TalonSRX(9);
-            innerCubeDetector = new DigitalInput(0);
-            armsClosed = new DigitalInput(1);
-            cubeRaise = new Solenoid(4);
-            acqOpen1 = new Solenoid(7);
-            acqOpen2 = new Solenoid(0);
+//            leftAcquisition = new TalonSRX(8);
+//            rightAcquisition = new TalonSRX(9);
+//            innerCubeDetector = new DigitalInput(0);
+//            armsClosed = new DigitalInput(1);
+//            cubeRaise = new Solenoid(4);
+//            acqOpen1 = new Solenoid(7);
+//            acqOpen2 = new Solenoid(0);
 
             /*
             // Lift
