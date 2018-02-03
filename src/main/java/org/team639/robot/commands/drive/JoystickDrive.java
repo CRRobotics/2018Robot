@@ -52,10 +52,6 @@ public class JoystickDrive extends Command {
 //        double min = SmartDashboard.getNumber("min", 0.2);
 //        double max = SmartDashboard.getNumber("max", 0.5);
         turnPID = new PID(p, i, d, min, max, rate, tolerance, iCap);
-
-//        if (Robot.getTalonMode() != driveTrain.getCurrentControlMode()) {
-//            driveTrain.setCurrentControlMode(Robot.getTalonMode());
-//        }
         driveTrain.setRampRate(0);
         driveTrain.setCurrentGear(driveTrain.getCurrentGear()); // Resets to default pid values for current gear.
     }
@@ -64,6 +60,9 @@ public class JoystickDrive extends Command {
      * Called repeatedly while the command is running.
      */
     protected void execute() {
+        if (!driveTrain.encodersPresent()) driveTrain.setCurrentControlMode(ControlMode.PercentOutput); // TODO: Time limit to wait before switching
+        else driveTrain.setCurrentControlMode(ControlMode.Velocity);
+
         double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
         double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
         double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_I);

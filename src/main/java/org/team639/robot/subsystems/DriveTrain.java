@@ -2,11 +2,11 @@ package org.team639.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.team639.robot.Constants;
 import org.team639.robot.RobotMap;
 import org.team639.robot.commands.drive.JoystickDrive;
 
@@ -318,6 +318,6 @@ public class DriveTrain extends Subsystem {
      * @return Whether or not the encoders are both connected.
      */
     public boolean encodersPresent() {
-        return !(rightDrive.getSensorCollection().getPulseWidthRiseToRiseUs() == 0 || leftDrive.getSensorCollection().getPulseWidthRiseToRiseUs() == 0);
+        return !Constants.REAL || !(rightDrive.getSensorCollection().getPulseWidthRiseToRiseUs() == 0 || leftDrive.getSensorCollection().getPulseWidthRiseToRiseUs() == 0);
     }
 }

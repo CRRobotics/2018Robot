@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.team639.robot.Robot;
 import org.team639.robot.RobotMap;
 
 import static org.team639.robot.Constants.*;
@@ -97,7 +98,8 @@ public class Lift extends Subsystem {
      * @return Whether or not the lift is at the lower limit.
      */
     public boolean isAtLowerLimit() {
-        return lowerLimit.get();
+//        return lowerLimit.get();
+        return mainTalon.getSensorCollection().isRevLimitSwitchClosed();
     }
 
     /**
@@ -113,7 +115,7 @@ public class Lift extends Subsystem {
      * @return Whether or not the lift is at the upper limit of the second stage.
      */
     public boolean isAtSecondStageLimit() {
-        return secondStageLimit.get();
+        return mainTalon.getSensorCollection().isFwdLimitSwitchClosed(); // secondStageLimit.get();
     }
 
     /**
