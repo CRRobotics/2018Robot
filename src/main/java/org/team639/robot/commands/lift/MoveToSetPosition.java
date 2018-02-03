@@ -43,7 +43,7 @@ public class MoveToSetPosition extends Command {
     @Override
     protected void execute() {
         double val = pid.compute(position.getEncTicks() - lift.getEncPos());
-        done = val == 0 || (lift.isAtLowerLimit() && val < 0) || (lift.isAtSecondStageLimit() && val > 0);
+        done = val == 0 || (lift.isAtLowerLimit() && val < 0) || ((lift.isAtSecondStageLimit() || lift.getEncPos() > LIFT_MAX_HEIGHT - LIFT_TOLERANCE) && val > 0);
         if (!done) {
             lift.setSpeedPercent(val);
         }

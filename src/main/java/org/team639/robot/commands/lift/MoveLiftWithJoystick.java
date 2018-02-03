@@ -8,6 +8,7 @@ import org.team639.robot.subsystems.Lift;
 
 import static org.team639.robot.Constants.JOYSTICK_DEADZONE;
 import static org.team639.robot.Constants.LIFT_MAX_HEIGHT;
+import static org.team639.robot.Constants.LIFT_TOLERANCE;
 
 /**
  * Allows for movement of the lift using joysticks.
@@ -41,7 +42,7 @@ public class MoveLiftWithJoystick extends Command {
         if (Math.abs(yVal) < JOYSTICK_DEADZONE) yVal = 0;
         double speed = yVal / 3;
 
-        if ((lift.isAtSecondStageLimit() && speed > 0) || (lift.encoderPresent() && (lift.getEncPos() > LIFT_MAX_HEIGHT - 200))) speed = 0;
+        if ((lift.isAtSecondStageLimit() && speed > 0) || (lift.encoderPresent() && (lift.getEncPos() > LIFT_MAX_HEIGHT - LIFT_TOLERANCE) && speed > 0)) speed = 0;
         if (lift.isAtLowerLimit() && speed < 0) speed = 0;
 
         if (speed == 0) lift.setFirstStageLocked(true);
