@@ -2,7 +2,7 @@ package org.team639.robot.commands.lift;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.team639.lib.math.PID;
-import org.team639.robot.Robot;
+import org.team639.robot.CliffordTheBigRedBot;
 import org.team639.robot.subsystems.Lift;
 
 import static org.team639.robot.Constants.*;
@@ -20,7 +20,7 @@ public class MoveToSetPosition extends Command {
     private boolean done;
     public MoveToSetPosition(LiftPositions position) {
         this.position = position;
-        lift = Robot.getLift();
+        lift = CliffordTheBigRedBot.getLift();
         requires(lift);
     }
 

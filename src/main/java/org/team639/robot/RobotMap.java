@@ -55,7 +55,7 @@ public class RobotMap {
 
     /**
      * Initializes all of the motors, sensors, etc.
-     * THIS MUST BE RUN AT THE BEGINNING OF robotInit in Robot.java!!!
+     * THIS MUST BE RUN AT THE BEGINNING OF robotInit in CliffordTheBigRedBot.java!!!
      */
     public static void init() {
         if (!initialized) {

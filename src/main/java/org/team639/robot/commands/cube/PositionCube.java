@@ -1,7 +1,7 @@
 package org.team639.robot.commands.cube;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.team639.robot.Robot;
+import org.team639.robot.CliffordTheBigRedBot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
 /**
@@ -27,7 +27,7 @@ public class PositionCube extends Command {
 
     public PositionCube() {
         super("PositionCube");
-        cubeAcquisition = Robot.getCubeAcquisition();
+        cubeAcquisition = CliffordTheBigRedBot.getCubeAcquisition();
         requires(cubeAcquisition);
         startRotateTime = -1;
     }

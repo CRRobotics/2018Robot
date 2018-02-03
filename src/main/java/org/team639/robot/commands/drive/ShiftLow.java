@@ -1,8 +1,7 @@
 package org.team639.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.team639.robot.Robot;
-import org.team639.robot.RobotMap;
+import org.team639.robot.CliffordTheBigRedBot;
 import org.team639.robot.subsystems.DriveTrain;
 
 public class ShiftLow extends Command {
@@ -10,7 +9,7 @@ public class ShiftLow extends Command {
 
     public ShiftLow() {
         super("ShiftLow");
-        driveTrain = Robot.getDriveTrain();
+        driveTrain = CliffordTheBigRedBot.getDriveTrain();
     }
 
     /**

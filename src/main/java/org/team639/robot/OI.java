@@ -17,7 +17,7 @@ public class OI {
 
     /**
      * Maps all of the buttons.
-     * THIS MUST BE RUN AT THE END OF robotInit in Robot.java!!!
+     * THIS MUST BE RUN AT THE END OF robotInit in CliffordTheBigRedBot.java!!!
      */
     public static void mapButtons() {
         manager.mapButton(LogitechF310.Buttons.RB, new EjectCube(), JoystickManager.MappingType.WhileHeld);

@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import org.team639.lib.math.AngleMath;
 import org.team639.lib.math.PID;
-import org.team639.robot.Robot;
+import org.team639.robot.CliffordTheBigRedBot;
 import org.team639.robot.subsystems.DriveTrain;
 
 import static org.team639.robot.Constants.Auto.*;
@@ -30,7 +30,7 @@ public class AutoTurnToAngle extends Command {
 
     public AutoTurnToAngle(double pAngle, double speed) {
         super("AutoTurnToAngle");
-        driveTrain = Robot.getDriveTrain();
+        driveTrain = CliffordTheBigRedBot.getDriveTrain();
         requires(driveTrain);
         this.angle = pAngle % 360;
     }

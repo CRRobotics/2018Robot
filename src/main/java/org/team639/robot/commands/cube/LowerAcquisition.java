@@ -1,7 +1,7 @@
 package org.team639.robot.commands.cube;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.team639.robot.Robot;
+import org.team639.robot.CliffordTheBigRedBot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
 /**
@@ -16,7 +16,7 @@ public class LowerAcquisition extends Command {
      */
     public LowerAcquisition() {
         super("LowerAcquisition");
-        cubeAcquisition = Robot.getCubeAcquisition();
+        cubeAcquisition = CliffordTheBigRedBot.getCubeAcquisition();
         requires(cubeAcquisition);
     }
 
