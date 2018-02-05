@@ -2,12 +2,13 @@ package org.team639.robot;
 
 import org.team639.lib.TextSettings;
 
-
 /**
  * Constants used by the robot.
  * Part of 2018Robot.
  */
-public class Constants extends TextSettings {
+public class Constants extends TextSettings{
+    public static final boolean REAL = false;
+
     public static class DriveTrain {
         // TODO: Tune everything.
         public static final double HIGH_MIN_DRIVE_PERCENT = 0.09;
@@ -69,6 +70,8 @@ public class Constants extends TextSettings {
     public static final double LIFT_D = 0;
     public static final double LIFT_F = 0;
 
+    public static final double LIFT_MAX_SPEED = 1000; // TODO: Find real value.
+
     //lift position pid
     public static final double LIFT_POS_P = 0;
     public static final double LIFT_POS_I = 0;
@@ -79,14 +82,14 @@ public class Constants extends TextSettings {
     public static final double LIFT_POS_I_CAP = 0;
     public static final double LIFT_POS_TOLERANCE = 0;
 
-    public static final double LIFT_MAX_HEIGHT = 100; //TODO: FIND REAL VALUEs!!!!
-    public static final double LIFT_STAGE_1_TICKS = 50;
-    public static final double LIFT_SCALE_HEIGHT = 0;
-    public static final double LIFT_SWITCH_HEIGHT = 0;
-    public static final double LIFT_EXCHANGE_HEIGHT = 0;
+    public static final int LIFT_MAX_HEIGHT = 100; // TODO: FIND REAL VALUEs!!!!
+    public static final int LIFT_SCALE_HEIGHT = 0;
+    public static final int LIFT_SWITCH_HEIGHT = 0;
+    public static final int LIFT_EXCHANGE_HEIGHT = 0;
 
+    public static final int LIFT_TOLERANCE = 200;
 
-    public static final double DEFAULT_ACQ_SPEED = 0.3;
+    public static final double DEFAULT_ACQ_SPEED = 0.4;
 
     static {
         //driving constants
