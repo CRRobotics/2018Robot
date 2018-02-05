@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.team639.robot.Robot;
 import org.team639.robot.RobotMap;
 
 import static org.team639.robot.Constants.*;
@@ -56,6 +57,8 @@ public class Lift extends Subsystem {
         firstStageLock = RobotMap.getLiftLock();
 
         setPID(LIFT_P, LIFT_I, LIFT_D, LIFT_F);
+        if (encoderPresent()) setCurrentControlMode(ControlMode.Velocity);
+        else setCurrentControlMode(ControlMode.PercentOutput);
     }
 
     /**
@@ -65,7 +68,14 @@ public class Lift extends Subsystem {
     public void setSpeedPercent(double speed) {
         if (speed > 1) speed = 1;
         else if (speed < -1) speed = -1;
-        mainTalon.set(currentControlMode, speed);
+        switch (currentControlMode) {
+            case PercentOutput:
+                mainTalon.set(currentControlMode, speed);
+                break;
+            case Velocity:
+                mainTalon.set(currentControlMode, speed * LIFT_MAX_SPEED);
+                break;
+        }
     }
 
     /**
@@ -88,7 +98,8 @@ public class Lift extends Subsystem {
      * @return Whether or not the lift is at the lower limit.
      */
     public boolean isAtLowerLimit() {
-        return lowerLimit.get();
+//        return lowerLimit.get();
+        return mainTalon.getSensorCollection().isRevLimitSwitchClosed();
     }
 
     /**
@@ -104,7 +115,7 @@ public class Lift extends Subsystem {
      * @return Whether or not the lift is at the upper limit of the second stage.
      */
     public boolean isAtSecondStageLimit() {
-        return secondStageLimit.get();
+        return mainTalon.getSensorCollection().isFwdLimitSwitchClosed(); // secondStageLimit.get();
     }
 
     /**
@@ -188,6 +199,10 @@ public class Lift extends Subsystem {
      */
     public double getkF() {
         return kF;
+    }
+
+    public boolean encoderPresent() {
+        return mainTalon.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
     }
 
     /**

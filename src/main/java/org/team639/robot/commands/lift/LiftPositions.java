@@ -9,13 +9,13 @@ public enum LiftPositions {
     SwitchHeight(LIFT_SWITCH_HEIGHT),
     ExchangeHeight(LIFT_EXCHANGE_HEIGHT);
 
-    private final double percentHeight;
+    private final int encTicks;
 
-    LiftPositions(double percentHeight) {
-        this.percentHeight = percentHeight;
+    LiftPositions(int percentHeight) {
+        this.encTicks = percentHeight;
     }
 
-    public double getPercentHeight() {
-        return percentHeight;
+    public int getEncTicks() {
+        return encTicks;
     }
 }

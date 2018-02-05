@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.math.PID;
-import org.team639.robot.CliffordTheBigRedBot;
+import org.team639.robot.Robot;
 import org.team639.robot.Constants;
 import org.team639.robot.subsystems.DriveTrain;
 
@@ -14,7 +14,7 @@ import static org.team639.robot.Constants.DriveTrain.*;
  * Command to autonomously drive forward a specified distance
  */
 public class AutoDriveForward extends Command {
-    private DriveTrain driveTrain = CliffordTheBigRedBot.getDriveTrain();
+    private DriveTrain driveTrain = Robot.getDriveTrain();
 
     private boolean done = false;
 

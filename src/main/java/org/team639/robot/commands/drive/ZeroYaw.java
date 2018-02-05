@@ -1,7 +1,7 @@
 package org.team639.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.team639.robot.CliffordTheBigRedBot;
+import org.team639.robot.Robot;
 
 /**
  * A command that zeros the robot yaw.
@@ -10,12 +10,12 @@ public class ZeroYaw extends Command {
 
     public ZeroYaw() {
         super("ZeroYaw");
-        requires(CliffordTheBigRedBot.getDriveTrain());
+        requires(Robot.getDriveTrain());
     }
 
     @Override
     protected void initialize() {
-        CliffordTheBigRedBot.getDriveTrain().zeroRobotYaw();
+        Robot.getDriveTrain().zeroRobotYaw();
     }
 
     /**

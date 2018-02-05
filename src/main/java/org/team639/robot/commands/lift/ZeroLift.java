@@ -1,40 +1,34 @@
 package org.team639.robot.commands.lift;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.team639.lib.math.PID;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.Lift;
 
-import static org.team639.robot.Constants.*;
-
 /**
- * Moves the lift to one of several preset positions defined in {@link LiftPositions}
- * @see LiftPositions
- * @see Lift
+ * Zeroes the lift.
  */
-public class MoveToSetPosition extends Command {
+public class ZeroLift extends Command {
     private Lift lift;
-    private LiftPositions position;
-    private int startPosition;
-    private PID pid;
+
     private boolean done;
-    public MoveToSetPosition(LiftPositions position) {
-        this.position = position;
+
+    public ZeroLift() {
+        super("ZeroLift");
         lift = Robot.getLift();
         requires(lift);
     }
-
 
     /**
      * The initialize method is called the first time this Command is run after being started.
      */
     @Override
     protected void initialize() {
-        done = false;
-        lift.setFirstStageLocked(false);
-        startPosition = lift.getEncPos();
-        pid = new PID(LIFT_POS_P, LIFT_POS_I, LIFT_POS_D, LIFT_POS_MIN, LIFT_POS_MAX, LIFT_POS_RATE, LIFT_POS_TOLERANCE, LIFT_POS_I_CAP);
-        if (!lift.encoderPresent()) done = true;
+        if (lift.isAtLowerLimit()) {
+            lift.zeroEncoder();
+            done = true;
+        } else {
+            done = false;
+        }
     }
 
     /**
@@ -42,10 +36,12 @@ public class MoveToSetPosition extends Command {
      */
     @Override
     protected void execute() {
-        double val = pid.compute(position.getEncTicks() - lift.getEncPos());
-        done = val == 0 || (lift.isAtLowerLimit() && val < 0) || ((lift.isAtSecondStageLimit() || lift.getEncPos() > LIFT_MAX_HEIGHT - LIFT_TOLERANCE) && val > 0);
-        if (!done) {
-            lift.setSpeedPercent(val);
+        if (lift.isAtLowerLimit()) {
+            done = true;
+            lift.setSpeedPercent(0);
+            lift.zeroEncoder();
+        } else {
+            lift.setSpeedPercent(-0.1);
         }
     }
 
@@ -56,7 +52,6 @@ public class MoveToSetPosition extends Command {
     @Override
     protected void end() {
         lift.setSpeedPercent(0);
-        lift.setFirstStageLocked(true);
     }
 
     /**
@@ -87,5 +82,4 @@ public class MoveToSetPosition extends Command {
     protected boolean isFinished() {
         return done;
     }
-
 }

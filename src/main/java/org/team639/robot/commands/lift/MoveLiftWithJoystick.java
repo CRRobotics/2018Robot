@@ -3,18 +3,23 @@ package org.team639.robot.commands.lift;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import org.team639.robot.OI;
-import org.team639.robot.CliffordTheBigRedBot;
+import org.team639.robot.Robot;
 import org.team639.robot.subsystems.Lift;
+
+import static org.team639.robot.Constants.JOYSTICK_DEADZONE;
+import static org.team639.robot.Constants.LIFT_MAX_HEIGHT;
+import static org.team639.robot.Constants.LIFT_TOLERANCE;
 
 /**
  * Allows for movement of the lift using joysticks.
+ * @see Lift
  */
 public class MoveLiftWithJoystick extends Command {
     private Lift lift;
 
     public MoveLiftWithJoystick() {
         super("MoveLiftWithJoystick");
-        lift = CliffordTheBigRedBot.getLift();
+        lift = Robot.getLift();
         requires(lift);
     }
 
@@ -23,7 +28,8 @@ public class MoveLiftWithJoystick extends Command {
      */
     @Override
     protected void initialize() {
-        lift.setCurrentControlMode(ControlMode.PercentOutput);
+        if (!lift.encoderPresent()) lift.setCurrentControlMode(ControlMode.PercentOutput);
+        else lift.setCurrentControlMode(ControlMode.Velocity);
         lift.setSpeedPercent(0);
     }
 
@@ -32,10 +38,16 @@ public class MoveLiftWithJoystick extends Command {
      */
     @Override
     protected void execute() {
-        // TODO: Lock and unlock the first stage.
-        double speed = OI.manager.getLeftStickY() / 3;
-        if (lift.isAtSecondStageLimit() && speed > 0) speed = 0;
+        double yVal = OI.manager.getLeftStickY();
+        if (Math.abs(yVal) < JOYSTICK_DEADZONE) yVal = 0;
+        double speed = yVal / 3;
+
+        if ((lift.isAtSecondStageLimit() && speed > 0) || (lift.encoderPresent() && (lift.getEncPos() > LIFT_MAX_HEIGHT - LIFT_TOLERANCE) && speed > 0)) speed = 0;
         if (lift.isAtLowerLimit() && speed < 0) speed = 0;
+
+        if (speed == 0) lift.setFirstStageLocked(true);
+        else lift.setFirstStageLocked(false);
+
         lift.setSpeedPercent(speed);
     }
 

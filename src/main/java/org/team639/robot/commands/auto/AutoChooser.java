@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoChooser {
 
     public static CommandGroup chooseAuto(StartingPosition pos, AutoStrategy strat) {
-        
         CommandGroup auto = new CommandGroup();
 
         return auto;

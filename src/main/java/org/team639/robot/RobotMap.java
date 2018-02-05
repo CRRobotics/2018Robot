@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 
+import static org.team639.robot.Constants.REAL;
+
 /**
  * Contains references to all of the motors, sensors, pneumatics, etc. Controls access by the rest of the code from a central location.
  */
@@ -55,40 +57,44 @@ public class RobotMap {
 
     /**
      * Initializes all of the motors, sensors, etc.
-     * THIS MUST BE RUN AT THE BEGINNING OF robotInit in CliffordTheBigRedBot.java!!!
+     * THIS MUST BE RUN AT THE BEGINNING OF robotInit in Robot.java!!!
      */
     public static void init() {
         if (!initialized) {
 
             // Left drive
             leftDrive = new TalonSRX(3);
-            leftFollower1 = new VictorSPX(4);
-            leftFollower2 = new VictorSPX(5);
+            rightDrive = new TalonSRX(0);
 
-//            leftFollower1 = new TalonSRX(4);
-//            leftFollower2 = new TalonSRX(5);
+            if (REAL) {
+                leftFollower1 = new VictorSPX(4);
+                leftFollower2 = new VictorSPX(5);
 
+                rightFollower1 = new VictorSPX(1);
+                rightFollower2 = new VictorSPX(2);
+            } else {
+                leftFollower1 = new TalonSRX(4);
+                leftFollower2 = new TalonSRX(5);
+
+                rightFollower1 = new TalonSRX(1);
+                rightFollower2 = new TalonSRX(2);
+            }
 
             // Right drive
-            rightDrive = new TalonSRX(0);
-            rightFollower1 = new VictorSPX(1);
-            rightFollower2 = new VictorSPX(2);
-//            rightFollower1 = new TalonSRX(1);
-//            rightFollower2 = new TalonSRX(2);
 
-//            driveShifter = new Solenoid(0);
+            driveShifter = new Solenoid(0);
 
             // NAVX
             ahrs = new AHRS(SPI.Port.kMXP);
 
             // Acquisition
-            leftAcquisition = new TalonSRX(8);
-            rightAcquisition = new TalonSRX(9);
-            innerCubeDetector = new DigitalInput(0);
-            armsClosed = new DigitalInput(1);
-            cubeRaise = new Solenoid(4);
-            acqOpen1 = new Solenoid(7);
-            acqOpen2 = new Solenoid(0);
+//            leftAcquisition = new TalonSRX(8);
+//            rightAcquisition = new TalonSRX(9);
+//            innerCubeDetector = new DigitalInput(0);
+//            armsClosed = new DigitalInput(1);
+//            cubeRaise = new Solenoid(4);
+//            acqOpen1 = new Solenoid(7);
+//            acqOpen2 = new Solenoid(0);
 
             /*
             // Lift
