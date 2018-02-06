@@ -82,19 +82,20 @@ public class RobotMap {
 
             // Right drive
 
-            driveShifter = new Solenoid(0);
+            driveShifter = new Solenoid(1);
 
             // NAVX
             ahrs = new AHRS(SPI.Port.kMXP);
 
             // Acquisition
-//            leftAcquisition = new TalonSRX(8);
-//            rightAcquisition = new TalonSRX(9);
-//            innerCubeDetector = new DigitalInput(0);
-//            armsClosed = new DigitalInput(1);
-//            cubeRaise = new Solenoid(4);
-//            acqOpen1 = new Solenoid(7);
-//            acqOpen2 = new Solenoid(0);
+            leftAcquisition = new TalonSRX(8);
+            rightAcquisition = new TalonSRX(9);
+            innerCubeDetector = new DigitalInput(0);
+            armsClosed = new DigitalInput(1);
+            cubeRaise = new Solenoid(4);
+            acqOpen1 = new Solenoid(7);
+            acqOpen2 = new Solenoid(0);
+
 
             /*
             // Lift

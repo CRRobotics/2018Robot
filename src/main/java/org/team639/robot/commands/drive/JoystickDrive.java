@@ -77,11 +77,11 @@ public class JoystickDrive extends Command {
 
         double scale = 1 - 0.8 * OI.manager.getControllerAxis(LogitechF310.ControllerAxis.RightTrigger);
         if (scale < 0.2) scale = 0.2;
-        if (OI.manager.getButtonPressed(LogitechF310.Buttons.LB)) {
-            mode = DriveMode.Field2Joystick;
-        } else {
+//        if (OI.manager.getButtonPressed(LogitechF310.Buttons.LB)) {
+//            mode = DriveMode.Field2Joystick;
+//        } else {
             mode = Robot.getDriveMode(); //Get drive mode from SmartDashboard
-        }
+//        }
         switch (mode) {
             case Tank:
                 tankDrive(OI.manager.getLeftStickY() * scale, OI.manager.getRightStickY() * scale);
@@ -93,7 +93,7 @@ public class JoystickDrive extends Command {
                 arcadeDrive(OI.manager.getLeftStickY() * scale, OI.manager.getRightStickX() * scale);
                 break;
             case Arcade2JoystickRightDrive:
-                arcadeDrive(OI.manager.getRightStickX() * scale, OI.manager.getLeftStickX() * scale);
+                arcadeDrive(OI.manager.getRightStickY() * scale, OI.manager.getLeftStickX() * scale);
             case Field1Joystick:
                 x = OI.manager.getRightStickX();
                 y = OI.manager.getRightStickY();

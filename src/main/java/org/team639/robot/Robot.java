@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.robot.commands.drive.DriveMode;
 import org.team639.robot.subsystems.CubeAcquisition;
 import org.team639.robot.subsystems.DriveTrain;
+import org.team639.robot.subsystems.LEDStrip;
 import org.team639.robot.subsystems.Lift;
 
 /**
@@ -19,6 +20,7 @@ public class Robot extends TimedRobot {
     private static DriveTrain driveTrain;
     private static CubeAcquisition cubeAcquisition;
     private static Lift lift;
+    private static LEDStrip ledStrip;
     // Driver options
     private static SendableChooser<DriveMode> driveMode;
     private static SendableChooser<ControlMode> driveTalonControlMode;
@@ -43,6 +45,10 @@ public class Robot extends TimedRobot {
         return lift;
     }
 
+    public static LEDStrip getLedStrip() {
+        return ledStrip;
+    }
+
     /**
      * Robot-wide initialization code should go here.
      * <p>
@@ -58,8 +64,9 @@ public class Robot extends TimedRobot {
         RobotMap.init(); // Initialize all sensors, motors, etc.
         // Subsystem initializations
         driveTrain = new DriveTrain();
-//        cubeAcquisition = new CubeAcquisition();
+        cubeAcquisition = new CubeAcquisition();
 //        lift = new Lift();
+        ledStrip = new LEDStrip(42);
 
         // Driver options init
         driveMode = new SendableChooser<>();

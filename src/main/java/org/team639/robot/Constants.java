@@ -89,7 +89,7 @@ public class Constants extends TextSettings{
 
     public static final int LIFT_TOLERANCE = 200;
 
-    public static final double DEFAULT_ACQ_SPEED = 0.4;
+    public static final double DEFAULT_ACQ_SPEED = 0.5;
 
     static {
         //driving constants

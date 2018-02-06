@@ -45,7 +45,7 @@ public class CubeAcquisition extends Subsystem {
         left.setNeutralMode(NeutralMode.Brake);
         right.setNeutralMode(NeutralMode.Brake);
 
-        left.setInverted(true);
+        right.setInverted(true);
 
         innerCubeDetector = RobotMap.getInnerCubeDetector();
         armsClosed = RobotMap.getArmsClosed();
