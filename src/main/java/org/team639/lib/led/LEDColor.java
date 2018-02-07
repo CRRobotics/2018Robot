@@ -1,4 +1,4 @@
-package org.team639.lib.decorative;
+package org.team639.lib.led;
 
 public class LEDColor {
     private int brightness;

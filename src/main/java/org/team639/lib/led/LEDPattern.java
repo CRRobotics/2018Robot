@@ -1,4 +1,4 @@
-package org.team639.lib.decorative;
+package org.team639.lib.led;
 
 /**
  * An abstract class representing an LED pattern
@@ -7,8 +7,9 @@ public abstract class LEDPattern {
 
     /**
      * Called whenever the pattern becomes active.
+     * @return Initial values to be written to the led strip.
      */
-    public abstract void start();
+    public abstract LEDColor[] start();
 
     /**
      * Called whenever the pattern becomes inactive.

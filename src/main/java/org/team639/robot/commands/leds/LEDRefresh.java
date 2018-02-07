@@ -27,9 +27,7 @@ public class LEDRefresh extends Command {
      */
     @Override
     protected void execute() {
-        if (System.currentTimeMillis() - lastTime >= ledStrip.getCycleTimeMS()) {
-            ledStrip.update();
-        }
+        ledStrip.update();
     }
 
     /**
