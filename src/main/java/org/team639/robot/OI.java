@@ -25,6 +25,7 @@ public class OI {
         manager.mapButton(LogitechF310.Buttons.A, new OpenAcquisition(), JoystickManager.MappingType.WhenPressed);
         manager.mapButton(LogitechF310.Buttons.B, new CloseAcquisition(), JoystickManager.MappingType.WhenPressed);
         manager.mapButton(LogitechF310.Buttons.X, new FloatAcquisition(), JoystickManager.MappingType.WhenPressed);
+        manager.mapButton(LogitechF310.Buttons.Y, new CloseOnCubeAtBack(), JoystickManager.MappingType.WhenPressed);
     }
 
     private OI() {

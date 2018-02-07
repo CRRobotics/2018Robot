@@ -13,11 +13,11 @@ public class Constants extends TextSettings{
         // TODO: Tune everything.
         public static final double HIGH_MIN_DRIVE_PERCENT = 0.09;
 
-        public static final double HIGH_SPEED_RANGE = 3400;
-        public static final double HIGH_DRIVE_P = 0.5;
+        public static final double HIGH_SPEED_RANGE = 31000;
+        public static final double HIGH_DRIVE_P = 0.1;
         public static final double HIGH_DRIVE_I = 0;
         public static final double HIGH_DRIVE_D = 0;
-        public static final double HIGH_DRIVE_F = 0.25;
+        public static final double HIGH_DRIVE_F = 1023/HIGH_SPEED_RANGE;
         public static final double HIGH_ARCADE_RATE = 0.03;
 
         public static final double LOW_MIN_DRIVE_PERCENT = 0.09;

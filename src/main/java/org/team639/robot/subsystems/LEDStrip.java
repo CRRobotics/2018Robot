@@ -1,6 +1,7 @@
 package org.team639.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.team639.lib.decorative.LEDColor;
 import org.team639.robot.commands.leds.LEDRefresh;
 
 import java.io.FileNotFoundException;
@@ -21,7 +22,7 @@ public class LEDStrip extends Subsystem {
 
     private FileOutputStream spif;
     private int length;
-    private Color[] sequence;
+    private LEDColor[] sequence;
 
     private int currentPos;
     private boolean staticPattern;
@@ -31,7 +32,7 @@ public class LEDStrip extends Subsystem {
     public LEDStrip(int length) {
         super("LEDStrip");
         this.length = length;
-        sequence = new Color[length];
+        sequence = new LEDColor[length];
         try {
             spif = new FileOutputStream("/dev/spidev0.0");
         } catch (FileNotFoundException e) {
@@ -47,25 +48,25 @@ public class LEDStrip extends Subsystem {
             case Red:
                 staticPattern = true;
                 for (int i = 0; i < sequence.length; i++) {
-                    sequence[i] = new Color(200, 0, 0);
+                    sequence[i] = new LEDColor(200, 0, 0);
                 }
                 break;
             case Green:
                 staticPattern = true;
                 for (int i = 0; i < sequence.length; i++) {
-                    sequence[i] = new Color(0, 200, 0);
+                    sequence[i] = new LEDColor(0, 200, 0);
                 }
                 break;
             case Blue:
                 staticPattern = true;
                 for (int i = 0; i < sequence.length; i++) {
-                    sequence[i] = new Color(0, 0, 200);
+                    sequence[i] = new LEDColor(0, 0, 200);
                 }
                 break;
             case Off:
                 staticPattern = true;
                 for (int i = 0; i < sequence.length; i++) {
-                    sequence[i] = new Color(0, 0, 0);
+                    sequence[i] = new LEDColor(0, 0, 0);
                 }
                 break;
         }
@@ -75,7 +76,7 @@ public class LEDStrip extends Subsystem {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (Color c : sequence) {
+        for (LEDColor c : sequence) {
             try {
                 byte[] b = c.toByteArray();
                 /*System.out.println(spif);
@@ -148,58 +149,4 @@ public class LEDStrip extends Subsystem {
         setDefaultCommand(new LEDRefresh());
     }
 
-    public static class Color {
-        private int brightness;
-        private int red;
-        private int green;
-        private int blue;
-
-        public Color(int red, int green, int blue) {
-            this(0xff, red, green, blue);
-        }
-
-        public Color(int brightness, int red, int green, int blue) {
-            this.brightness = brightness;
-            this.red = red;
-            this.green = green;
-            this.blue = blue;
-        }
-
-        public int getBrightness() {
-            return brightness;
-        }
-
-        public void setBrightness(int brightness) {
-            this.brightness = brightness;
-        }
-
-        public int getRed() {
-            return red;
-        }
-
-        public void setRed(int red) {
-            this.red = red;
-        }
-
-        public int getGreen() {
-            return green;
-        }
-
-        public void setGreen(int green) {
-            this.green = green;
-        }
-
-        public int getBlue() {
-            return blue;
-        }
-
-        public void setBlue(int blue) {
-            this.blue = blue;
-        }
-
-        public byte[] toByteArray() {
-            byte[] arr = {(byte)brightness, (byte)blue, (byte)green, (byte)red};
-            return arr;
-        }
-    }
 }

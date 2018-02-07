@@ -11,10 +11,15 @@ import org.team639.robot.subsystems.DriveTrain;
 import org.team639.robot.subsystems.LEDStrip;
 import org.team639.robot.subsystems.Lift;
 
+import static org.team639.robot.Constants.DriveTrain.HIGH_ARCADE_RATE;
+
 /**
  * The main robot class.
  */
 public class Robot extends TimedRobot {
+
+    private static int rMax = 0;
+    private static double lMax = 0;
 
     // Subsystems
     private static DriveTrain driveTrain;
@@ -67,6 +72,12 @@ public class Robot extends TimedRobot {
         cubeAcquisition = new CubeAcquisition();
 //        lift = new Lift();
         ledStrip = new LEDStrip(42);
+
+        SmartDashboard.putNumber("l max", lMax);
+        SmartDashboard.putNumber("r max", rMax);
+
+        SmartDashboard.putNumber("rrate", HIGH_ARCADE_RATE);
+
 
         // Driver options init
         driveMode = new SendableChooser<>();
@@ -142,6 +153,21 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("drivetrain encoders", driveTrain.encodersPresent());
         SmartDashboard.putNumber("Left speed", driveTrain.getLeftEncVelocity());
         SmartDashboard.putNumber("Right speed", driveTrain.getRightEncVelocity());
+
+        SmartDashboard.putBoolean("outer", RobotMap.getOuterCubeDetector().get());
+        SmartDashboard.putBoolean("inner", RobotMap.getInnerCubeDetector().get());
+
+        int r = driveTrain.getRightEncVelocity();
+        int l = driveTrain.getLeftEncVelocity();
+        if (r > rMax) {
+            rMax = r;
+            SmartDashboard.putNumber("r max", rMax);
+        }
+
+        if (l > lMax) {
+            lMax = l;
+            SmartDashboard.putNumber("l max", lMax);
+        }
     }
 
     /**

@@ -67,7 +67,7 @@ public class JoystickDrive extends Command {
         double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
         double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_I);
 
-        driveTrain.setPID(p, i, d, 0);
+        driveTrain.setPID(p, i, d, HIGH_DRIVE_F);
 
         DriveMode mode;
         double x;
@@ -77,11 +77,7 @@ public class JoystickDrive extends Command {
 
         double scale = 1 - 0.8 * OI.manager.getControllerAxis(LogitechF310.ControllerAxis.RightTrigger);
         if (scale < 0.2) scale = 0.2;
-//        if (OI.manager.getButtonPressed(LogitechF310.Buttons.LB)) {
-//            mode = DriveMode.Field2Joystick;
-//        } else {
-            mode = Robot.getDriveMode(); //Get drive mode from SmartDashboard
-//        }
+        mode = Robot.getDriveMode();
         switch (mode) {
             case Tank:
                 tankDrive(OI.manager.getLeftStickY() * scale, OI.manager.getRightStickY() * scale);
@@ -94,6 +90,7 @@ public class JoystickDrive extends Command {
                 break;
             case Arcade2JoystickRightDrive:
                 arcadeDrive(OI.manager.getRightStickY() * scale, OI.manager.getLeftStickX() * scale);
+                break;
             case Field1Joystick:
                 x = OI.manager.getRightStickX();
                 y = OI.manager.getRightStickY();
@@ -147,7 +144,7 @@ public class JoystickDrive extends Command {
     public void arcadeDrive(double speed, double turning) {
 //        speed /= 2;
         turning /= 3;
-        double rate = driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
+        double rate = SmartDashboard.getNumber("rrate", HIGH_ARCADE_RATE); //driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
 
         if (Math.abs(speed - lastSetpointSpeed) > rate) {
             speed = speed < lastSetpointSpeed ? lastSetpointSpeed - rate : lastSetpointSpeed + rate;

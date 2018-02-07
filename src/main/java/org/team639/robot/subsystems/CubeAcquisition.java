@@ -18,6 +18,7 @@ public class CubeAcquisition extends Subsystem {
     private TalonSRX right;
 
     private DigitalInput innerCubeDetector;
+    private DigitalInput outerCubeDetector;
     private DigitalInput armsClosed;
 
     private Solenoid cubeRaise;
@@ -48,6 +49,7 @@ public class CubeAcquisition extends Subsystem {
         right.setInverted(true);
 
         innerCubeDetector = RobotMap.getInnerCubeDetector();
+        outerCubeDetector = RobotMap.getOuterCubeDetector();
         armsClosed = RobotMap.getArmsClosed();
 
         cubeRaise = RobotMap.getCubeRaise();
@@ -121,6 +123,10 @@ public class CubeAcquisition extends Subsystem {
      */
     public boolean isCubeDetectedAtBack() {
         return innerCubeDetector.get();
+    }
+
+    public boolean isCubeDetectedAtFront() {
+        return outerCubeDetector.get();
     }
 
     /**

@@ -74,8 +74,14 @@ public class DriveTrain extends Subsystem {
         leftDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
         rightDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
 
-        leftDrive.setNeutralMode(NeutralMode.Brake);
-        rightDrive.setNeutralMode(NeutralMode.Brake);
+        NeutralMode mode = NeutralMode.Brake;
+        leftDrive.setNeutralMode(mode);
+        leftFollower1.setNeutralMode(mode);
+        leftFollower2.setNeutralMode(mode);
+        rightDrive.setNeutralMode(mode);
+        rightFollower1.setNeutralMode(mode);
+        rightFollower2.setNeutralMode(mode);
+
 
         leftFollower1.follow(leftDrive);
         leftFollower2.follow(leftDrive);
