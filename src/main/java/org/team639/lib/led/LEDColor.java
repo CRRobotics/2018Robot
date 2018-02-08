@@ -1,16 +1,25 @@
 package org.team639.lib.led;
 
+/**
+ * A class representing the color of an LED.
+ */
 public class LEDColor {
     private int brightness;
     private int red;
     private int green;
     private int blue;
 
+    /**
+     * Creates a LEDColor.
+     * @param red The amount of red (0-255).
+     * @param green The amount of green (0-255).
+     * @param blue The amount of blue (0-255).
+     */
     public LEDColor(int red, int green, int blue) {
         this(0xff, red, green, blue);
     }
 
-    public LEDColor(int brightness, int red, int green, int blue) {
+    private LEDColor(int brightness, int red, int green, int blue) {
         this.brightness = brightness;
         this.red = red;
         this.green = green;
@@ -49,6 +58,10 @@ public class LEDColor {
         this.blue = blue;
     }
 
+    /**
+     * Returns a byte[] in to be used with the spi port.
+     * @return A byte[] in to be used with the spi port.
+     */
     public byte[] toByteArray() {
         byte[] arr = {(byte)brightness, (byte)blue, (byte)green, (byte)red};
         return arr;
