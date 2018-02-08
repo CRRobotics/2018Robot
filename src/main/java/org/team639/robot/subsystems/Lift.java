@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team639.robot.Robot;
 import org.team639.robot.RobotMap;
+import org.team639.robot.commands.lift.MoveLiftWithJoystick;
 
 import static org.team639.robot.Constants.*;
 
@@ -57,7 +58,7 @@ public class Lift extends Subsystem {
         firstStageLock = RobotMap.getLiftLock();
 
         setPID(LIFT_P, LIFT_I, LIFT_D, LIFT_F);
-        if (encoderPresent()) setCurrentControlMode(ControlMode.Velocity);
+        if (encoderPresent()) setCurrentControlMode(ControlMode.PercentOutput);
         else setCurrentControlMode(ControlMode.PercentOutput);
     }
 
@@ -212,6 +213,6 @@ public class Lift extends Subsystem {
      */
     @Override
     protected void initDefaultCommand() {
-
+        setDefaultCommand(new MoveLiftWithJoystick());
     }
 }

@@ -5,6 +5,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.team639.lib.led.LEDColor;
+import org.team639.lib.led.patterns.LEDBlink;
+import org.team639.lib.led.patterns.LEDScrollingSequence;
+import org.team639.lib.led.patterns.LEDSolid;
+import org.team639.lib.led.patterns.LEDStationarySequence;
 import org.team639.robot.commands.drive.DriveMode;
 import org.team639.robot.subsystems.CubeAcquisition;
 import org.team639.robot.subsystems.DriveTrain;
@@ -78,6 +83,9 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("rrate", HIGH_ARCADE_RATE);
 
+        SmartDashboard.putNumber("left stick y", 0);
+
+
 
         // Driver options init
         driveMode = new SendableChooser<>();
@@ -109,7 +117,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
-        super.disabledInit();
+//        ledStrip.changeMode(new LEDSolid(new LEDColor(200, 0, 0), ledStrip.getLength()));
+        LEDColor[] arr = {
+                new LEDColor(200, 0, 0),
+                new LEDColor(0, 200, 0),
+                new LEDColor(0, 0, 200)
+        };
+        ledStrip.changeMode(new LEDScrollingSequence(arr, ledStrip.getLength(), 150));
     }
 
     /**
@@ -131,7 +145,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit() {
-        super.teleopInit();
+        ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
     }
 
     /**
@@ -175,7 +189,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledPeriodic() {
-        super.disabledPeriodic();
+        ledStrip.update();
     }
 
     /**

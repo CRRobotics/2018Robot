@@ -97,14 +97,14 @@ public class RobotMap {
             cubeRaise = new Solenoid(4);
             acqOpen1 = new Solenoid(7);
             acqOpen2 = new Solenoid(0);
+            //lets go acquisition!
 
 
-            /*
             // Lift
-            liftMain = new TalonSRX(6);
-            liftFollower = new TalonSRX(7);
-            */
-//            liftLock = new Solenoid(4);
+//            liftMain = new TalonSRX(6);
+//            liftFollower = new TalonSRX(7);
+
+            liftLock = new Solenoid(5);
 //            liftLowerLimit = new DigitalInput(2);
 //            liftFirstStageLimit = new DigitalInput(3);
 //            liftSecondStageLimit = new DigitalInput(4);

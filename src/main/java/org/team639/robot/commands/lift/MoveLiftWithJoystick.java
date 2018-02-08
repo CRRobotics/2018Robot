@@ -2,6 +2,7 @@ package org.team639.robot.commands.lift;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.robot.OI;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.Lift;
@@ -39,6 +40,7 @@ public class MoveLiftWithJoystick extends Command {
     @Override
     protected void execute() {
         double yVal = OI.manager.getLeftStickY();
+        SmartDashboard.putNumber("left stick y", yVal);
         if (Math.abs(yVal) < JOYSTICK_DEADZONE) yVal = 0;
         double speed = yVal / 3;
 

@@ -81,9 +81,11 @@ public class LEDBlink extends LEDPattern {
     public LEDColor[] nextPortion() {
         if (currentlyOn && System.currentTimeMillis() - lastChangeTime >= onTime) {
             currentlyOn = false;
+            lastChangeTime = System.currentTimeMillis();
             return off;
         } else if (!currentlyOn && System.currentTimeMillis() - lastChangeTime >= offTime) {
             currentlyOn = true;
+            lastChangeTime = System.currentTimeMillis();
             return on;
         } else {
             return new LEDColor[0];
