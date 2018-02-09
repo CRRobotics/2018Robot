@@ -7,9 +7,7 @@ import org.team639.robot.OI;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.Lift;
 
-import static org.team639.robot.Constants.JOYSTICK_DEADZONE;
-import static org.team639.robot.Constants.LIFT_MAX_HEIGHT;
-import static org.team639.robot.Constants.LIFT_TOLERANCE;
+import static org.team639.robot.Constants.*;
 
 /**
  * Allows for movement of the lift using joysticks.
@@ -30,7 +28,7 @@ public class MoveLiftWithJoystick extends Command {
     @Override
     protected void initialize() {
         if (!lift.encoderPresent()) lift.setCurrentControlMode(ControlMode.PercentOutput);
-        else lift.setCurrentControlMode(ControlMode.Velocity);
+        else lift.setCurrentControlMode(ControlMode.PercentOutput); // TODO: Change back to Velocity
         lift.setSpeedPercent(0);
     }
 
@@ -42,16 +40,20 @@ public class MoveLiftWithJoystick extends Command {
         double yVal = OI.manager.getLeftStickY();
         SmartDashboard.putNumber("left stick y", yVal);
         if (Math.abs(yVal) < JOYSTICK_DEADZONE) yVal = 0;
-        double speed = yVal / 3;
+        double multiplier = 1;
+        if (LIFT_MAX_HEIGHT - lift.getEncPos() <= LIFT_SLOW_DISTANCE) multiplier = (LIFT_MAX_HEIGHT - lift.getEncPos()) / LIFT_SLOW_DISTANCE;
+        else if (lift.getEncPos() <= LIFT_SLOW_DISTANCE) multiplier = lift.getEncPos() / LIFT_SLOW_DISTANCE;
+        double speed = yVal * multiplier;
 
-        if ((lift.isAtSecondStageLimit() && speed > 0) || (lift.encoderPresent() && (lift.getEncPos() > LIFT_MAX_HEIGHT - LIFT_TOLERANCE) && speed > 0)) speed = 0;
-        if (lift.isAtLowerLimit() && speed < 0) speed = 0;
+//        if ((lift.isAtSecondStageLimit() && speed > 0) || (lift.encoderPresent() && (lift.getEncPos() > LIFT_MAX_HEIGHT - LIFT_TOLERANCE) && speed > 0)) speed = 0;
+//        if (lift.isAtLowerLimit() && speed < 0) speed = 0;
 
-        if (speed == 0) lift.setFirstStageLocked(true);
-        else lift.setFirstStageLocked(false);
+        if (speed == 0) lift.setFirstStageLocked(false);
+        else lift.setFirstStageLocked(true);
 
         lift.setSpeedPercent(speed);
     }
+
 
     /**
      * Returns whether this command is finished. If it is, then the command will be removed and {@link

@@ -43,7 +43,7 @@ public class Lift extends Subsystem {
         followerTalon.follow(mainTalon);
 
         mainTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-        mainTalon.setSensorPhase(true);
+        mainTalon.setSensorPhase(false);
 
         mainTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
 
@@ -58,7 +58,7 @@ public class Lift extends Subsystem {
         firstStageLock = RobotMap.getLiftLock();
 
         setPID(LIFT_P, LIFT_I, LIFT_D, LIFT_F);
-        if (encoderPresent()) setCurrentControlMode(ControlMode.PercentOutput);
+        if (encoderPresent()) setCurrentControlMode(ControlMode.Velocity); // TODO: make this velocity again
         else setCurrentControlMode(ControlMode.PercentOutput);
     }
 

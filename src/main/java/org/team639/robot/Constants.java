@@ -7,7 +7,7 @@ import org.team639.lib.TextSettings;
  * Part of 2018Robot.
  */
 public class Constants extends TextSettings{
-    public static final boolean REAL = false;
+    public static final boolean REAL = true;
 
     public static class DriveTrain {
         // TODO: Tune everything.
@@ -82,10 +82,15 @@ public class Constants extends TextSettings{
     public static final double LIFT_POS_I_CAP = 0;
     public static final double LIFT_POS_TOLERANCE = 0;
 
-    public static final int LIFT_MAX_HEIGHT = 100; // TODO: FIND REAL VALUEs!!!!
+    public static final int LIFT_MAX_HEIGHT = 395000; // TODO: FIND REAL VALUEs!!!!
     public static final int LIFT_SCALE_HEIGHT = 0;
     public static final int LIFT_SWITCH_HEIGHT = 0;
     public static final int LIFT_EXCHANGE_HEIGHT = 0;
+
+//    public static final int LIFT_UPPER_LIMIT = 395000;
+//    public static final int LIFT_LOWER_SLOW_DISTANCE = 50000;
+    public static final int LIFT_SLOW_DISTANCE = 50000;
+
 
     public static final int LIFT_TOLERANCE = 200;
 

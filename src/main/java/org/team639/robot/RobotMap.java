@@ -83,7 +83,7 @@ public class RobotMap {
 
             // Right drive
 
-            driveShifter = new Solenoid(1);
+            driveShifter = new Solenoid(5);
 
             // NAVX
             ahrs = new AHRS(SPI.Port.kMXP);
@@ -101,10 +101,10 @@ public class RobotMap {
 
 
             // Lift
-//            liftMain = new TalonSRX(6);
-//            liftFollower = new TalonSRX(7);
+            liftMain = new TalonSRX(6);
+            liftFollower = new TalonSRX(7);
 
-            liftLock = new Solenoid(5);
+            liftLock = new Solenoid(1);
 //            liftLowerLimit = new DigitalInput(2);
 //            liftFirstStageLimit = new DigitalInput(3);
 //            liftSecondStageLimit = new DigitalInput(4);
