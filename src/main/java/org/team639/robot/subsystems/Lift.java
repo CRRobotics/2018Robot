@@ -124,7 +124,7 @@ public class Lift extends Subsystem {
      * @param locked Whether or not the first stage should be locked.
      */
     public void setFirstStageLocked(boolean locked) {
-        firstStageLock.set(locked);
+        firstStageLock.set(!locked);
     }
 
     /**
@@ -132,7 +132,7 @@ public class Lift extends Subsystem {
      * @return Whether of not the first stage is locked.
      */
     public boolean isFirstStageLocked() {
-        return firstStageLock.get();
+        return !firstStageLock.get();
     }
 
     /**

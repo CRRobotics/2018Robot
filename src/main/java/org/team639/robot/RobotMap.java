@@ -104,7 +104,7 @@ public class RobotMap {
             liftMain = new TalonSRX(6);
             liftFollower = new TalonSRX(7);
 
-            liftLock = new Solenoid(1);
+            liftLock = new Solenoid(6);
 //            liftLowerLimit = new DigitalInput(2);
 //            liftFirstStageLimit = new DigitalInput(3);
 //            liftSecondStageLimit = new DigitalInput(4);
