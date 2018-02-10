@@ -72,7 +72,7 @@ public class AutoDriveForward extends Command {
         rTickDiff = Math.abs(targetRight - driveTrain.getRightEncPos());
 
         double val = pid.compute(lTickDiff);
-        System.out.println(lTickDiff + ", " + val);
+        SmartDashboard.putNumber("error", lTickDiff);
         // TODO: Re-enable angle correction and tune it.
 //        double error = AngleMath.shortestAngle(driveTrain.getRobotYaw(), angle);
 //        double output = turnPID.compute(error);

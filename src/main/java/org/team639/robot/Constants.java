@@ -7,13 +7,13 @@ import org.team639.lib.TextSettings;
  * Part of 2018Robot.
  */
 public class Constants extends TextSettings{
-    public static final boolean REAL = true;
+    public static final boolean REAL = false;
 
     public static class DriveTrain {
         // TODO: Tune everything.
         public static final double HIGH_MIN_DRIVE_PERCENT = 0.09;
 
-        public static final double HIGH_SPEED_RANGE = 31000;
+        public static final double HIGH_SPEED_RANGE = 33000;
         public static final double HIGH_DRIVE_P = 0.1;
         public static final double HIGH_DRIVE_I = 0;
         public static final double HIGH_DRIVE_D = 0;
@@ -29,10 +29,10 @@ public class Constants extends TextSettings{
         public static final double LOW_DRIVE_F = 0.25;
         public static final double LOW_ARCADE_RATE = 0.03;
 
-        public static final double WHEEL_DIAMETER_INCHES = 6;
+        public static final double WHEEL_DIAMETER_INCHES = 4;
         public static final double WHEEL_CIRCUMFERENCE_INCHES = Math.PI * WHEEL_DIAMETER_INCHES;
 
-        public static final int ENC_TICKS_PER_ROTATION = 4096;
+        public static final int ENC_TICKS_PER_ROTATION = 16384;
         public static final double TICKS_PER_INCH = ENC_TICKS_PER_ROTATION / WHEEL_CIRCUMFERENCE_INCHES;
 
         public static final double DRIVE_FORWARD_TOLERANCE = 200;

@@ -63,11 +63,11 @@ public class JoystickDrive extends Command {
         if (!driveTrain.encodersPresent()) driveTrain.setCurrentControlMode(ControlMode.PercentOutput); // TODO: Time limit to wait before switching
         else driveTrain.setCurrentControlMode(Robot.getDriveTalonControlMode());
 
-        double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
-        double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
-        double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_I);
+//        double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
+//        double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
+//        double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_I);
 
-        driveTrain.setPID(p, i, d, HIGH_DRIVE_F);
+        driveTrain.setPID(HIGH_DRIVE_P, HIGH_DRIVE_I, HIGH_DRIVE_D, HIGH_DRIVE_F);
 
         DriveMode mode;
         double x;
@@ -146,12 +146,12 @@ public class JoystickDrive extends Command {
         turning /= 3;
         double rate = SmartDashboard.getNumber("rrate", HIGH_ARCADE_RATE); //driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
 
-        if (Math.abs(speed - lastSetpointSpeed) > rate) {
-            speed = speed < lastSetpointSpeed ? lastSetpointSpeed - rate : lastSetpointSpeed + rate;
-        }
-        if (Math.abs(turning - lastSetpointTurning) > rate) {
-            turning = turning < lastSetpointTurning ? lastSetpointTurning - rate : lastSetpointTurning + rate;
-        }
+//        if (Math.abs(speed - lastSetpointSpeed) > rate) {
+//            speed = speed < lastSetpointSpeed ? lastSetpointSpeed - rate : lastSetpointSpeed + rate;
+//        }
+//        if (Math.abs(turning - lastSetpointTurning) > rate) {
+//            turning = turning < lastSetpointTurning ? lastSetpointTurning - rate : lastSetpointTurning + rate;
+//        }
         lastSetpointSpeed = speed;
         lastSetpointTurning = turning;
         driveTrain.setSpeedsPercent(speed + turning, speed - turning);
@@ -169,12 +169,12 @@ public class JoystickDrive extends Command {
         double rate = driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
 
 
-        if (Math.abs(lSpeed - lastSetpointLeft) > rate) {
-            lSpeed = lSpeed < lastSetpointLeft ? lastSetpointLeft - rate : lastSetpointLeft + rate;
-        }
-        if (Math.abs(rSpeed - lastSetpointRight) > rate) {
-            rSpeed = rSpeed < lastSetpointRight ? lastSetpointRight - rate : lastSetpointRight + rate;
-        }
+//        if (Math.abs(lSpeed - lastSetpointLeft) > rate) {
+//            lSpeed = lSpeed < lastSetpointLeft ? lastSetpointLeft - rate : lastSetpointLeft + rate;
+//        }
+//        if (Math.abs(rSpeed - lastSetpointRight) > rate) {
+//            rSpeed = rSpeed < lastSetpointRight ? lastSetpointRight - rate : lastSetpointRight + rate;
+//        }
 
         lastSetpointRight = rSpeed;
         lastSetpointLeft = lSpeed;

@@ -71,8 +71,8 @@ public class Robot extends TimedRobot {
         RobotMap.init(); // Initialize all sensors, motors, etc.
         // Subsystem initializations
         driveTrain = new DriveTrain();
-//        cubeAcquisition = new CubeAcquisition();
-        lift = new Lift();
+        cubeAcquisition = new CubeAcquisition();
+//        lift = new Lift();
         ledStrip = new LEDStrip(42);
 
         SmartDashboard.putNumber("l max", lMax);
@@ -102,6 +102,14 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
         SmartDashboard.putNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
         SmartDashboard.putNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_I);
+
+        SmartDashboard.putNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
+        SmartDashboard.putNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
+        SmartDashboard.putNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_D);
+        SmartDashboard.putNumber("rate", 0.1);
+        SmartDashboard.putNumber("tolerance", 200);
+        SmartDashboard.putNumber("min", 0.2);
+        SmartDashboard.putNumber("max", 0.5);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
     }
@@ -171,6 +179,8 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putBoolean("outer", RobotMap.getOuterCubeDetector().get());
         SmartDashboard.putBoolean("inner", RobotMap.getInnerCubeDetector().get());
+
+        SmartDashboard.putNumber("left enc", driveTrain.getLeftEncPos());
 
         int r = driveTrain.getRightEncVelocity();
         int l = driveTrain.getLeftEncVelocity();

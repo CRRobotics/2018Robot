@@ -82,6 +82,9 @@ public class DriveTrain extends Subsystem {
         rightFollower1.setNeutralMode(mode);
         rightFollower2.setNeutralMode(mode);
 
+        leftDrive.configClosedloopRamp(0.5, 10);
+        rightDrive.configClosedloopRamp(0.5, 10);
+
 
         leftFollower1.follow(leftDrive);
         leftFollower2.follow(leftDrive);
