@@ -2,8 +2,10 @@ package org.team639.robot.commands.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.math.AngleMath;
 import org.team639.lib.math.PID;
+import org.team639.robot.Constants;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.DriveTrain;
 
@@ -28,24 +30,24 @@ public class AutoTurnToAngle extends Command {
 
     private PID pid;
 
-    public AutoTurnToAngle(double pAngle, double speed) {
+    public AutoTurnToAngle(double angle) {
         super("AutoTurnToAngle");
         driveTrain = Robot.getDriveTrain();
         requires(driveTrain);
-        this.angle = pAngle % 360;
+        this.angle = angle % 360;
     }
 
     //anthony is a pretty cool guy
     protected void initialize() {
 ////        done = false;
-//        double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.DRIVE_P);
-//        double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.DRIVE_I);
-//        double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.DRIVE_I);
-//        double rate = SmartDashboard.getNumber("rate", 0.1);
+//        double p = SmartDashboard.getNumber("drive p", TTA_P);
+//        double i = SmartDashboard.getNumber("drive i", TTA_I);
+//        double d = SmartDashboard.getNumber("drive d", TTA_D);
+//        double rate = SmartDashboard.getNumber("rate", TTA_RATE);
 //        double tolerance = TTA_TOLERANCE; // SmartDashboard.getNumber("tolerance", 2);
-//        double min = SmartDashboard.getNumber("min", 0.2);
-//        double max = SmartDashboard.getNumber("max", 0.5);
-//        double iCap = SmartDashboard.getNumber("iCap", 0.2);
+//        double min = SmartDashboard.getNumber("min", TTA_MIN);
+//        double max = SmartDashboard.getNumber("max", TTA_MAX);
+//        double iCap = SmartDashboard.getNumber("iCap", TTA_I_CAP);
         pid = new PID(TTA_P, TTA_I, TTA_D, TTA_MIN, TTA_MAX, TTA_RATE, TTA_TOLERANCE, TTA_I_CAP);
 
 

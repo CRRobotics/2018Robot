@@ -100,13 +100,13 @@ public class Robot extends TimedRobot {
         driveTalonControlMode.addObject("Open loop", ControlMode.PercentOutput);
         SmartDashboard.putData("Control mode", driveTalonControlMode);
 
-        SmartDashboard.putNumber("drive p", ADF_P);
-        SmartDashboard.putNumber("drive i", ADF_I);
-        SmartDashboard.putNumber("drive d", ADF_D);
-        SmartDashboard.putNumber("rate", ADF_RATE);
-        SmartDashboard.putNumber("tolerance", ADF_TOLERANCE);
-        SmartDashboard.putNumber("min", ADF_MIN);
-        SmartDashboard.putNumber("max", ADF_MAX);
+        SmartDashboard.putNumber("drive p", TTA_P);
+        SmartDashboard.putNumber("drive i", TTA_I);
+        SmartDashboard.putNumber("drive d", TTA_D);
+        SmartDashboard.putNumber("rate", TTA_RATE);
+        SmartDashboard.putNumber("tolerance", TTA_TOLERANCE);
+        SmartDashboard.putNumber("min", TTA_MIN);
+        SmartDashboard.putNumber("max", TTA_MAX);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
     }
@@ -174,6 +174,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("drivetrain encoders", driveTrain.encodersPresent());
         SmartDashboard.putNumber("Left speed", driveTrain.getLeftEncVelocity());
         SmartDashboard.putNumber("Right speed", driveTrain.getRightEncVelocity());
+
+        SmartDashboard.putNumber("navx yaw", driveTrain.getRobotYaw());
 
         SmartDashboard.putBoolean("outer", RobotMap.getOuterCubeDetector().get());
         SmartDashboard.putBoolean("inner", RobotMap.getInnerCubeDetector().get());

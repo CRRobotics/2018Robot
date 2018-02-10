@@ -1,7 +1,5 @@
 package org.team639.robot;
 
-import org.team639.lib.TextSettings;
-
 /**
  * Constants used by the robot.
  * Part of 2018Robot.
