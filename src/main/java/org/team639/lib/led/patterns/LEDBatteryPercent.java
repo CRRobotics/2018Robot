@@ -16,8 +16,7 @@ public class LEDBatteryPercent extends LEDPattern{
 
     @Override
     public LEDColor[] start() {
-        percent = RobotController.getBatteryVoltage() / 13;
-        percent = percent - ((1 - percent) / 2 );
+        percent = (RobotController.getBatteryVoltage() - 5) / 8;
         for(int i = 0; i < round(percent*pattern.length); i++) {
             pattern[i] = new LEDColor(round(255*(1-percent)), round(255*percent), 0);
         }
