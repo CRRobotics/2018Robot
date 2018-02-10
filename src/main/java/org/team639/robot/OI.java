@@ -30,11 +30,10 @@ public class OI {
 //        manager.mapButton(LogitechF310.Buttons.X, new FloatAcquisition(), JoystickManager.MappingType.WhenPressed);
 //        manager.mapButton(LogitechF310.Buttons.Y, new CloseOnCubeAtBack(), JoystickManager.MappingType.WhenPressed);
 
-//        manager.mapButton(LogitechF310.Buttons.LB, new ShiftHigh(), JoystickManager.MappingType.WhenPressed);
-//        manager.mapButton(LogitechF310.Buttons.RB, new ShiftLow(), JoystickManager.MappingType.WhenPressed);
+        manager.mapButton(LogitechF310.Buttons.LB, new ShiftHigh(), JoystickManager.MappingType.WhenPressed);
+        manager.mapButton(LogitechF310.Buttons.RB, new ShiftLow(), JoystickManager.MappingType.WhenPressed);
 
-        manager.mapButton(LogitechF310.Buttons.A, new AutoDriveForward(3 * 12), JoystickManager.MappingType.WhenPressed);
-
+        manager.mapButton(LogitechF310.Buttons.A, new AutoDriveForward(6 * 12), JoystickManager.MappingType.WhenPressed);
     }
 
     private OI() {

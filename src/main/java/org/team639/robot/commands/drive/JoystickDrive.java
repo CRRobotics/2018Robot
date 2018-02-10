@@ -142,7 +142,7 @@ public class JoystickDrive extends Command {
      * @param turning The turning magnitude from -1 to 1
      */
     public void arcadeDrive(double speed, double turning) {
-//        speed /= 2;
+        speed = speed * 2 / 3;
         turning /= 3;
         double rate = SmartDashboard.getNumber("rrate", HIGH_ARCADE_RATE); //driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
 

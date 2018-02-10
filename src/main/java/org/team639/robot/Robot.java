@@ -13,6 +13,7 @@ import org.team639.robot.subsystems.DriveTrain;
 import org.team639.robot.subsystems.LEDStrip;
 import org.team639.robot.subsystems.Lift;
 
+import static org.team639.robot.Constants.Auto.*;
 import static org.team639.robot.Constants.DriveTrain.HIGH_ARCADE_RATE;
 
 /**
@@ -99,17 +100,13 @@ public class Robot extends TimedRobot {
         driveTalonControlMode.addObject("Open loop", ControlMode.PercentOutput);
         SmartDashboard.putData("Control mode", driveTalonControlMode);
 
-        SmartDashboard.putNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
-        SmartDashboard.putNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
-        SmartDashboard.putNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_I);
-
-        SmartDashboard.putNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
-        SmartDashboard.putNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
-        SmartDashboard.putNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_D);
-        SmartDashboard.putNumber("rate", 0.1);
-        SmartDashboard.putNumber("tolerance", 200);
-        SmartDashboard.putNumber("min", 0.2);
-        SmartDashboard.putNumber("max", 0.5);
+        SmartDashboard.putNumber("drive p", ADF_P);
+        SmartDashboard.putNumber("drive i", ADF_I);
+        SmartDashboard.putNumber("drive d", ADF_D);
+        SmartDashboard.putNumber("rate", ADF_RATE);
+        SmartDashboard.putNumber("tolerance", ADF_TOLERANCE);
+        SmartDashboard.putNumber("min", ADF_MIN);
+        SmartDashboard.putNumber("max", ADF_MAX);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
     }
@@ -154,7 +151,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit() {
-        ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
+//        ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
+        ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));
     }
 
     /**
@@ -181,6 +179,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("inner", RobotMap.getInnerCubeDetector().get());
 
         SmartDashboard.putNumber("left enc", driveTrain.getLeftEncPos());
+        SmartDashboard.putNumber("right enc", driveTrain.getRightEncPos());
 
         int r = driveTrain.getRightEncVelocity();
         int l = driveTrain.getLeftEncVelocity();

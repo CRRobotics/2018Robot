@@ -8,6 +8,7 @@ import org.team639.robot.Robot;
 import org.team639.robot.Constants;
 import org.team639.robot.subsystems.DriveTrain;
 
+import static org.team639.robot.Constants.Auto.*;
 import static org.team639.robot.Constants.DriveTrain.*;
 
 /**
@@ -53,23 +54,23 @@ public class AutoDriveForward extends Command {
         driveTrain.setSpeedsPercent(0, 0);
         driveTrain.setCurrentControlMode(ControlMode.Velocity);
         driveTrain.setCurrentGear(DriveTrain.DriveGear.High);
-        driveTrain.setRampRate(1); // TODO: Maybe change this.
+//        driveTrain.setRampRate(1); // TODO: Maybe change this.
 
-        double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
-        double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
-        double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_D);
-        double rate = SmartDashboard.getNumber("rate", 0.1);
-        double tolerance = SmartDashboard.getNumber("tolerance", 200);
-        double min = SmartDashboard.getNumber("min", 0.2);
-        double max = SmartDashboard.getNumber("max", 0.5);
-        pid = new PID(p, i, d, min, max, rate, tolerance, 0.2);
+//        double p = SmartDashboard.getNumber("drive p", ADF_P);
+//        double i = SmartDashboard.getNumber("drive i", ADF_I);
+//        double d = SmartDashboard.getNumber("drive d", ADF_D);
+//        double rate = SmartDashboard.getNumber("rate", ADF_RATE);
+//        double tolerance = SmartDashboard.getNumber("tolerance", ADF_TOLERANCE);
+//        double min = SmartDashboard.getNumber("min", ADF_MIN);
+//        double max = SmartDashboard.getNumber("max", ADF_MAX);
+        pid = new PID(ADF_P, ADF_I, ADF_D, ADF_MIN, ADF_MAX, ADF_RATE, ADF_TOLERANCE, ADF_I_CAP);
 //
         turnPID = new PID(FOT_P, FOT_I, FOT_D, FOT_MIN, FOT_MAX, FOT_RATE, FOT_TOLERANCE, FOT_I_CAP);
     }
 
     protected void execute() {
-        lTickDiff = Math.abs(targetLeft - driveTrain.getLeftEncPos());
-        rTickDiff = Math.abs(targetRight - driveTrain.getRightEncPos());
+        lTickDiff = targetLeft - driveTrain.getLeftEncPos();
+        rTickDiff = targetRight - driveTrain.getRightEncPos();
 
         double val = pid.compute(lTickDiff);
         SmartDashboard.putNumber("error", lTickDiff);
