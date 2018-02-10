@@ -18,10 +18,15 @@ public class LEDBatteryPercent extends LEDPattern{
     public LEDColor[] start() {
         percent = (RobotController.getBatteryVoltage() - 5) / 8;
         for(int i = 0; i < round(percent*pattern.length); i++) {
-            pattern[i] = new LEDColor(round(255*(1-percent)), round(255*percent), 0);
+            pattern[i] = new LEDColor(round(255*(1-percent + .1)), round(255*(percent)), round(50*(1-percent)));
         }
         for(int i = round(percent*pattern.length); i < pattern.length; i++) {
                 pattern[i] = new LEDColor(0,0,0);
+        }
+        if(RobotController.isBrownedOut()) {
+            for(int i = 0; i < pattern.length; i++){
+                pattern[i] = new LEDColor(255, 0, 0);
+            }
         }
         return pattern;
     }
