@@ -11,7 +11,7 @@ public class Constants {
         // TODO: Tune everything.
         public static final double HIGH_MIN_DRIVE_PERCENT = 0.09;
 
-        public static final double HIGH_SPEED_RANGE = 33000;
+        public static final double HIGH_SPEED_RANGE = 33000 * 0.95;
         public static final double HIGH_DRIVE_P = 0.1;
         public static final double HIGH_DRIVE_I = 0;
         public static final double HIGH_DRIVE_D = 0;
@@ -45,6 +45,16 @@ public class Constants {
         public static final double FOT_RATE = 0.015;
         public static final double FOT_I_CAP = 0.2;
         public static final double FOT_TOLERANCE = 2;
+
+        // Angle correction constants
+        public static final double AC_P = 0.007;
+        public static final double AC_I = 0;
+        public static final double AC_D = 0;
+        public static final double AC_MIN = 0.09;
+        public static final double AC_MAX = 1;
+        public static final double AC_RATE = 0.01;
+        public static final double AC_I_CAP = 0.2;
+        public static final double AC_TOLERANCE = 2;
 
     }
 
@@ -97,7 +107,6 @@ public class Constants {
 //    public static final int LIFT_UPPER_LIMIT = 395000;
 //    public static final int LIFT_LOWER_SLOW_DISTANCE = 50000;
     public static final int LIFT_SLOW_DISTANCE = 50000;
-
 
     public static final int LIFT_TOLERANCE = 200;
 
