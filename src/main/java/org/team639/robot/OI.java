@@ -1,12 +1,8 @@
 package org.team639.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotController;
 import org.team639.lib.controls.JoystickManager;
 import org.team639.lib.controls.LogitechF310;
-import org.team639.robot.commands.cube.*;
 import org.team639.robot.commands.drive.AutoDriveForward;
-import org.team639.robot.commands.drive.AutoTurnToAngle;
 import org.team639.robot.commands.drive.ShiftHigh;
 import org.team639.robot.commands.drive.ShiftLow;
 
@@ -34,7 +30,7 @@ public class OI {
         manager.mapButton(LogitechF310.Buttons.LB, new ShiftHigh(), JoystickManager.MappingType.WhenPressed);
         manager.mapButton(LogitechF310.Buttons.RB, new ShiftLow(), JoystickManager.MappingType.WhenPressed);
 
-        manager.mapButton(LogitechF310.Buttons.A, new AutoTurnToAngle(90), JoystickManager.MappingType.WhenPressed);
+        manager.mapButton(LogitechF310.Buttons.A, new AutoDriveForward(3 * 12), JoystickManager.MappingType.WhenPressed);
     }
 
     private OI() {

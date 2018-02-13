@@ -3,6 +3,7 @@ package org.team639.robot.commands.drive;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.team639.lib.math.AngleMath;
 import org.team639.lib.math.PID;
 import org.team639.robot.Robot;
 import org.team639.robot.Constants;
@@ -48,24 +49,29 @@ public class AutoDriveForward extends Command {
 
         angle = driveTrain.getRobotYaw();
 
+        SmartDashboard.putNumber("target", targetTicks);
+
+
         targetLeft = driveTrain.getLeftEncPos() + targetTicks;
         targetRight = driveTrain.getRightEncPos() + targetTicks;
+
+        SmartDashboard.putNumber("startError", targetLeft - driveTrain.getLeftEncPos());
 
         driveTrain.setSpeedsPercent(0, 0);
         driveTrain.setCurrentControlMode(ControlMode.Velocity);
         driveTrain.setCurrentGear(DriveTrain.DriveGear.High);
 //        driveTrain.setRampRate(1); // TODO: Maybe change this.
 
-//        double p = SmartDashboard.getNumber("drive p", ADF_P);
-//        double i = SmartDashboard.getNumber("drive i", ADF_I);
-//        double d = SmartDashboard.getNumber("drive d", ADF_D);
-//        double rate = SmartDashboard.getNumber("rate", ADF_RATE);
-//        double tolerance = SmartDashboard.getNumber("tolerance", ADF_TOLERANCE);
-//        double min = SmartDashboard.getNumber("min", ADF_MIN);
-//        double max = SmartDashboard.getNumber("max", ADF_MAX);
-        pid = new PID(ADF_P, ADF_I, ADF_D, ADF_MIN, ADF_MAX, ADF_RATE, ADF_TOLERANCE, ADF_I_CAP);
+        double p = SmartDashboard.getNumber("drive p", AC_P);
+        double i = SmartDashboard.getNumber("drive i", AC_I);
+        double d = SmartDashboard.getNumber("drive d", AC_D);
+        double rate = SmartDashboard.getNumber("rate", AC_RATE);
+        double tolerance = SmartDashboard.getNumber("tolerance", AC_TOLERANCE);
+        double min = SmartDashboard.getNumber("min", AC_MIN);
+        double max = SmartDashboard.getNumber("max", AC_MAX);
+        pid = new PID(p, i, d, min, max, rate, tolerance, ADF_I_CAP);
 //
-        turnPID = new PID(FOT_P, FOT_I, FOT_D, FOT_MIN, FOT_MAX, FOT_RATE, FOT_TOLERANCE, FOT_I_CAP);
+//        turnPID = new PID(p, i, d, min, max, rate, tolerance, AC_I_CAP);
     }
 
     protected void execute() {
@@ -77,8 +83,8 @@ public class AutoDriveForward extends Command {
         // TODO: Re-enable angle correction and tune it.
 //        double error = AngleMath.shortestAngle(driveTrain.getRobotYaw(), angle);
 //        double output = turnPID.compute(error);
-////        System.out.println((val - output) + ", " + (val + output));
-        driveTrain.setSpeedsPercent(val/* - output */, val /*+ output*/);
+//        System.out.println((val - output) + ", " + (val + output));
+        driveTrain.setSpeedsPercent(val /*- output*/, val /*+ output*/);
         done = (val == 0);
     }
 
