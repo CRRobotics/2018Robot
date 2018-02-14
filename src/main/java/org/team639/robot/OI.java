@@ -31,9 +31,14 @@ public class OI {
         manager.mapButton(LogitechF310.Buttons.LB, new ShiftHigh(), JoystickManager.MappingType.WhenPressed);
         manager.mapButton(LogitechF310.Buttons.RB, new ShiftLow(), JoystickManager.MappingType.WhenPressed);
 
-        manager.mapButton(LogitechF310.Buttons.A, new AutoDriveForward(5 * 12), JoystickManager.MappingType.WhenPressed);
+        manager.mapButton(LogitechF310.Buttons.A, new AutoDriveForward(10 * 12), JoystickManager.MappingType.WhenPressed);
 
         manager.mapButton(LogitechF310.Buttons.Y, new AutoTurnToAngle(270), JoystickManager.MappingType.WhenPressed);
+
+        manager.mapButton(LogitechF310.Buttons.POVLeft, new AutoTurnToAngle(180), JoystickManager.MappingType.WhenPressed);
+        manager.mapButton(LogitechF310.Buttons.POVUp, new AutoTurnToAngle(90), JoystickManager.MappingType.WhenPressed);
+        manager.mapButton(LogitechF310.Buttons.POVRight, new AutoTurnToAngle(0), JoystickManager.MappingType.WhenPressed);
+        manager.mapButton(LogitechF310.Buttons.POVDown, new AutoTurnToAngle(270), JoystickManager.MappingType.WhenPressed);
     }
 
     private OI() {

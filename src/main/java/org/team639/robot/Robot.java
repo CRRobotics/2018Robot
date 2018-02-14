@@ -14,8 +14,7 @@ import org.team639.robot.subsystems.LEDStrip;
 import org.team639.robot.subsystems.Lift;
 
 import static org.team639.robot.Constants.Auto.*;
-import static org.team639.robot.Constants.DriveTrain.HIGH_ARCADE_RATE;
-import static org.team639.robot.Constants.DriveTrain.HIGH_SPEED_RANGE;
+import static org.team639.robot.Constants.DriveTrain.*;
 
 /**
  * The main robot class.
@@ -101,13 +100,13 @@ public class Robot extends TimedRobot {
         driveTalonControlMode.addObject("Open loop", ControlMode.PercentOutput);
         SmartDashboard.putData("Control mode", driveTalonControlMode);
 
-        SmartDashboard.putNumber("drive p", TTA_P);
-        SmartDashboard.putNumber("drive i", TTA_I);
-        SmartDashboard.putNumber("drive d", TTA_D);
-        SmartDashboard.putNumber("rate", TTA_RATE);
-        SmartDashboard.putNumber("tolerance", TTA_TOLERANCE);
-        SmartDashboard.putNumber("min", TTA_MIN);
-        SmartDashboard.putNumber("max", TTA_MAX);
+        SmartDashboard.putNumber("drive p", AC_P);
+        SmartDashboard.putNumber("drive i", AC_I);
+        SmartDashboard.putNumber("drive d", AC_D);
+        SmartDashboard.putNumber("rate", AC_RATE);
+        SmartDashboard.putNumber("tolerance", AC_TOLERANCE);
+        SmartDashboard.putNumber("min", AC_MIN);
+        SmartDashboard.putNumber("max", AC_MAX);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
     }

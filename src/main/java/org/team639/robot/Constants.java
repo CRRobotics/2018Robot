@@ -47,11 +47,11 @@ public class Constants {
         public static final double FOT_TOLERANCE = 2;
 
         // Angle correction constants
-        public static final double AC_P = 0.007;
+        public static final double AC_P = 0.0035;
         public static final double AC_I = 0;
         public static final double AC_D = 0;
-        public static final double AC_MIN = 0.09;
-        public static final double AC_MAX = 1;
+        public static final double AC_MIN = 0;
+        public static final double AC_MAX = 0.03;
         public static final double AC_RATE = 0.01;
         public static final double AC_I_CAP = 0.2;
         public static final double AC_TOLERANCE = 2;
@@ -69,7 +69,7 @@ public class Constants {
         public static final double TTA_I_CAP = 0.2;
         public static final double TTA_TOLERANCE = 2;
 
-        public static final double ADF_P = 0.00001;
+        public static final double ADF_P = 0.0000075;
         public static final double ADF_I = 0;
         public static final double ADF_D = 0;
         public static final double ADF_MIN = 0.045;
