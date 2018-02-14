@@ -30,12 +30,11 @@ public class LEDVelocityLighting extends LEDPattern {
 
     @Override
     public LEDColor[] nextPortion() {
-        int vel;
+        int vel = 0;
         try {
-            vel = velocity.call().intValue();
-        } catch(Exception e)
-        {
-            vel = 0;
+            vel = velocity.call();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         double percent = vel / maxSpeed;
         double percentRed;

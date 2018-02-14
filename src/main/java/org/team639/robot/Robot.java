@@ -152,7 +152,8 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
 //        ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
-        ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));
+//        ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));
+        ledStrip.changeMode(new LEDVelocityLighting(ledStrip.getLength(), (int)HIGH_SPEED_RANGE, () -> driveTrain.getLeftEncVelocity()));
     }
 
     /**
