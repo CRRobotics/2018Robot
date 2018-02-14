@@ -4,16 +4,18 @@ import org.team639.lib.led.LEDColor;
 import org.team639.lib.led.LEDPattern;
 import org.team639.robot.subsystems.DriveTrain;
 
+import java.util.concurrent.Callable;
+
 
 public class LEDVelocityLighting extends LEDPattern {
 
     private LEDColor[] pattern;
-    private DriveTrain driveTrain;
     int maxSpeed;
-    public LEDVelocityLighting(int length, int maxSpeed, DriveTrain driveTrain) {
+    Callable<Integer> velocity;
+    public LEDVelocityLighting(int length, int maxSpeed, Callable<Integer> velocity) {
         pattern = new LEDColor[length];
         this.maxSpeed = maxSpeed;
-        this.driveTrain = driveTrain;
+        this.velocity = velocity;
     }
 
     @Override
@@ -28,7 +30,14 @@ public class LEDVelocityLighting extends LEDPattern {
 
     @Override
     public LEDColor[] nextPortion() {
-        double percent = driveTrain.getLeftEncVelocity() / maxSpeed;
+        int vel;
+        try {
+            vel = velocity.call().intValue();
+        } catch(Exception e)
+        {
+            vel = 0;
+        }
+        double percent = vel / maxSpeed;
         double percentRed;
         double percentGreen;
         if(percent > .50) {
