@@ -75,35 +75,35 @@ public class JoystickDrive extends Command {
         double speed;
         double angle;
 
-        double scale = 1 - 0.8 * OI.manager.getControllerAxis(LogitechF310.ControllerAxis.RightTrigger);
+        double scale = 1 - 0.8 * OI.drive.getControllerAxis(LogitechF310.ControllerAxis.RightTrigger);
         if (scale < 0.2) scale = 0.2;
         mode = Robot.getDriveMode();
         switch (mode) {
             case Tank:
-                tankDrive(OI.manager.getLeftStickY() * scale, OI.manager.getRightStickY() * scale);
+                tankDrive(OI.drive.getLeftStickY() * scale, OI.drive.getRightStickY() * scale);
                 break;
             case Arcade1Joystick:
-                arcadeDrive(OI.manager.getRightStickY() * scale, OI.manager.getRightStickX() * scale);
+                arcadeDrive(OI.drive.getRightStickY() * scale, OI.drive.getRightStickX() * scale);
                 break;
             case Arcade2JoystickLeftDrive:
-                arcadeDrive(OI.manager.getLeftStickY() * scale, OI.manager.getRightStickX() * scale);
+                arcadeDrive(OI.drive.getLeftStickY() * scale, OI.drive.getRightStickX() * scale);
                 break;
             case Arcade2JoystickRightDrive:
-                arcadeDrive(OI.manager.getRightStickY() * scale, OI.manager.getLeftStickX() * scale);
+                arcadeDrive(OI.drive.getRightStickY() * scale, OI.drive.getLeftStickX() * scale);
                 break;
             case Field1Joystick:
-                x = OI.manager.getRightStickX();
-                y = OI.manager.getRightStickY();
-                angle = Math.abs(x) >= Constants.JOYSTICK_DEADZONE || Math.abs(y) >= Constants.JOYSTICK_DEADZONE ? OI.manager.getRightDriveAngle() : 500;
+                x = OI.drive.getRightStickX();
+                y = OI.drive.getRightStickY();
+                angle = Math.abs(x) >= Constants.JOYSTICK_DEADZONE || Math.abs(y) >= Constants.JOYSTICK_DEADZONE ? OI.drive.getRightDriveAngle() : 500;
                 speed = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
                 fieldOrientedDrive(angle, speed, 1);
                 break;
             case Field2Joystick:
-                x = OI.manager.getLeftStickX();
-                y = OI.manager.getLeftStickY();
-                angle = Math.abs(x) >= Constants.JOYSTICK_DEADZONE || Math.abs(y) >= Constants.JOYSTICK_DEADZONE ? OI.manager.getLeftDriveAngle() : 500;
+                x = OI.drive.getLeftStickX();
+                y = OI.drive.getLeftStickY();
+                angle = Math.abs(x) >= Constants.JOYSTICK_DEADZONE || Math.abs(y) >= Constants.JOYSTICK_DEADZONE ? OI.drive.getLeftDriveAngle() : 500;
                 speed = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
-                fieldOrientedDrive(angle, OI.manager.getRightStickY() * scale, speed);
+                fieldOrientedDrive(angle, OI.drive.getRightStickY() * scale, speed);
                 break;
         }
     }

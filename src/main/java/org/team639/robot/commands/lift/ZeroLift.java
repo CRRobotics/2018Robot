@@ -58,6 +58,7 @@ public class ZeroLift extends Command {
             case Down:
                 lift.setSpeedPercent(-1 * LIFT_ZERO_SPEED);
                 if (lift.isAtLowerLimit()) {
+                    lift.zeroEncoder();
                     state = State.Done;
                     lift.setSpeedPercent(0);
                 }
