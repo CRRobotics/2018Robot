@@ -57,6 +57,9 @@ public class Lift extends Subsystem {
 
         firstStageLock = RobotMap.getLiftLock();
 
+        mainTalon.configMotionCruiseVelocity(LIFT_CRUISE, 0);
+        mainTalon.configMotionAcceleration(LIFT_ACCELERATION, 0);
+
         setPID(LIFT_P, LIFT_I, LIFT_D, LIFT_F);
         if (encoderPresent()) setCurrentControlMode(ControlMode.Velocity); // TODO: make this velocity again
         else setCurrentControlMode(ControlMode.PercentOutput);

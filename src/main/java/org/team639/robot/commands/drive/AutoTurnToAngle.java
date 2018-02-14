@@ -39,17 +39,16 @@ public class AutoTurnToAngle extends Command {
 
     //anthony is a pretty cool guy
     protected void initialize() {
-////        done = false;
-//        double p = SmartDashboard.getNumber("drive p", TTA_P);
-//        double i = SmartDashboard.getNumber("drive i", TTA_I);
-//        double d = SmartDashboard.getNumber("drive d", TTA_D);
-//        double rate = SmartDashboard.getNumber("rate", TTA_RATE);
-//        double tolerance = TTA_TOLERANCE; // SmartDashboard.getNumber("tolerance", 2);
-//        double min = SmartDashboard.getNumber("min", TTA_MIN);
-//        double max = SmartDashboard.getNumber("max", TTA_MAX);
-//        double iCap = SmartDashboard.getNumber("iCap", TTA_I_CAP);
-        pid = new PID(TTA_P, TTA_I, TTA_D, TTA_MIN, TTA_MAX, TTA_RATE, TTA_TOLERANCE, TTA_I_CAP);
-
+        done = false;
+        double p = SmartDashboard.getNumber("drive p", TTA_P);
+        double i = SmartDashboard.getNumber("drive i", TTA_I);
+        double d = SmartDashboard.getNumber("drive d", TTA_D);
+        double rate = SmartDashboard.getNumber("rate", TTA_RATE);
+        double tolerance = TTA_TOLERANCE; // SmartDashboard.getNumber("tolerance", 2);
+        double min = SmartDashboard.getNumber("min", TTA_MIN);
+        double max = SmartDashboard.getNumber("max", TTA_MAX);
+        double iCap = SmartDashboard.getNumber("iCap", TTA_I_CAP);
+        pid = new PID(p, i, d, min, max, rate, tolerance, iCap);
 
         driveTrain.setSpeedsPercent(0, 0);
         driveTrain.setCurrentControlMode(ControlMode.Velocity);

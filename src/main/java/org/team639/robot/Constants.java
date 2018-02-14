@@ -27,7 +27,7 @@ public class Constants {
         public static final double LOW_DRIVE_F = 1023/LOW_SPEED_RANGE;
         public static final double LOW_ARCADE_RATE = 0.03;
 
-        public static final double WHEEL_DIAMETER_INCHES = 4;
+        public static final double WHEEL_DIAMETER_INCHES = 4 * 1.029;
         public static final double WHEEL_CIRCUMFERENCE_INCHES = Math.PI * WHEEL_DIAMETER_INCHES;
 
         public static final double ENC_TICKS_PER_ROTATION = 4096 * 3 * 54 / 30; // Quad encoder has 1024 ticks (* 4 = 4096). 3 and 54/30 are gear ratios.
@@ -69,12 +69,12 @@ public class Constants {
         public static final double TTA_I_CAP = 0.2;
         public static final double TTA_TOLERANCE = 2;
 
-        public static final double ADF_P = 0.000005;
+        public static final double ADF_P = 0.00001;
         public static final double ADF_I = 0;
         public static final double ADF_D = 0;
-        public static final double ADF_MIN = 0.09;
+        public static final double ADF_MIN = 0.045;
         public static final double ADF_MAX = 0.8;
-        public static final double ADF_RATE = 0.025;
+        public static final double ADF_RATE = 0.0025;
         public static final double ADF_I_CAP = 0.2;
         public static final double ADF_TOLERANCE = 800;
     }
@@ -87,9 +87,12 @@ public class Constants {
     public static final double LIFT_D = 0;
     public static final double LIFT_F = 0;
 
-    public static final double LIFT_MAX_SPEED = 1000; // TODO: Find real value.
+    public static final int LIFT_MAX_SPEED = 1000; // TODO: Find real value.
 
-    //lift position pid
+    public static final int LIFT_CRUISE = LIFT_MAX_SPEED;
+    public static final int LIFT_ACCELERATION = LIFT_MAX_SPEED / 10;
+
+    // lift position pid
     public static final double LIFT_POS_P = 0;
     public static final double LIFT_POS_I = 0;
     public static final double LIFT_POS_D = 0;

@@ -59,17 +59,18 @@ public class AutoDriveForward extends Command {
 
         driveTrain.setSpeedsPercent(0, 0);
         driveTrain.setCurrentControlMode(ControlMode.Velocity);
+        // Dominic "DJ" Towns was here.
         driveTrain.setCurrentGear(DriveTrain.DriveGear.High);
 //        driveTrain.setRampRate(1); // TODO: Maybe change this.
 
-        double p = SmartDashboard.getNumber("drive p", AC_P);
-        double i = SmartDashboard.getNumber("drive i", AC_I);
-        double d = SmartDashboard.getNumber("drive d", AC_D);
-        double rate = SmartDashboard.getNumber("rate", AC_RATE);
-        double tolerance = SmartDashboard.getNumber("tolerance", AC_TOLERANCE);
-        double min = SmartDashboard.getNumber("min", AC_MIN);
-        double max = SmartDashboard.getNumber("max", AC_MAX);
-        pid = new PID(p, i, d, min, max, rate, tolerance, ADF_I_CAP);
+//        double p = SmartDashboard.getNumber("drive p", AC_P);
+//        double i = SmartDashboard.getNumber("drive i", AC_I);
+//        double d = SmartDashboard.getNumber("drive d", AC_D);
+//        double rate = SmartDashboard.getNumber("rate", AC_RATE);
+//        double tolerance = SmartDashboard.getNumber("tolerance", AC_TOLERANCE);
+//        double min = SmartDashboard.getNumber("min", AC_MIN);
+//        double max = SmartDashboard.getNumber("max", AC_MAX);
+        pid = new PID(ADF_P, ADF_I, ADF_D, ADF_MIN, ADF_MAX, ADF_RATE, ADF_TOLERANCE, ADF_I_CAP);
 //
 //        turnPID = new PID(p, i, d, min, max, rate, tolerance, AC_I_CAP);
     }
