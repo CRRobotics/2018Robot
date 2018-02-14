@@ -4,12 +4,24 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.Lift;
 
+import static org.team639.robot.Constants.LIFT_ZERO_SPEED;
+
 /**
- * Zeroes the lift.
+ * Zeroes the lift by driving it up until the bottom limit switch is no longer triggered, then driving it down until it triggers again.
  */
 public class ZeroLift extends Command {
     private Lift lift;
 
+    /**
+     * The state of the process.
+     */
+    private enum State {
+        Up,
+        Down,
+        Done
+    }
+
+    private State state;
     private boolean done;
 
     public ZeroLift() {
@@ -24,10 +36,9 @@ public class ZeroLift extends Command {
     @Override
     protected void initialize() {
         if (lift.isAtLowerLimit()) {
-            lift.zeroEncoder();
-            done = true;
+            state = State.Up;
         } else {
-            done = false;
+            state = State.Down;
         }
     }
 
@@ -36,12 +47,21 @@ public class ZeroLift extends Command {
      */
     @Override
     protected void execute() {
-        if (lift.isAtLowerLimit()) {
-            done = true;
-            lift.setSpeedPercent(0);
-            lift.zeroEncoder();
-        } else {
-            lift.setSpeedPercent(-0.1);
+        switch (state) {
+            case Up:
+                lift.setSpeedPercent(LIFT_ZERO_SPEED);
+                if (!lift.isAtLowerLimit()) {
+                    state = State.Down;
+                    lift.setSpeedPercent(-1 * LIFT_ZERO_SPEED);
+                }
+                break;
+            case Down:
+                lift.setSpeedPercent(-1 * LIFT_ZERO_SPEED);
+                if (lift.isAtLowerLimit()) {
+                    state = State.Done;
+                    lift.setSpeedPercent(0);
+                }
+                break;
         }
     }
 
@@ -80,6 +100,6 @@ public class ZeroLift extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return done;
+        return state == State.Done;
     }
 }

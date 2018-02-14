@@ -48,8 +48,8 @@ public class MoveLiftWithJoystick extends Command {
 //        if ((lift.isAtSecondStageLimit() && speed > 0) || (lift.encoderPresent() && (lift.getEncPos() > LIFT_MAX_HEIGHT - LIFT_TOLERANCE) && speed > 0)) speed = 0;
 //        if (lift.isAtLowerLimit() && speed < 0) speed = 0;
 
-        if (speed == 0) lift.setFirstStageLocked(true);
-        else lift.setFirstStageLocked(false);
+        if (speed == 0) lift.setBrake(true);
+        else lift.setBrake(false);
 
         lift.setSpeedPercent(speed);
     }

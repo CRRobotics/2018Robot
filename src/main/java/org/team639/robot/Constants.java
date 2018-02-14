@@ -92,24 +92,18 @@ public class Constants {
     public static final int LIFT_CRUISE = LIFT_MAX_SPEED;
     public static final int LIFT_ACCELERATION = LIFT_MAX_SPEED / 10;
 
-    // lift position pid
-    public static final double LIFT_POS_P = 0;
-    public static final double LIFT_POS_I = 0;
-    public static final double LIFT_POS_D = 0;
-    public static final double LIFT_POS_MIN = 0;
-    public static final double LIFT_POS_MAX =  0;
-    public static final double LIFT_POS_RATE = 0;
-    public static final double LIFT_POS_I_CAP = 0;
-    public static final double LIFT_POS_TOLERANCE = 0;
-
     public static final int LIFT_MAX_HEIGHT = 395000; // TODO: FIND REAL VALUEs!!!!
     public static final int LIFT_SCALE_HEIGHT = 0;
     public static final int LIFT_SWITCH_HEIGHT = 0;
     public static final int LIFT_EXCHANGE_HEIGHT = 0;
+    public static final int LIFT_CLIMB_HEIGHT = 0;
+
 
 //    public static final int LIFT_UPPER_LIMIT = 395000;
 //    public static final int LIFT_LOWER_SLOW_DISTANCE = 50000;
     public static final int LIFT_SLOW_DISTANCE = 50000;
+
+    public static final double LIFT_ZERO_SPEED = 0.1;
 
     public static final int LIFT_TOLERANCE = 200;
 

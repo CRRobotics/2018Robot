@@ -45,10 +45,7 @@ public class RobotMap {
     // Lift
     private static TalonSRX liftMain;
     private static TalonSRX liftFollower;
-    private static DigitalInput liftLowerLimit;
-    private static DigitalInput liftFirstStageLimit;
-    private static DigitalInput liftSecondStageLimit;
-    private static Solenoid liftLock;
+    private static Solenoid liftBrake;
 
     // Raising subsystem
     private static Solenoid raisingLeft;
@@ -104,14 +101,7 @@ public class RobotMap {
             liftMain = new TalonSRX(6);
             liftFollower = new TalonSRX(7);
 
-            liftLock = new Solenoid(6);
-//            liftLowerLimit = new DigitalInput(2);
-//            liftFirstStageLimit = new DigitalInput(3);
-//            liftSecondStageLimit = new DigitalInput(4);
-
-            // Raising Subsystem
-//            raisingLeft = new Solenoid(5);
-//            raisingRight = new Solenoid(6);
+            liftBrake = new Solenoid(6);
 
             initialized = true;
         }
@@ -238,35 +228,11 @@ public class RobotMap {
     }
 
     /**
-     * Returns the limit switch at the lower limit of the lift.
-     * @return The limit switch at the lower limit of the lift.
-     */
-    public static DigitalInput getLiftLowerLimit() {
-        return liftLowerLimit;
-    }
-
-    /**
-     * Returns the limit switch at the upper limit of the first stage of the lift.
-     * @return The limit switch at the upper limit of the first stage of the lift.
-     */
-    public static DigitalInput getLiftFirstStageLimit() {
-        return liftFirstStageLimit;
-    }
-
-    /**
-     * Returns the limit switch at the upper limit of the second stage of the lift.
-     * @return The limit switch at the upper limit of the second stage of the lift.
-     */
-    public static DigitalInput getLiftSecondStageLimit() {
-        return liftSecondStageLimit;
-    }
-
-    /**
      * Returns the solenoid which locks the first stage in place.
      * @return The solenoid which locks the first stage in place.
      */
-    public static Solenoid getLiftLock() {
-        return liftLock;
+    public static Solenoid getLiftBrake() {
+        return liftBrake;
     }
 
     public static Solenoid getCubeRaise() {

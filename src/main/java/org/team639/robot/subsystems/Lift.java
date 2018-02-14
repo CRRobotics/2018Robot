@@ -8,7 +8,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import org.team639.robot.Robot;
 import org.team639.robot.RobotMap;
 import org.team639.robot.commands.lift.MoveLiftWithJoystick;
 
@@ -23,11 +22,7 @@ public class Lift extends Subsystem {
     private TalonSRX mainTalon;
     private TalonSRX followerTalon;
 
-    private DigitalInput lowerLimit;
-    private DigitalInput firstStageLimit;
-    private DigitalInput secondStageLimit;
-
-    private Solenoid firstStageLock;
+    private Solenoid brake;
 
     private ControlMode currentControlMode;
 
@@ -51,11 +46,7 @@ public class Lift extends Subsystem {
 
         mainTalon.configAllowableClosedloopError(0, 50, 10);
 
-        lowerLimit = RobotMap.getLiftLowerLimit();
-        firstStageLimit = RobotMap.getLiftFirstStageLimit();
-        secondStageLimit = RobotMap.getLiftSecondStageLimit();
-
-        firstStageLock = RobotMap.getLiftLock();
+        brake = RobotMap.getLiftBrake();
 
         mainTalon.configMotionCruiseVelocity(LIFT_CRUISE, 0);
         mainTalon.configMotionAcceleration(LIFT_ACCELERATION, 0);
@@ -83,6 +74,14 @@ public class Lift extends Subsystem {
     }
 
     /**
+     * Sets a certain position (in encoder ticks) to travel to using motion magic.
+     * @param tickCount The position to travel to.
+     */
+    public void setMotionMagicPosition(int tickCount) {
+        mainTalon.set(ControlMode.MotionMagic, tickCount);
+    }
+
+    /**
      * Returns the current value read by the encoder.
      * @return The current value read by the encoder.
      */
@@ -107,35 +106,19 @@ public class Lift extends Subsystem {
     }
 
     /**
-     * Returns whether or not the lift is at the upper limit of the first stage.
-     * @return Whether or not the lift is at the upper limit of the first stage.
-     */
-    public boolean isAtFirstStageLimit() {
-        return firstStageLimit.get();
-    }
-
-    /**
-     * Returns whether or not the lift is at the upper limit of the second stage.
-     * @return Whether or not the lift is at the upper limit of the second stage.
-     */
-    public boolean isAtSecondStageLimit() {
-        return mainTalon.getSensorCollection().isFwdLimitSwitchClosed(); // secondStageLimit.get();
-    }
-
-    /**
      * Locks or unlocks the first stage of the lift.
      * @param locked Whether or not the first stage should be locked.
      */
-    public void setFirstStageLocked(boolean locked) {
-        firstStageLock.set(!locked);
+    public void setBrake(boolean locked) {
+        brake.set(!locked);
     }
 
     /**
      * Returns whether of not the first stage is locked.
      * @return Whether of not the first stage is locked.
      */
-    public boolean isFirstStageLocked() {
-        return !firstStageLock.get();
+    public boolean isBraking() {
+        return !brake.get();
     }
 
     /**
@@ -205,6 +188,10 @@ public class Lift extends Subsystem {
         return kF;
     }
 
+    /**
+     * Returns whether or not the encoder is present on the lift.
+     * @return Whether or not the encoder is present.
+     */
     public boolean encoderPresent() {
         return mainTalon.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
     }
