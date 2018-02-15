@@ -100,13 +100,13 @@ public class Robot extends TimedRobot {
         driveTalonControlMode.addObject("Open loop", ControlMode.PercentOutput);
         SmartDashboard.putData("Control mode", driveTalonControlMode);
 
-        SmartDashboard.putNumber("drive p", AC_P);
-        SmartDashboard.putNumber("drive i", AC_I);
-        SmartDashboard.putNumber("drive d", AC_D);
-        SmartDashboard.putNumber("rate", AC_RATE);
-        SmartDashboard.putNumber("tolerance", AC_TOLERANCE);
-        SmartDashboard.putNumber("min", AC_MIN);
-        SmartDashboard.putNumber("max", AC_MAX);
+//        SmartDashboard.putNumber("drive p", AC_P);
+//        SmartDashboard.putNumber("drive i", AC_I);
+//        SmartDashboard.putNumber("drive d", AC_D);
+//        SmartDashboard.putNumber("rate", AC_RATE);
+//        SmartDashboard.putNumber("tolerance", AC_TOLERANCE);
+//        SmartDashboard.putNumber("min", AC_MIN);
+//        SmartDashboard.putNumber("max", AC_MAX);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
     }
@@ -152,8 +152,8 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
 //        ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
-//        ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));
-        ledStrip.changeMode(new LEDVelocityLighting(ledStrip.getLength(), (int)HIGH_SPEED_RANGE, () -> driveTrain.getLeftEncVelocity()));
+        ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));
+//        ledStrip.changeMode(new LEDVelocityLighting(ledStrip.getLength(), (int)HIGH_SPEED_RANGE, () -> driveTrain.getLeftEncVelocity()));
     }
 
     /**

@@ -63,16 +63,16 @@ public class AutoDriveForward extends Command {
         driveTrain.setCurrentGear(DriveTrain.DriveGear.High);
 //        driveTrain.setRampRate(1); // TODO: Maybe change this.
 
-        double p = SmartDashboard.getNumber("drive p", AC_P);
-        double i = SmartDashboard.getNumber("drive i", AC_I);
-        double d = SmartDashboard.getNumber("drive d", AC_D);
-        double rate = SmartDashboard.getNumber("rate", AC_RATE);
-        double tolerance = SmartDashboard.getNumber("tolerance", AC_TOLERANCE);
-        double min = SmartDashboard.getNumber("min", AC_MIN);
-        double max = SmartDashboard.getNumber("max", AC_MAX);
+//        double p = SmartDashboard.getNumber("drive p", AC_P);
+//        double i = SmartDashboard.getNumber("drive i", AC_I);
+//        double d = SmartDashboard.getNumber("drive d", AC_D);
+//        double rate = SmartDashboard.getNumber("rate", AC_RATE);
+//        double tolerance = SmartDashboard.getNumber("tolerance", AC_TOLERANCE);
+//        double min = SmartDashboard.getNumber("min", AC_MIN);
+//        double max = SmartDashboard.getNumber("max", AC_MAX);
         pid = new PID(ADF_P, ADF_I, ADF_D, ADF_MIN, ADF_MAX, ADF_RATE, ADF_TOLERANCE, ADF_I_CAP);
 //
-        turnPID = new PID(p, i, d, min, max, rate, tolerance, AC_I_CAP);
+        turnPID = new PID(AC_P, AC_I, AC_D, AC_MIN, AC_MAX, AC_RATE, AC_TOLERANCE, AC_I_CAP);
     }
 
     protected void execute() {

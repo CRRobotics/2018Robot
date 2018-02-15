@@ -48,6 +48,7 @@ public class AutoTurnToAngle extends Command {
 //        double min = SmartDashboard.getNumber("min", TTA_MIN);
 //        double max = SmartDashboard.getNumber("max", TTA_MAX);
 //        double iCap = SmartDashboard.getNumber("iCap", TTA_I_CAP);
+//        pid = new PID(p, i, d, min, max, rate, tolerance, iCap);
         pid = new PID(TTA_P, TTA_I, TTA_D, TTA_MIN, TTA_MAX, TTA_RATE, TTA_TOLERANCE, TTA_I_CAP);
 
         driveTrain.setSpeedsPercent(0, 0);

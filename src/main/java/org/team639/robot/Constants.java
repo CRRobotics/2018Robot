@@ -54,7 +54,7 @@ public class Constants {
         public static final double AC_MAX = 0.03;
         public static final double AC_RATE = 0.01;
         public static final double AC_I_CAP = 0.2;
-        public static final double AC_TOLERANCE = 2;
+        public static final double AC_TOLERANCE = 1;
 
     }
 
@@ -69,12 +69,12 @@ public class Constants {
         public static final double TTA_I_CAP = 0.2;
         public static final double TTA_TOLERANCE = 2;
 
-        public static final double ADF_P = 0.0000075;
+        public static final double ADF_P = 0.000006;
         public static final double ADF_I = 0;
         public static final double ADF_D = 0;
         public static final double ADF_MIN = 0.045;
         public static final double ADF_MAX = 0.8;
-        public static final double ADF_RATE = 0.0025;
+        public static final double ADF_RATE = 0.005;
         public static final double ADF_I_CAP = 0.2;
         public static final double ADF_TOLERANCE = 800;
     }

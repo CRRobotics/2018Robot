@@ -32,7 +32,7 @@ public class OI {
         drive.mapButton(LogitechF310.Buttons.LB, new ShiftHigh(), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.RB, new ShiftLow(), JoystickManager.MappingType.WhenPressed);
 
-        drive.mapButton(LogitechF310.Buttons.A, new AutoDriveForward(10 * 12), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.A, new AutoDriveForward(10), JoystickManager.MappingType.WhenPressed);
 
         drive.mapButton(LogitechF310.Buttons.Y, new AutoTurnToAngle(270), JoystickManager.MappingType.WhenPressed);
 
