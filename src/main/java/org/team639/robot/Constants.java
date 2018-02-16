@@ -64,7 +64,7 @@ public class Constants {
         public static final double TTA_I = 0;
         public static final double TTA_D = 0;
         public static final double TTA_MIN = 0.09;
-        public static final double TTA_MAX = 1;
+        public static final double TTA_MAX = 0.3;
         public static final double TTA_RATE = 0.01;
         public static final double TTA_I_CAP = 0.2;
         public static final double TTA_TOLERANCE = 2;

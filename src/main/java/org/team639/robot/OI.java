@@ -1,11 +1,10 @@
 package org.team639.robot;
 
+import openrio.powerup.MatchData;
 import org.team639.lib.controls.JoystickManager;
 import org.team639.lib.controls.LogitechF310;
-import org.team639.robot.commands.drive.AutoDriveForward;
-import org.team639.robot.commands.drive.AutoTurnToAngle;
-import org.team639.robot.commands.drive.ShiftHigh;
-import org.team639.robot.commands.drive.ShiftLow;
+import org.team639.robot.commands.auto.OneCubeSwitch;
+import org.team639.robot.commands.drive.*;
 
 /**
  * Operator Interface
@@ -32,9 +31,9 @@ public class OI {
         drive.mapButton(LogitechF310.Buttons.LB, new ShiftHigh(), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.RB, new ShiftLow(), JoystickManager.MappingType.WhenPressed);
 
-        drive.mapButton(LogitechF310.Buttons.A, new AutoDriveForward(10), JoystickManager.MappingType.WhenPressed);
-
-        drive.mapButton(LogitechF310.Buttons.Y, new AutoTurnToAngle(270), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.A, new AutoDriveForward(120), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.B, new ZeroYaw(), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.X, new OneCubeSwitch(), JoystickManager.MappingType.WhenPressed);
 
         drive.mapButton(LogitechF310.Buttons.POVLeft, new AutoTurnToAngle(180), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.POVUp, new AutoTurnToAngle(90), JoystickManager.MappingType.WhenPressed);

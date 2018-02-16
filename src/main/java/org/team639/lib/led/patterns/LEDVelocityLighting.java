@@ -20,7 +20,7 @@ public class LEDVelocityLighting extends LEDPattern {
 
     @Override
     public LEDColor[] start() {
-        return pattern;
+        return new LEDColor[0];
     }
 
     @Override
@@ -36,6 +36,7 @@ public class LEDVelocityLighting extends LEDPattern {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println();
         double percent = vel / maxSpeed;
         double percentRed;
         double percentGreen;
@@ -47,7 +48,7 @@ public class LEDVelocityLighting extends LEDPattern {
             percentRed = percent / 2;
             percentGreen = percent;
         }
-        for(int i = 0; i < round(percent*pattern.length); i++) {
+        for(int i = 0; i < round(percent*pattern.length)+1; i++) {
             pattern[i] = new LEDColor(round(255*percentRed), round(percentGreen*255), 0);
         }
         for(int i = round(percent*pattern.length); i < pattern.length; i++){
