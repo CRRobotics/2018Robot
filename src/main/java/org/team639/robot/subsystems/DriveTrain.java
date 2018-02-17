@@ -74,13 +74,7 @@ public class DriveTrain extends Subsystem {
         leftDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
         rightDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
 
-        NeutralMode mode = NeutralMode.Brake;
-        leftDrive.setNeutralMode(mode);
-        leftFollower1.setNeutralMode(mode);
-        leftFollower2.setNeutralMode(mode);
-        rightDrive.setNeutralMode(mode);
-        rightFollower1.setNeutralMode(mode);
-        rightFollower2.setNeutralMode(mode);
+        setNeutralMode(NeutralMode.Brake);
 
         leftDrive.configClosedloopRamp(0.5, 10);
         rightDrive.configClosedloopRamp(0.5, 10);
@@ -304,11 +298,11 @@ public class DriveTrain extends Subsystem {
         this.currentGear = gear;
         switch (gear) {
             case Low:
-                shifter.set(false);
+                shifter.set(true);
                 setPID(HIGH_DRIVE_P, HIGH_DRIVE_I, HIGH_DRIVE_D, HIGH_DRIVE_F);
                 break;
             case High:
-                shifter.set(true);
+                shifter.set(false);
                 setPID(LOW_DRIVE_P, LOW_DRIVE_I, LOW_DRIVE_D, LOW_DRIVE_F);
                 break;
         }
@@ -328,5 +322,18 @@ public class DriveTrain extends Subsystem {
      */
     public boolean encodersPresent() {
         return !Constants.REAL || !(rightDrive.getSensorCollection().getPulseWidthRiseToRiseUs() == 0 || leftDrive.getSensorCollection().getPulseWidthRiseToRiseUs() == 0);
+    }
+
+    /**
+     * Changes the neutral mode of the motor controllers.
+     * @param mode The neutral mode.
+     */
+    public void setNeutralMode(NeutralMode mode) {
+        leftDrive.setNeutralMode(mode);
+        leftFollower1.setNeutralMode(mode);
+        leftFollower2.setNeutralMode(mode);
+        rightDrive.setNeutralMode(mode);
+        rightFollower1.setNeutralMode(mode);
+        rightFollower2.setNeutralMode(mode);
     }
 }

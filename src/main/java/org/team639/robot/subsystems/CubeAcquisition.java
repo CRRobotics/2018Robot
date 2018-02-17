@@ -3,6 +3,7 @@ package org.team639.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,7 +19,7 @@ public class CubeAcquisition extends Subsystem {
     private TalonSRX right;
 
     private DigitalInput innerCubeDetector;
-    private DigitalInput outerCubeDetector;
+    private AnalogInput outerCubeDetector;
     private DigitalInput armsClosed;
 
     private Solenoid cubeRaise;
@@ -58,6 +59,8 @@ public class CubeAcquisition extends Subsystem {
 
         mode = PistonMode.Floating;
         setPistonMode(mode);
+
+        setRaised(true);
     }
 
     /**
@@ -126,7 +129,7 @@ public class CubeAcquisition extends Subsystem {
     }
 
     public boolean isCubeDetectedAtFront() {
-        return outerCubeDetector.get();
+        return false; // TODO: put actual check here
     }
 
     /**

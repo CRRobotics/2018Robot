@@ -1,12 +1,14 @@
 package org.team639.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.led.LEDColor;
 import org.team639.lib.led.patterns.*;
+import org.team639.robot.commands.auto.StartingPosition;
 import org.team639.robot.commands.drive.DriveMode;
 import org.team639.robot.subsystems.CubeAcquisition;
 import org.team639.robot.subsystems.DriveTrain;
@@ -32,6 +34,7 @@ public class Robot extends TimedRobot {
     // Driver options
     private static SendableChooser<DriveMode> driveMode;
     private static SendableChooser<ControlMode> driveTalonControlMode;
+    private static SendableChooser<StartingPosition> startingPosition;
 
     public static DriveTrain getDriveTrain() {
         return driveTrain;
@@ -47,6 +50,10 @@ public class Robot extends TimedRobot {
 
     public static ControlMode getDriveTalonControlMode() {
         return driveTalonControlMode.getSelected();
+    }
+
+    public static StartingPosition getStartingPosition() {
+        return startingPosition.getSelected();
     }
 
     public static Lift getLift() {
@@ -73,7 +80,7 @@ public class Robot extends TimedRobot {
         // Subsystem initializations
         driveTrain = new DriveTrain();
         cubeAcquisition = new CubeAcquisition();
-//        lift = new Lift();
+        lift = new Lift();
         ledStrip = new LEDStrip(42);
 
         SmartDashboard.putNumber("l max", lMax);
@@ -99,6 +106,12 @@ public class Robot extends TimedRobot {
         driveTalonControlMode.addDefault("Closed loop", ControlMode.Velocity);
         driveTalonControlMode.addObject("Open loop", ControlMode.PercentOutput);
         SmartDashboard.putData("Control mode", driveTalonControlMode);
+
+        startingPosition = new SendableChooser<>();
+        startingPosition.addDefault("Center", StartingPosition.Center);
+        startingPosition.addObject("Left", StartingPosition.Left);
+        startingPosition.addObject("Right", StartingPosition.Right);
+        SmartDashboard.putData("Starting position", startingPosition);
 
 //        SmartDashboard.putNumber("drive p", AC_P);
 //        SmartDashboard.putNumber("drive i", AC_I);
@@ -130,6 +143,8 @@ public class Robot extends TimedRobot {
         };
         ledStrip.changeMode(new LEDScrollingSequence(arr, ledStrip.getLength(), 150));*/
         ledStrip.changeMode(new SinePattern(ledStrip.getLength()));
+
+        driveTrain.setNeutralMode(NeutralMode.Coast);
     }
 
     /**
@@ -151,6 +166,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopInit() {
+        driveTrain.setNeutralMode(NeutralMode.Brake);
+
 //        ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
         ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));
 //        ledStrip.changeMode(new LEDVelocityLighting(ledStrip.getLength(), (int)HIGH_SPEED_RANGE, () -> driveTrain.getLeftEncVelocity()));
@@ -178,8 +195,8 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("navx yaw", driveTrain.getRobotYaw());
 
-        SmartDashboard.putBoolean("outer", RobotMap.getOuterCubeDetector().get());
-        SmartDashboard.putBoolean("inner", RobotMap.getInnerCubeDetector().get());
+        SmartDashboard.putBoolean("outer", cubeAcquisition.isCubeDetectedAtFront());
+        SmartDashboard.putBoolean("inner", cubeAcquisition.isCubeDetectedAtBack());
 
         SmartDashboard.putNumber("left enc", driveTrain.getLeftEncPos());
         SmartDashboard.putNumber("right enc", driveTrain.getRightEncPos());

@@ -5,7 +5,7 @@ package org.team639.robot;
  * Part of 2018Robot.
  */
 public class Constants {
-    public static final boolean REAL = false;
+    public static final boolean REAL = true;
 
     public static class DriveTrain {
         // TODO: Tune everything.

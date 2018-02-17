@@ -37,7 +37,7 @@ public class MoveLiftWithJoystick extends Command {
      */
     @Override
     protected void execute() {
-        double yVal = OI.drive.getLeftStickY();
+        double yVal = OI.controller.getLeftStickY();
         SmartDashboard.putNumber("left stick y", yVal);
         if (Math.abs(yVal) < JOYSTICK_DEADZONE) yVal = 0;
         double multiplier = 1;
