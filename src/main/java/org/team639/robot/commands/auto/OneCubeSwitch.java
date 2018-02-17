@@ -5,6 +5,9 @@ import openrio.powerup.MatchData;
 import org.team639.robot.commands.drive.AutoDriveForward;
 import org.team639.robot.commands.drive.AutoTurnToAngle;
 
+/**
+ * An auto period that places one cube on the switch.
+ */
 public class OneCubeSwitch extends CommandGroup {
     public OneCubeSwitch() {
         addSequential(new AutoDriveForward(10));
@@ -14,5 +17,7 @@ public class OneCubeSwitch extends CommandGroup {
         addSequential(new AutoDriveForward(Math.sqrt(Math.pow(4.5 * 12, 2) + Math.pow(87.5, 2))));
         addSequential(new AutoTurnToAngle(90));
         addSequential(new AutoDriveForward(10));
+
+        // TODO: Actually place a cube here
     }
 }

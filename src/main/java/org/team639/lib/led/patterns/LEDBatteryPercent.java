@@ -23,8 +23,7 @@ public class LEDBatteryPercent extends LEDPattern{
         if(percent > .50) {
             percentRed = percent / 4;
             percentGreen = percent;
-        }
-        else {
+        } else {
             percentRed = percent;
             percentGreen = percent / 6;
         }
