@@ -35,6 +35,7 @@ public class ZeroLift extends Command {
      */
     @Override
     protected void initialize() {
+        lift.setBrake(false);
         if (lift.isAtLowerLimit()) {
             state = State.Up;
         } else {
@@ -73,6 +74,7 @@ public class ZeroLift extends Command {
     @Override
     protected void end() {
         lift.setSpeedPercent(0);
+        lift.setBrake(true);
     }
 
     /**

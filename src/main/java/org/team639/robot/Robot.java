@@ -23,8 +23,9 @@ import static org.team639.robot.Constants.DriveTrain.*;
  */
 public class Robot extends TimedRobot {
 
-    private static int rMax = 0;
+    private static double rMax = 0;
     private static double lMax = 0;
+    public static double liftMax = 0;
 
     // Subsystems
     private static DriveTrain driveTrain;
@@ -201,8 +202,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("left enc", driveTrain.getLeftEncPos());
         SmartDashboard.putNumber("right enc", driveTrain.getRightEncPos());
 
-        int r = driveTrain.getRightEncVelocity();
-        int l = driveTrain.getLeftEncVelocity();
+        double r = driveTrain.getRightEncVelocity();
+        double l = driveTrain.getLeftEncVelocity();
         if (r > rMax) {
             rMax = r;
             SmartDashboard.putNumber("r max", rMax);
@@ -211,6 +212,11 @@ public class Robot extends TimedRobot {
         if (l > lMax) {
             lMax = l;
             SmartDashboard.putNumber("l max", lMax);
+        }
+        double lf = lift.getEncVelocity();
+        if (lf > liftMax) {
+            liftMax = lf;
+            SmartDashboard.putNumber("lift max", liftMax);
         }
     }
 

@@ -154,6 +154,9 @@ public class JoystickDrive extends Command {
 //        }
         lastSetpointSpeed = speed;
         lastSetpointTurning = turning;
+        
+        if (speed < 0) turning *= -1;
+
         driveTrain.setSpeedsPercent(speed + turning, speed - turning);
     }
 

@@ -37,6 +37,9 @@ public class Lift extends Subsystem {
 
         followerTalon.follow(mainTalon);
 
+        mainTalon.setInverted(true);
+        followerTalon.setInverted(true);
+
         mainTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
         mainTalon.setSensorPhase(false);
 
@@ -194,6 +197,10 @@ public class Lift extends Subsystem {
      */
     public boolean encoderPresent() {
         return mainTalon.getSensorCollection().getPulseWidthRiseToRiseUs() != 0;
+    }
+
+    public double getEncVelocity() {
+        return mainTalon.getSelectedSensorVelocity(0);
     }
 
     /**

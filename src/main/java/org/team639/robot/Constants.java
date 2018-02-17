@@ -80,30 +80,32 @@ public class Constants {
     }
 
     public static final double JOYSTICK_DEADZONE = 0.05;
+    public static final double CONTROLLER_JOYSTICK_DEADZONE = 0.1;
+
+
+    public static final int LIFT_MAX_SPEED = 2164;
 
     //lift speed pid
     public static final double LIFT_P = 0;
     public static final double LIFT_I = 0;
     public static final double LIFT_D = 0;
-    public static final double LIFT_F = 0;
+    public static final double LIFT_F = 1023 / LIFT_MAX_SPEED;
 
-    public static final int LIFT_MAX_SPEED = 1000; // TODO: Find real value.
 
     public static final int LIFT_CRUISE = LIFT_MAX_SPEED;
     public static final int LIFT_ACCELERATION = LIFT_MAX_SPEED / 10;
 
-    public static final int LIFT_MAX_HEIGHT = 395000; // TODO: FIND REAL VALUEs!!!!
+    public static final int LIFT_MAX_HEIGHT = 40000; // TODO: FIND REAL VALUEs!!!!
     public static final int LIFT_SCALE_HEIGHT = 0;
     public static final int LIFT_SWITCH_HEIGHT = 0;
     public static final int LIFT_EXCHANGE_HEIGHT = 0;
     public static final int LIFT_CLIMB_HEIGHT = 0;
 
-
 //    public static final int LIFT_UPPER_LIMIT = 395000;
 //    public static final int LIFT_LOWER_SLOW_DISTANCE = 50000;
-    public static final int LIFT_SLOW_DISTANCE = 50000;
+    public static final int LIFT_SLOW_DISTANCE = 2000;
 
-    public static final double LIFT_ZERO_SPEED = 0.1;
+    public static final double LIFT_ZERO_SPEED = 0.15;
 
     public static final int LIFT_TOLERANCE = 200;
 

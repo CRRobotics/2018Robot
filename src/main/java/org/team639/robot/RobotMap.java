@@ -93,8 +93,8 @@ public class RobotMap {
             outerCubeDetector = new AnalogInput(0);
             armsClosed = new DigitalInput(2);
             cubeRaise = new Solenoid(1);
-            acqOpen1 = new Solenoid(7);
-            acqOpen2 = new Solenoid(0);
+            acqOpen1 = new Solenoid(0);
+            acqOpen2 = new Solenoid(7);
             //lets go acquisition!
 
 

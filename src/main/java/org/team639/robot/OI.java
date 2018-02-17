@@ -6,6 +6,7 @@ import org.team639.lib.controls.LogitechF310;
 import org.team639.robot.commands.auto.OneCubeSwitch;
 import org.team639.robot.commands.cube.*;
 import org.team639.robot.commands.drive.*;
+import org.team639.robot.commands.lift.ZeroLift;
 
 /**
  * Operator Interface
@@ -27,7 +28,7 @@ public class OI {
         controller.mapButton(LogitechF310.Buttons.A, new OpenAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.B, new CloseAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.X, new FloatAcquisition(), JoystickManager.MappingType.WhenPressed);
-        controller.mapButton(LogitechF310.Buttons.Y, new RaiseAcquisition(), JoystickManager.MappingType.WhenPressed);
+        controller.mapButton(LogitechF310.Buttons.Y, new ZeroLift(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVUp, new RaiseAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVDown, new LowerAcquisition(), JoystickManager.MappingType.WhenPressed);
 
