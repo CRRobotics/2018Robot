@@ -37,13 +37,19 @@ public class Lift extends Subsystem {
 
         followerTalon.follow(mainTalon);
 
+//        mainTalon.setSensorPhase(true);
         mainTalon.setInverted(true);
         followerTalon.setInverted(true);
 
-        mainTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-        mainTalon.setSensorPhase(false);
+        mainTalon.configReverseSoftLimitEnable(false, 0);
 
-        mainTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
+        mainTalon.configForwardSoftLimitEnable(true, 0);
+        mainTalon.configForwardSoftLimitThreshold(40950, 0);
+
+        mainTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+        mainTalon.setSensorPhase(true);
+
+        mainTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 0);
 
         mainTalon.setNeutralMode(NeutralMode.Brake);
 
@@ -153,10 +159,10 @@ public class Lift extends Subsystem {
         this.kD = d;
         this.kF = f;
 
-        mainTalon.config_kP(0, p, 10);
-        mainTalon.config_kI(0, i, 10);
-        mainTalon.config_kD(0, d, 10);
-        mainTalon.config_kF(0, f, 10);
+        mainTalon.config_kP(0, p, 0);
+        mainTalon.config_kI(0, i, 0);
+        mainTalon.config_kD(0, d, 0);
+        mainTalon.config_kF(0, f, 0);
     }
 
     /**

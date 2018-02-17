@@ -15,6 +15,7 @@ import org.team639.robot.subsystems.DriveTrain;
 import org.team639.robot.subsystems.LEDStrip;
 import org.team639.robot.subsystems.Lift;
 
+import static org.team639.robot.Constants.*;
 import static org.team639.robot.Constants.Auto.*;
 import static org.team639.robot.Constants.DriveTrain.*;
 
@@ -114,13 +115,13 @@ public class Robot extends TimedRobot {
         startingPosition.addObject("Right", StartingPosition.Right);
         SmartDashboard.putData("Starting position", startingPosition);
 
-//        SmartDashboard.putNumber("drive p", AC_P);
-//        SmartDashboard.putNumber("drive i", AC_I);
-//        SmartDashboard.putNumber("drive d", AC_D);
-//        SmartDashboard.putNumber("rate", AC_RATE);
-//        SmartDashboard.putNumber("tolerance", AC_TOLERANCE);
-//        SmartDashboard.putNumber("min", AC_MIN);
-//        SmartDashboard.putNumber("max", AC_MAX);
+        SmartDashboard.putNumber("drive p", LIFT_P);
+        SmartDashboard.putNumber("drive i", LIFT_I);
+        SmartDashboard.putNumber("drive d", LIFT_D);
+//        SmartDashboard.putNumber("rate", LIFT_RATE);
+        SmartDashboard.putNumber("tolerance", LIFT_TOLERANCE);
+        SmartDashboard.putNumber("accel", LIFT_ACCELERATION);
+        SmartDashboard.putNumber("cruise", LIFT_CRUISE);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
     }
@@ -190,6 +191,12 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        SmartDashboard.putNumber("lift speed", Math.abs(lift.getEncVelocity()));
+        SmartDashboard.putNumber("lift velocity", lift.getEncVelocity());
+
+
+        SmartDashboard.putNumber("lift enc", lift.getEncPos());
+
         SmartDashboard.putBoolean("drivetrain encoders", driveTrain.encodersPresent());
         SmartDashboard.putNumber("Left speed", driveTrain.getLeftEncVelocity());
         SmartDashboard.putNumber("Right speed", driveTrain.getRightEncVelocity());
