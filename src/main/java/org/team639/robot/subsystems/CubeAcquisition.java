@@ -143,7 +143,7 @@ public class CubeAcquisition extends Subsystem {
      * @return Whether or not the arms are closed far enough for the cube to be positioned correctly.
      */
     public boolean isClosed() {
-        return armsClosedEnabled && armsClosed.get();
+        return armsClosedEnabled && !armsClosed.get();
     }
 
     public boolean isInnerDetectorEnabled() {

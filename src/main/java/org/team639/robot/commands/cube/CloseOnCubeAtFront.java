@@ -10,6 +10,8 @@ public class CloseOnCubeAtFront extends CommandGroup {
         addSequential(new OpenAcquisition());
         addSequential(new SetAcquisitionSpinning(-1 * DEFAULT_ACQ_SPEED));
         addSequential(new WaitForCubeAtFront());
+        addSequential(new CloseAcquisition());
+        addSequential(new WaitForCubeAtBack());
         addSequential(new CloseAndIntake());
     }
 }

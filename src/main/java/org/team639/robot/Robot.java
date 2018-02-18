@@ -91,10 +91,6 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("rrate", HIGH_ARCADE_RATE);
 
-        SmartDashboard.putNumber("left stick y", 0);
-
-
-
         // Driver options init
         driveMode = new SendableChooser<>();
         driveMode.addDefault("1 Joystick Arcade", DriveMode.Arcade1Joystick);
@@ -208,6 +204,7 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putBoolean("outer", cubeAcquisition.isCubeDetectedAtFront());
         SmartDashboard.putBoolean("inner", cubeAcquisition.isCubeDetectedAtBack());
+        SmartDashboard.putBoolean("arms", cubeAcquisition.isClosed());
 
         SmartDashboard.putNumber("left enc", driveTrain.getLeftEncPos());
         SmartDashboard.putNumber("right enc", driveTrain.getRightEncPos());
