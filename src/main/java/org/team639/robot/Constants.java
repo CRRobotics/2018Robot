@@ -27,7 +27,7 @@ public class Constants {
         public static final double LOW_DRIVE_F = 1023/LOW_SPEED_RANGE;
         public static final double LOW_ARCADE_RATE = 0.03;
 
-        public static final double WHEEL_DIAMETER_INCHES = 4 * 1.029;
+        public static final double WHEEL_DIAMETER_INCHES = 4;
         public static final double WHEEL_CIRCUMFERENCE_INCHES = Math.PI * WHEEL_DIAMETER_INCHES;
 
         public static final double ENC_TICKS_PER_ROTATION = 4096 * 3 * 54 / 30; // Quad encoder has 1024 ticks (* 4 = 4096). 3 and 54/30 are gear ratios.
@@ -69,18 +69,18 @@ public class Constants {
         public static final double TTA_I_CAP = 0.2;
         public static final double TTA_TOLERANCE = 2;
 
-        public static final double ADF_P = 0.000006;
+        public static final double ADF_P = 0.0000028;
         public static final double ADF_I = 0;
         public static final double ADF_D = 0;
-        public static final double ADF_MIN = 0.045;
-        public static final double ADF_MAX = 0.8;
+        public static final double ADF_MIN = 0.09; // 0.045;
+        public static final double ADF_MAX = 0.5;
         public static final double ADF_RATE = 0.005;
         public static final double ADF_I_CAP = 0.2;
         public static final double ADF_TOLERANCE = 800;
     }
 
     public static final double JOYSTICK_DEADZONE = 0.05;
-    public static final double CONTROLLER_JOYSTICK_DEADZONE = 0.1;
+    public static final double CONTROLLER_JOYSTICK_DEADZONE = 0.15;
 
 
     public static final int LIFT_MAX_SPEED = 1700;

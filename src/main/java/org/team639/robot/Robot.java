@@ -2,6 +2,7 @@ package org.team639.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -115,11 +116,14 @@ public class Robot extends TimedRobot {
         startingPosition.addObject("Right", StartingPosition.Right);
         SmartDashboard.putData("Starting position", startingPosition);
 
-        SmartDashboard.putNumber("drive p", LIFT_P);
-        SmartDashboard.putNumber("drive i", LIFT_I);
-        SmartDashboard.putNumber("drive d", LIFT_D);
-//        SmartDashboard.putNumber("rate", LIFT_RATE);
-        SmartDashboard.putNumber("tolerance", LIFT_TOLERANCE);
+        SmartDashboard.putNumber("drive p", ADF_P);
+        SmartDashboard.putNumber("drive i", ADF_I);
+        SmartDashboard.putNumber("drive d", ADF_D);
+        SmartDashboard.putNumber("rate", ADF_RATE);
+        SmartDashboard.putNumber("tolerance", ADF_TOLERANCE);
+        SmartDashboard.putNumber("min", ADF_MIN);
+        SmartDashboard.putNumber("max", ADF_MAX);
+
         SmartDashboard.putNumber("accel", LIFT_ACCELERATION);
         SmartDashboard.putNumber("cruise", LIFT_CRUISE);
 
@@ -145,8 +149,6 @@ public class Robot extends TimedRobot {
         };
         ledStrip.changeMode(new LEDScrollingSequence(arr, ledStrip.getLength(), 150));*/
         ledStrip.changeMode(new SinePattern(ledStrip.getLength()));
-
-        driveTrain.setNeutralMode(NeutralMode.Coast);
     }
 
     /**
@@ -170,8 +172,8 @@ public class Robot extends TimedRobot {
     public void teleopInit() {
         driveTrain.setNeutralMode(NeutralMode.Brake);
 
-//        ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
-        ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));
+        ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
+//        ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));
 //        ledStrip.changeMode(new LEDVelocityLighting(ledStrip.getLength(), (int)HIGH_SPEED_RANGE, () -> driveTrain.getLeftEncVelocity()));
     }
 
@@ -191,9 +193,10 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        SmartDashboard.putNumber("pdp energy", RobotMap.getPdp().getTotalEnergy());
+
         SmartDashboard.putNumber("lift speed", Math.abs(lift.getEncVelocity()));
         SmartDashboard.putNumber("lift velocity", lift.getEncVelocity());
-
 
         SmartDashboard.putNumber("lift enc", lift.getEncPos());
 

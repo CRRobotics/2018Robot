@@ -4,10 +4,7 @@ import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.*;
 
 import static org.team639.robot.Constants.REAL;
 
@@ -16,6 +13,8 @@ import static org.team639.robot.Constants.REAL;
  */
 public class RobotMap {
     private static boolean initialized = false;
+
+    private static PowerDistributionPanel pdp;
 
     // Left drive
     private static TalonSRX leftDrive;
@@ -60,6 +59,8 @@ public class RobotMap {
      */
     public static void init() {
         if (!initialized) {
+
+            pdp = new PowerDistributionPanel();
 
             // Left drive
             leftDrive = new TalonSRX(3);
@@ -262,5 +263,13 @@ public class RobotMap {
      */
     public static Solenoid getRaisingRight() {
         return raisingRight;
+    }
+
+    /**
+     * Returns the pdp.
+     * @return The pdp.
+     */
+    public static PowerDistributionPanel getPdp() {
+        return pdp;
     }
 }

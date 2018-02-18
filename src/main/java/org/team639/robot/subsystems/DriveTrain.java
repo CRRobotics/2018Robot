@@ -31,7 +31,7 @@ public class DriveTrain extends Subsystem {
     private double kD;
     private double kF;
 
-    private double rampRate = 0;
+    private double rampRate = 0.5;
 
     private AHRS ahrs;
 

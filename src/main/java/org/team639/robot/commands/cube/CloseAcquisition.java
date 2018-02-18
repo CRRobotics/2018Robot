@@ -1,6 +1,7 @@
 package org.team639.robot.commands.cube;
 
 import edu.wpi.first.wpilibj.command.Command;
+import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
 /**
@@ -15,7 +16,7 @@ public class CloseAcquisition extends Command {
      */
     public CloseAcquisition() {
         super("CloseAcquisition");
-        cubeAcquisition = new CubeAcquisition();
+        cubeAcquisition = Robot.getCubeAcquisition();
     }
 
     /**

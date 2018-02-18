@@ -25,7 +25,8 @@ public class OI {
         controller.mapButton(LogitechF310.Buttons.LB, new IntakeCube(), JoystickManager.MappingType.WhileHeld);
         controller.mapButton(LogitechF310.Buttons.A, new OpenAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.B, new CloseAcquisition(), JoystickManager.MappingType.WhenPressed);
-        controller.mapButton(LogitechF310.Buttons.X, new CloseOnCubeAtBack(), JoystickManager.MappingType.WhenPressed);
+        controller.mapButton(LogitechF310.Buttons.X, new CloseOnCubeAtFront(), JoystickManager.MappingType.WhenPressed);
+        controller.mapButton(LogitechF310.Buttons.X, new CloseAndIntake(), JoystickManager.MappingType.WhenReleased);
         controller.mapButton(LogitechF310.Buttons.Y, new ZeroLift(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVUp, new RaiseAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVDown, new LowerAcquisition(), JoystickManager.MappingType.WhenPressed);
@@ -33,14 +34,14 @@ public class OI {
         drive.mapButton(LogitechF310.Buttons.LB, new ShiftHigh(), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.RB, new ShiftLow(), JoystickManager.MappingType.WhenPressed);
 
-//        drive.mapButton(LogitechF310.Buttons.A, new AutoDriveForward(120), JoystickManager.MappingType.WhenPressed);
-//        drive.mapButton(LogitechF310.Buttons.B, new ZeroYaw(), JoystickManager.MappingType.WhenPressed);
-//        drive.mapButton(LogitechF310.Buttons.X, new OneCubeSwitch(), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.A, new AutoDriveForward(10 * 12), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.B, new ZeroYaw(), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.X, new AutoDriveForward(10 * 12, 90), JoystickManager.MappingType.WhenPressed);
 //
-//        drive.mapButton(LogitechF310.Buttons.POVLeft, new AutoTurnToAngle(180), JoystickManager.MappingType.WhenPressed);
-//        drive.mapButton(LogitechF310.Buttons.POVUp, new AutoTurnToAngle(90), JoystickManager.MappingType.WhenPressed);
-//        drive.mapButton(LogitechF310.Buttons.POVRight, new AutoTurnToAngle(0), JoystickManager.MappingType.WhenPressed);
-//        drive.mapButton(LogitechF310.Buttons.POVDown, new AutoTurnToAngle(270), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.POVLeft, new AutoTurnToAngle(180), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.POVUp, new AutoTurnToAngle(90), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.POVRight, new AutoTurnToAngle(0), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.POVDown, new AutoTurnToAngle(270), JoystickManager.MappingType.WhenPressed);
     }
 
     private OI() {

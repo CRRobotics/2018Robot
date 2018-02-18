@@ -6,14 +6,20 @@ import org.team639.robot.subsystems.CubeAcquisition;
 
 import static org.team639.robot.Constants.DEFAULT_ACQ_SPEED;
 
-/**
- * Ejects a held cube. Runs until interrupted.
- */
-public class EjectCube extends Command {
+public class MonitorCube extends Command {
     private CubeAcquisition cubeAcquisition;
 
-    public EjectCube() {
-        super("EjectCube");
+    private enum State {
+        Spinning,
+        Watching
+    }
+
+    private State state = State.Watching;
+
+    private long startedSpinningTime;
+
+    public MonitorCube() {
+        super("MonitorCube");
         cubeAcquisition = Robot.getCubeAcquisition();
         requires(cubeAcquisition);
     }
@@ -23,8 +29,8 @@ public class EjectCube extends Command {
      */
     @Override
     protected void initialize() {
-        cubeAcquisition.setSpeedsPercent(DEFAULT_ACQ_SPEED, DEFAULT_ACQ_SPEED);
-        cubeAcquisition.setShouldHaveCube(false);
+        startedSpinningTime = 0;
+        state = State.Watching;
     }
 
     /**
@@ -32,7 +38,33 @@ public class EjectCube extends Command {
      */
     @Override
     protected void execute() {
-        cubeAcquisition.setSpeedsPercent(DEFAULT_ACQ_SPEED, DEFAULT_ACQ_SPEED);
+        switch (state) {
+            case Watching:
+                if (cubeAcquisition.shouldHaveCube() && !cubeAcquisition.isCubeDetectedAtBack()) {
+                    cubeAcquisition.setSpeedsPercent(-0.3, -0.3);
+                    state = State.Spinning;
+                    startedSpinningTime = System.currentTimeMillis();
+                }
+                break;
+            case Spinning:
+                if (cubeAcquisition.isCubeDetectedAtBack()) {
+                    cubeAcquisition.setSpeedsPercent(0, 0);
+                    state = State.Watching;
+                } else if (System.currentTimeMillis() - startedSpinningTime > 500) {
+                    cubeAcquisition.setShouldHaveCube(false);
+                    state = State.Watching;
+                }
+                break;
+        }
+    }
+
+    /**
+     * Called when the command ended peacefully. This is where you may want to wrap up loose ends,
+     * like shutting off a motor that was being used in the command.
+     */
+    @Override
+    protected void end() {
+        super.end();
     }
 
     /**
@@ -47,16 +79,7 @@ public class EjectCube extends Command {
      */
     @Override
     protected void interrupted() {
-        end();
-    }
-
-    /**
-     * Called when the command ended peacefully. This is where you may want to wrap up loose ends,
-     * like shutting off a motor that was being used in the command.
-     */
-    @Override
-    protected void end() {
-        cubeAcquisition.setSpeedsPercent(0, 0);
+        super.interrupted();
     }
 
     /**
@@ -65,7 +88,7 @@ public class EjectCube extends Command {
      * <p>
      * <p>It may be useful for a team to reference the {@link Command#isTimedOut() isTimedOut()}
      * method for time-sensitive commands.
-     *
+     * <p>
      * @return whether this command is finished.
      * @see Command#isTimedOut() isTimedOut()
      */

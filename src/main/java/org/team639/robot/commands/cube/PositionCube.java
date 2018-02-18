@@ -108,5 +108,6 @@ public class PositionCube extends Command {
     @Override
     protected void end() {
         cubeAcquisition.setSpeedsPercent(0, 0);
+        cubeAcquisition.setShouldHaveCube(true);
     }
 }
