@@ -57,8 +57,8 @@ public class Lift extends Subsystem {
 
         brake = RobotMap.getLiftBrake();
 
-        mainTalon.configMotionCruiseVelocity(LIFT_CRUISE, 0);
-        mainTalon.configMotionAcceleration(LIFT_ACCELERATION, 0);
+//        mainTalon.configMotionCruiseVelocity(LIFT_CRUISE, 0);
+//        mainTalon.configMotionAcceleration(LIFT_ACCELERATION, 0);
 
         setPID(LIFT_P, LIFT_I, LIFT_D, LIFT_F);
         if (encoderPresent()) setCurrentControlMode(ControlMode.Velocity); // TODO: make this velocity again
@@ -207,6 +207,14 @@ public class Lift extends Subsystem {
 
     public double getEncVelocity() {
         return mainTalon.getSelectedSensorVelocity(0);
+    }
+
+    public void setMotionCruiseVelocity(int velocity) {
+        mainTalon.configMotionCruiseVelocity(velocity, 0);
+    }
+
+    public void setMotionAccelerationVelocity(int velocity) {
+        mainTalon.configMotionAcceleration(velocity, 0);
     }
 
     /**

@@ -1,10 +1,12 @@
 package org.team639.robot.commands.lift;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.team639.lib.math.PID;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.Lift;
 
-import static org.team639.robot.Constants.LIFT_TOLERANCE;
+import static org.team639.robot.Constants.*;
 
 /**
  * Moves the lift to one of several preset positions defined in {@link LiftPosition}
@@ -15,6 +17,7 @@ public class MoveToSetPosition extends Command {
     private Lift lift;
     private LiftPosition position;
     private boolean done;
+    private PID pid;
     public MoveToSetPosition(LiftPosition position) {
         this.position = position;
         lift = Robot.getLift();
@@ -30,7 +33,7 @@ public class MoveToSetPosition extends Command {
         done = false;
         lift.setBrake(false);
         if (!lift.encoderPresent()) done = true;
-        else lift.setMotionMagicPosition(position.getEncTicks());
+        pid = new PID(LIFT_POS_P, LIFT_POS_I, LIFT_POS_D, LIFT_MIN, LIFT_MAX, LIFT_RATE, LIFT_TOLERANCE, 0);
     }
 
     /**
@@ -38,7 +41,11 @@ public class MoveToSetPosition extends Command {
      */
     @Override
     protected void execute() {
-        done = lift.getEncPos() == position.getEncTicks() - LIFT_TOLERANCE || lift.getEncPos() == position.getEncTicks() + LIFT_TOLERANCE;
+       int error = position.getEncTicks() - lift.getEncPos();
+       double speed;
+       speed = pid.compute(error);
+       lift.setSpeedPercent(speed);
+       done = speed == 0;
     }
 
     /**

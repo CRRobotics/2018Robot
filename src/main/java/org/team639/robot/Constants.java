@@ -91,8 +91,14 @@ public class Constants {
     public static final double LIFT_D = 0;
     public static final double LIFT_F = 1023.0 / LIFT_MAX_SPEED;
 
-    public static final int LIFT_CRUISE = LIFT_MAX_SPEED;
-    public static final int LIFT_ACCELERATION = LIFT_MAX_SPEED / 10;
+    public static final double LIFT_RATE = .03;
+    public static final double LIFT_MIN = .15;
+    public static final double LIFT_MAX = .6;
+
+    public static final double LIFT_POS_P = 0.00018;
+    public static final double LIFT_POS_I = 0;
+    public static final double LIFT_POS_D = 0;
+
 
     public static final int LIFT_MAX_HEIGHT = 40000; // TODO: FIND REAL VALUEs!!!!
     public static final int LIFT_SCALE_HEIGHT = 0;

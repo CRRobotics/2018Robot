@@ -4,6 +4,8 @@ import org.team639.lib.controls.JoystickManager;
 import org.team639.lib.controls.LogitechF310;
 import org.team639.robot.commands.cube.*;
 import org.team639.robot.commands.drive.*;
+import org.team639.robot.commands.lift.LiftPosition;
+import org.team639.robot.commands.lift.MoveToSetPosition;
 import org.team639.robot.commands.lift.ZeroLift;
 
 /**
@@ -30,6 +32,8 @@ public class OI {
         controller.mapButton(LogitechF310.Buttons.Y, new ZeroLift(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVUp, new RaiseAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVDown, new LowerAcquisition(), JoystickManager.MappingType.WhenPressed);
+
+        controller.mapButton(LogitechF310.Buttons.POVRight, new MoveToSetPosition(LiftPosition.TestHeight), JoystickManager.MappingType.WhenPressed);
 
         drive.mapButton(LogitechF310.Buttons.LB, new ShiftHigh(), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.RB, new ShiftLow(), JoystickManager.MappingType.WhenPressed);

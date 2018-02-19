@@ -86,6 +86,9 @@ public class Robot extends TimedRobot {
         lift = new Lift();
         ledStrip = new LEDStrip(42);
 
+        SmartDashboard.putNumber("pos p", LIFT_POS_P);
+        SmartDashboard.putNumber("lift max pid", LIFT_MAX);
+        SmartDashboard.putNumber("lift min pid", LIFT_MIN);
         SmartDashboard.putNumber("l max", lMax);
         SmartDashboard.putNumber("r max", rMax);
 
@@ -112,16 +115,15 @@ public class Robot extends TimedRobot {
         startingPosition.addObject("Right", StartingPosition.Right);
         SmartDashboard.putData("Starting position", startingPosition);
 
-        SmartDashboard.putNumber("drive p", ADF_P);
-        SmartDashboard.putNumber("drive i", ADF_I);
-        SmartDashboard.putNumber("drive d", ADF_D);
+        SmartDashboard.putNumber("drive p", LIFT_P);
+        SmartDashboard.putNumber("drive i", LIFT_I);
+        SmartDashboard.putNumber("drive d", LIFT_D);
         SmartDashboard.putNumber("rate", ADF_RATE);
-        SmartDashboard.putNumber("tolerance", ADF_TOLERANCE);
-        SmartDashboard.putNumber("min", ADF_MIN);
-        SmartDashboard.putNumber("max", ADF_MAX);
+        SmartDashboard.putNumber("tolerance", LIFT_TOLERANCE);
+//        SmartDashboard.putNumber("min", LIFT_CRUISE);
+//        SmartDashboard.putNumber("max", ADF_MAX);
 
-        SmartDashboard.putNumber("accel", LIFT_ACCELERATION);
-        SmartDashboard.putNumber("cruise", LIFT_CRUISE);
+
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
     }
@@ -189,6 +191,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+
+        SmartDashboard.putNumber("lift pos", lift.getEncPos());
         SmartDashboard.putNumber("pdp energy", RobotMap.getPdp().getTotalEnergy());
 
         SmartDashboard.putNumber("lift speed", Math.abs(lift.getEncVelocity()));
