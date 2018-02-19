@@ -4,6 +4,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 import static org.team639.robot.Constants.DEFAULT_ACQ_SPEED;
 
+
+/**
+ * Starts intaking a cube once the front sensor is triggered.
+ */
 public class CloseOnCubeAtFront extends CommandGroup {
     public CloseOnCubeAtFront() {
         addSequential(new LowerAcquisition());

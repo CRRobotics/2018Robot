@@ -5,6 +5,9 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 
 import static org.team639.robot.Constants.DEFAULT_ACQ_SPEED;
 
+/**
+ * Closes and intakes, assuming there is a cube within reach.
+ */
 public class CloseAndIntake extends CommandGroup {
     public CloseAndIntake() {
         addSequential(new SetAcquisitionSpinning(-1 * DEFAULT_ACQ_SPEED));
