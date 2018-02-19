@@ -76,15 +76,15 @@ public class AutoDriveForward extends Command {
         // Dominic "DJ" Towns was here.
         driveTrain.setCurrentGear(DriveTrain.DriveGear.High);
 
-        double p = SmartDashboard.getNumber("drive p", ADF_P);
-        double i = SmartDashboard.getNumber("drive i", ADF_I);
-        double d = SmartDashboard.getNumber("drive d", ADF_D);
-        double rate = SmartDashboard.getNumber("rate", ADF_RATE);
-        double tolerance = SmartDashboard.getNumber("tolerance", ADF_TOLERANCE);
-        double min = SmartDashboard.getNumber("min", ADF_MIN);
-        double max = SmartDashboard.getNumber("max", ADF_MAX);
-        pid  = new PID(p, i, d, min, max, rate, tolerance, ADF_I_CAP);
-//        pid = new PID(ADF_P, ADF_I, ADF_D, ADF_MIN, ADF_MAX, ADF_RATE, ADF_TOLERANCE, ADF_I_CAP);
+//        double p = SmartDashboard.getNumber("drive p", ADF_P);
+//        double i = SmartDashboard.getNumber("drive i", ADF_I);
+//        double d = SmartDashboard.getNumber("drive d", ADF_D);
+//        double rate = SmartDashboard.getNumber("rate", ADF_RATE);
+//        double tolerance = SmartDashboard.getNumber("tolerance", ADF_TOLERANCE);
+//        double min = SmartDashboard.getNumber("min", ADF_MIN);
+//        double max = SmartDashboard.getNumber("max", ADF_MAX);
+//        pid  = new PID(p, i, d, min, max, rate, tolerance, ADF_I_CAP);
+        pid = new PID(ADF_P, ADF_I, ADF_D, ADF_MIN, ADF_MAX, ADF_RATE, ADF_TOLERANCE, ADF_I_CAP);
 //
         turnPID = new PID(AC_P, AC_I, AC_D, AC_MIN, AC_MAX, AC_RATE, AC_TOLERANCE, AC_I_CAP);
     }
@@ -94,11 +94,8 @@ public class AutoDriveForward extends Command {
         rTickDiff = targetRight - driveTrain.getRightEncPos();
 
         double val = pid.compute((lTickDiff + rTickDiff)/2);
-//        SmartDashboard.putNumber("error", lTickDiff);
-        // TODO: Re-enable angle correction and tune it.
         double error = AngleMath.shortestAngle(driveTrain.getRobotYaw(), angle);
         double output = turnPID.compute(error);
-//        System.out.println((val - output) + ", " + (val + output));
         driveTrain.setSpeedsPercent(val - output, val + output);
         done = (val == 0);
     }

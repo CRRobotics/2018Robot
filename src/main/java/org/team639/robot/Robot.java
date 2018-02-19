@@ -93,11 +93,11 @@ public class Robot extends TimedRobot {
 
         // Driver options init
         driveMode = new SendableChooser<>();
-        driveMode.addDefault("1 Joystick Arcade", DriveMode.Arcade1Joystick);
+        driveMode.addDefault("2 Joystick Arcade Right", DriveMode.Arcade2JoystickRightDrive);
+        driveMode.addObject("1 Joystick Arcade", DriveMode.Arcade1Joystick);
         driveMode.addObject("Tank", DriveMode.Tank);
         driveMode.addObject("Field Oriented 1 joystick", DriveMode.Field1Joystick);
         driveMode.addObject("Field Oriented 2 joysticks", DriveMode.Field2Joystick);
-        driveMode.addObject("2 Joystick Arcade Right", DriveMode.Arcade2JoystickRightDrive);
         driveMode.addObject("2 Joystick Arcade Left", DriveMode.Arcade2JoystickLeftDrive);
         SmartDashboard.putData("Drive Mode", driveMode);
 
