@@ -108,7 +108,7 @@ public class Constants {
 
 //    public static final int LIFT_UPPER_LIMIT = 395000;
 //    public static final int LIFT_LOWER_SLOW_DISTANCE = 50000;
-    public static final int LIFT_SLOW_DISTANCE = 2000;
+    public static final int LIFT_SLOW_DISTANCE = 4000;
 
     public static final double LIFT_ZERO_SPEED = 0.15;
 

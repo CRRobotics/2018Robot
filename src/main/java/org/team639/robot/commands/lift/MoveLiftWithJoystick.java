@@ -50,7 +50,11 @@ public class MoveLiftWithJoystick extends Command {
         double speed = yVal;
         if (speed < 0) {
             speed *= 0.8;
-            if(lift.getEncPos() < 4000) speed = (speed * lift.getEncPos() / 8000) -.1;
+            if(lift.getEncPos() < LIFT_SLOW_DISTANCE) speed = (speed * lift.getEncPos() / 8000) -.1;
+        }
+
+        if (speed > 0 && LIFT_MAX_HEIGHT - lift.getEncPos() < LIFT_SLOW_DISTANCE) {
+            speed = speed * lift.getEncPos() / 7000 + .1;
         }
 
 //        if(lift.getEncPos() < 2500)
