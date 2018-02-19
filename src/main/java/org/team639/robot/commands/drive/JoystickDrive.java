@@ -1,12 +1,14 @@
 package org.team639.robot.commands.drive;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.controls.LogitechF310;
 import org.team639.lib.math.AngleMath;
 import org.team639.lib.math.PID;
+import org.team639.robot.Robot;
 import org.team639.robot.Constants;
 import org.team639.robot.OI;
-import org.team639.robot.Robot;
 import org.team639.robot.subsystems.DriveTrain;
 
 import static org.team639.robot.Constants.DriveTrain.*;
@@ -32,6 +34,7 @@ public class JoystickDrive extends Command {
     }
 
     protected void initialize() {
+        driveTrain.setCurrentControlMode(ControlMode.PercentOutput);
         // Field oriented drive turning PID constants from Constants.DriveTrain, prefixed with FOT_
         double p = FOT_P;
         double i = FOT_I;
@@ -41,19 +44,15 @@ public class JoystickDrive extends Command {
         double min = FOT_MIN;
         double max = FOT_MAX;
         double iCap = FOT_I_CAP;
-//        double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.DRIVE_P);
-//        double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.DRIVE_I);
-//        double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.DRIVE_I);
+//        double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
+//        double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
+//        double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_I);
 //        double rate = SmartDashboard.getNumber("rate", 0.1);
 //        double tolerance = SmartDashboard.getNumber("tolerance", 2);
 //        double min = SmartDashboard.getNumber("min", 0.2);
 //        double max = SmartDashboard.getNumber("max", 0.5);
         turnPID = new PID(p, i, d, min, max, rate, tolerance, iCap);
-
-//        if (Robot.getTalonMode() != driveTrain.getCurrentControlMode()) {
-//            driveTrain.setCurrentControlMode(Robot.getTalonMode());
-//        }
-        driveTrain.setRampRate(0);
+        driveTrain.setRampRate(0.5);
         driveTrain.setCurrentGear(driveTrain.getCurrentGear()); // Resets to default pid values for current gear.
     }
 
@@ -61,42 +60,50 @@ public class JoystickDrive extends Command {
      * Called repeatedly while the command is running.
      */
     protected void execute() {
+        if (!driveTrain.encodersPresent()) driveTrain.setCurrentControlMode(ControlMode.PercentOutput); // TODO: Time limit to wait before switching
+        else driveTrain.setCurrentControlMode(Robot.getDriveTalonControlMode());
+
+//        double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
+//        double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
+//        double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_I);
+
+        driveTrain.setPID(HIGH_DRIVE_P, HIGH_DRIVE_I, HIGH_DRIVE_D, HIGH_DRIVE_F);
+
         DriveMode mode;
         double x;
         double y;
         double speed;
         double angle;
 
-        double scale = 1 - OI.manager.getControllerAxis(LogitechF310.ControllerAxis.RightTrigger);
+        double scale = 1 - 0.8 * OI.drive.getControllerAxis(LogitechF310.ControllerAxis.RightTrigger);
         if (scale < 0.2) scale = 0.2;
-        if (OI.manager.getButtonPressed(LogitechF310.Buttons.LB)) {
-            mode = DriveMode.Field2Joystick;
-        } else {
-            mode = Robot.getDriveMode(); //Get drive mode from SmartDashboard
-        }
+        mode = Robot.getDriveMode();
         switch (mode) {
             case Tank:
-                tankDrive(OI.manager.getLeftStickY() * scale, OI.manager.getRightStickY() * scale);
+                tankDrive(OI.drive.getLeftStickY() * scale, OI.drive.getRightStickY() * scale);
                 break;
-            case Aracde1Joystick:
-                arcadeDrive(OI.manager.getLeftStickY() * scale, OI.manager.getLeftStickX() * scale);
+            case Arcade1Joystick:
+                arcadeDrive(OI.drive.getRightStickY() * scale, OI.drive.getRightStickX() * scale);
                 break;
-            case Arcade2Joystick:
-                arcadeDrive(OI.manager.getLeftStickY() * scale, OI.manager.getRightStickX() * scale);
+            case Arcade2JoystickLeftDrive:
+                arcadeDrive(OI.drive.getLeftStickY() * scale, OI.drive.getRightStickX() * scale);
+                break;
+            case Arcade2JoystickRightDrive:
+                arcadeDrive(OI.drive.getRightStickY() * scale, OI.drive.getLeftStickX() * scale);
                 break;
             case Field1Joystick:
-                x = OI.manager.getRightStickX();
-                y = OI.manager.getRightStickY();
-                angle = Math.abs(x) >= Constants.JOYSTICK_DEADZONE || Math.abs(y) >= Constants.JOYSTICK_DEADZONE ? OI.manager.getRightDriveAngle() : 500;
+                x = OI.drive.getRightStickX();
+                y = OI.drive.getRightStickY();
+                angle = Math.abs(x) >= Constants.JOYSTICK_DEADZONE || Math.abs(y) >= Constants.JOYSTICK_DEADZONE ? OI.drive.getRightDriveAngle() : 500;
                 speed = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
                 fieldOrientedDrive(angle, speed, 1);
                 break;
             case Field2Joystick:
-                x = OI.manager.getLeftStickX();
-                y = OI.manager.getLeftStickY();
-                angle = Math.abs(x) >= Constants.JOYSTICK_DEADZONE || Math.abs(y) >= Constants.JOYSTICK_DEADZONE ? OI.manager.getLeftDriveAngle() : 500;
+                x = OI.drive.getLeftStickX();
+                y = OI.drive.getLeftStickY();
+                angle = Math.abs(x) >= Constants.JOYSTICK_DEADZONE || Math.abs(y) >= Constants.JOYSTICK_DEADZONE ? OI.drive.getLeftDriveAngle() : 500;
                 speed = Math.sqrt(Math.pow(y, 2) + Math.pow(x, 2));
-                fieldOrientedDrive(angle, OI.manager.getRightStickY() * scale, speed);
+                fieldOrientedDrive(angle, OI.drive.getRightStickY() * scale, speed);
                 break;
         }
     }
@@ -135,18 +142,21 @@ public class JoystickDrive extends Command {
      * @param turning The turning magnitude from -1 to 1
      */
     public void arcadeDrive(double speed, double turning) {
-        speed /= 2;
+        speed = speed * 2 / 3;
         turning /= 3;
-        double rate = driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
+        double rate = SmartDashboard.getNumber("rrate", HIGH_ARCADE_RATE); //driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
 
-        if (Math.abs(speed - lastSetpointSpeed) > rate) {
-            speed = speed < lastSetpointSpeed ? lastSetpointSpeed - rate : lastSetpointSpeed + rate;
-        }
-        if (Math.abs(turning - lastSetpointTurning) > rate) {
-            turning = turning < lastSetpointTurning ? lastSetpointTurning - rate : lastSetpointTurning + rate;
-        }
+//        if (Math.abs(speed - lastSetpointSpeed) > rate) {
+//            speed = speed < lastSetpointSpeed ? lastSetpointSpeed - rate : lastSetpointSpeed + rate;
+//        }
+//        if (Math.abs(turning - lastSetpointTurning) > rate) {
+//            turning = turning < lastSetpointTurning ? lastSetpointTurning - rate : lastSetpointTurning + rate;
+//        }
         lastSetpointSpeed = speed;
         lastSetpointTurning = turning;
+
+        if (speed < 0) turning *= -1;
+
         driveTrain.setSpeedsPercent(speed + turning, speed - turning);
     }
 
@@ -157,17 +167,17 @@ public class JoystickDrive extends Command {
      * @param rSpeed The value for the right side
      */
     public void tankDrive(double lSpeed, double rSpeed) {
-        lSpeed /= 2;
-        rSpeed /= 2;
+//        lSpeed /= 2;
+//        rSpeed /= 2;
         double rate = driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
 
 
-        if (Math.abs(lSpeed - lastSetpointLeft) > rate) {
-            lSpeed = lSpeed < lastSetpointLeft ? lastSetpointLeft - rate : lastSetpointLeft + rate;
-        }
-        if (Math.abs(rSpeed - lastSetpointRight) > rate) {
-            rSpeed = rSpeed < lastSetpointRight ? lastSetpointRight - rate : lastSetpointRight + rate;
-        }
+//        if (Math.abs(lSpeed - lastSetpointLeft) > rate) {
+//            lSpeed = lSpeed < lastSetpointLeft ? lastSetpointLeft - rate : lastSetpointLeft + rate;
+//        }
+//        if (Math.abs(rSpeed - lastSetpointRight) > rate) {
+//            rSpeed = rSpeed < lastSetpointRight ? lastSetpointRight - rate : lastSetpointRight + rate;
+//        }
 
         lastSetpointRight = rSpeed;
         lastSetpointLeft = lSpeed;

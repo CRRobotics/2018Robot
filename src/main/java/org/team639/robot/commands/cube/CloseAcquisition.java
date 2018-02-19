@@ -1,6 +1,7 @@
 package org.team639.robot.commands.cube;
 
 import edu.wpi.first.wpilibj.command.Command;
+import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
 /**
@@ -15,8 +16,16 @@ public class CloseAcquisition extends Command {
      */
     public CloseAcquisition() {
         super("CloseAcquisition");
-        cubeAcquisition = new CubeAcquisition();
-        requires(cubeAcquisition);
+        cubeAcquisition = Robot.getCubeAcquisition();
+    }
+
+    /**
+     * The initialize method is called the first time this Command is run after being started.
+     */
+    @Override
+    protected void initialize() {
+        cubeAcquisition.setPistonMode(CubeAcquisition.PistonMode.Closed);
+        System.out.println("Closing");
     }
 
     /**

@@ -17,7 +17,6 @@ public class LowerAcquisition extends Command {
     public LowerAcquisition() {
         super("LowerAcquisition");
         cubeAcquisition = Robot.getCubeAcquisition();
-        requires(cubeAcquisition);
     }
 
     /**

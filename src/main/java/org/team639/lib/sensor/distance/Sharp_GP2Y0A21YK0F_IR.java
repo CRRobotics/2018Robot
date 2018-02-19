@@ -2,6 +2,9 @@ package org.team639.lib.sensor.distance;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 
+/**
+ * A sharp GP2Y0A21YK0F ir sensor. This class probably does not work correctly.
+ */
 public class Sharp_GP2Y0A21YK0F_IR implements DistanceSensor {
     AnalogInput input;
 

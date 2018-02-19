@@ -3,21 +3,31 @@ package org.team639.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team639.robot.RobotMap;
+import org.team639.robot.commands.cube.MonitorCube;
 
 /**
  * The cube acquisition subsystem.
  * Responsible for manipulating cubes.
+ * The best subsystem.
  */
 public class CubeAcquisition extends Subsystem {
     private TalonSRX left;
     private TalonSRX right;
 
     private DigitalInput innerCubeDetector;
+    private AnalogInput outerCubeDetector;
     private DigitalInput armsClosed;
+
+    private boolean innerDetectorEnabled = true;
+    private boolean outerDetectorEnabled = true;
+    private boolean armsClosedEnabled = true;
+
+    private boolean shouldHaveCube = false;
 
     private Solenoid cubeRaise;
     private Solenoid acqOpen1;
@@ -44,17 +54,20 @@ public class CubeAcquisition extends Subsystem {
         left.setNeutralMode(NeutralMode.Brake);
         right.setNeutralMode(NeutralMode.Brake);
 
-        right.setInverted(true);
+        left.setInverted(true);
 
         innerCubeDetector = RobotMap.getInnerCubeDetector();
+        outerCubeDetector = RobotMap.getOuterCubeDetector();
         armsClosed = RobotMap.getArmsClosed();
 
         cubeRaise = RobotMap.getCubeRaise();
         acqOpen1 = RobotMap.getAcqOpen1();
         acqOpen2 = RobotMap.getAcqOpen2();
 
-        mode = PistonMode.Closed;
+        mode = PistonMode.Floating;
         setPistonMode(mode);
+
+        setRaised(true);
     }
 
     /**
@@ -63,15 +76,14 @@ public class CubeAcquisition extends Subsystem {
      */
     public void setPistonMode(PistonMode mode) {
         this.mode = mode;
-        // TODO: Check that the piston changes correctly
         switch (this.mode) {
             case Open:
-                acqOpen1.set(true);
-                acqOpen2.set(false);
-                break;
-            case Closed:
                 acqOpen1.set(false);
                 acqOpen2.set(true);
+                break;
+            case Closed:
+                acqOpen1.set(true);
+                acqOpen2.set(false);
                 break;
             case Floating:
                 acqOpen1.set(false);
@@ -93,7 +105,7 @@ public class CubeAcquisition extends Subsystem {
      * @param raised Whether or not the acquisition should be raised.
      */
     public void setRaised(boolean raised) {
-        cubeRaise.set(!raised); // TODO: Check that this is correct.
+        cubeRaise.set(!raised);
     }
 
     /**
@@ -101,7 +113,7 @@ public class CubeAcquisition extends Subsystem {
      * @return Whether or not the aqcuisition is raised.
      */
     public boolean isRaised() {
-        return !cubeRaise.get(); // TODO: Check that this is correct.
+        return !cubeRaise.get();
     }
 
     /**
@@ -110,8 +122,8 @@ public class CubeAcquisition extends Subsystem {
      * @param rSpeed The percentage of max speed to set the right side.
      */
     public void setSpeedsPercent(double lSpeed, double rSpeed) {
-        left.set(ControlMode.Current, lSpeed);
-        right.set(ControlMode.Current, rSpeed);
+        left.set(ControlMode.PercentOutput, lSpeed);
+        right.set(ControlMode.PercentOutput, rSpeed);
     }
 
     /**
@@ -119,7 +131,11 @@ public class CubeAcquisition extends Subsystem {
      * @return Whether or not a cube is at the back of the acquisition.
      */
     public boolean isCubeDetectedAtBack() {
-        return innerCubeDetector.get();
+        return innerDetectorEnabled && innerCubeDetector.get();
+    }
+
+    public boolean isCubeDetectedAtFront() {
+        return  outerDetectorEnabled && outerCubeDetector.getVoltage() > 1;
     }
 
     /**
@@ -127,7 +143,39 @@ public class CubeAcquisition extends Subsystem {
      * @return Whether or not the arms are closed far enough for the cube to be positioned correctly.
      */
     public boolean isClosed() {
-        return armsClosed.get();
+        return armsClosedEnabled && !armsClosed.get();
+    }
+
+    public boolean isInnerDetectorEnabled() {
+        return innerDetectorEnabled;
+    }
+
+    public void setInnerDetectorEnabled(boolean innerDetectorEnabled) {
+        this.innerDetectorEnabled = innerDetectorEnabled;
+    }
+
+    public boolean isOuterDetectorEnabled() {
+        return outerDetectorEnabled;
+    }
+
+    public void setOuterDetectorEnabled(boolean outerDetectorEnabled) {
+        this.outerDetectorEnabled = outerDetectorEnabled;
+    }
+
+    public boolean isArmsClosedEnabled() {
+        return armsClosedEnabled;
+    }
+
+    public void setArmsClosedEnabled(boolean armsClosedEnabled) {
+        this.armsClosedEnabled = armsClosedEnabled;
+    }
+
+    public boolean shouldHaveCube() {
+        return shouldHaveCube;
+    }
+
+    public void setShouldHaveCube(boolean shouldHaveCube) {
+        this.shouldHaveCube = shouldHaveCube;
     }
 
     /**
@@ -136,5 +184,7 @@ public class CubeAcquisition extends Subsystem {
      * CommandBase in the users program after all the Subsystems are created.
      */
     @Override
-    protected void initDefaultCommand() {}
+    protected void initDefaultCommand() {
+//        setDefaultCommand(new MonitorCube());
+    }
 }

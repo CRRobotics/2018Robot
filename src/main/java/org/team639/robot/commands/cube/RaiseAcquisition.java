@@ -17,7 +17,6 @@ public class RaiseAcquisition extends Command {
     public RaiseAcquisition() {
         super("RaiseAcquisition");
         cubeAcquisition = Robot.getCubeAcquisition();
-        requires(cubeAcquisition);
     }
 
     /**
@@ -25,7 +24,10 @@ public class RaiseAcquisition extends Command {
      */
     @Override
     protected void initialize() {
-        cubeAcquisition.setRaised(false);
+        // TODO: Open acquisition if no cube is present
+        if (cubeAcquisition.isCubeDetectedAtBack() || cubeAcquisition.getPistonMode() == CubeAcquisition.PistonMode.Open) {
+            cubeAcquisition.setRaised(true);
+        }
     }
 
     /**

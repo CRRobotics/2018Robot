@@ -23,7 +23,7 @@ public class PositionCube extends Command {
 
     private State state;
 
-    private long startRotateTime; // 
+    private long startRotateTime;
 
     public PositionCube() {
         super("PositionCube");
@@ -52,10 +52,10 @@ public class PositionCube extends Command {
                 if (cubeAcquisition.isCubeDetectedAtBack() && cubeAcquisition.isClosed()) {
                     cubeAcquisition.setSpeedsPercent(0, 0);
                     state = State.Finished;
-                } else if (cubeAcquisition.isCubeDetectedAtBack() && !cubeAcquisition.isClosed()) {
-                    cubeAcquisition.setSpeedsPercent(0, 0);
-                    state = State.Rotate;
-                }
+                } // else if (cubeAcquisition.isCubeDetectedAtBack() && !cubeAcquisition.isClosed()) {
+//                    cubeAcquisition.setSpeedsPercent(0, 0);
+//                    state = State.Rotate;
+//                }
                 break;
             case Rotate:
                 if (startRotateTime == -1) startRotateTime = System.currentTimeMillis();
@@ -78,12 +78,6 @@ public class PositionCube extends Command {
      * <p>
      * <p>It may be useful for a team to reference the {@link Command#isTimedOut() isTimedOut()}
      * method for time-sensitive commands.
-     * <p>
-     * <p>Returning false will result in the command never ending automatically. It may still be
-     * cancelled manually or interrupted by another command. Returning true will result in the
-     * command executing once and finishing immediately. We recommend using {@link InstantCommand}
-     * for this.
-     *
      * @return whether this command is finished.
      * @see Command#isTimedOut() isTimedOut()
      */
@@ -114,5 +108,6 @@ public class PositionCube extends Command {
     @Override
     protected void end() {
         cubeAcquisition.setSpeedsPercent(0, 0);
+        cubeAcquisition.setShouldHaveCube(true);
     }
 }
