@@ -23,8 +23,8 @@ public class OI {
      * THIS MUST BE RUN AT THE END OF robotInit in Robot.java!!!
      */
     public static void mapButtons() {
-        controller.mapButton(LogitechF310.Buttons.RB, new EjectCube(), JoystickManager.MappingType.WhileHeld);
-        controller.mapButton(LogitechF310.Buttons.LB, new IntakeCube(), JoystickManager.MappingType.WhileHeld);
+        controller.mapButton(LogitechF310.Buttons.LB, new EjectCube(), JoystickManager.MappingType.WhileHeld);
+        controller.mapButton(LogitechF310.Buttons.RB, new IntakeCube(), JoystickManager.MappingType.WhileHeld);
         controller.mapButton(LogitechF310.Buttons.A, new OpenAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.B, new CloseAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.X, new CloseOnCubeAtFront(), JoystickManager.MappingType.WhenPressed);

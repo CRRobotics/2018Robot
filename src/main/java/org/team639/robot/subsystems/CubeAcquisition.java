@@ -185,6 +185,6 @@ public class CubeAcquisition extends Subsystem {
      */
     @Override
     protected void initDefaultCommand() {
-//        setDefaultCommand(new MonitorCube());
+          setDefaultCommand(new MonitorCube());
     }
 }

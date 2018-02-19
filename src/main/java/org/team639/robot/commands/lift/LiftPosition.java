@@ -11,7 +11,7 @@ public enum LiftPosition {
     ScaleHeight(LIFT_SCALE_HEIGHT),
     SwitchHeight(LIFT_SWITCH_HEIGHT),
     ExchangeHeight(LIFT_EXCHANGE_HEIGHT),
-    TestHeight(12000),
+    TestHeight(1000),
     ClimbHeight(LIFT_CLIMB_HEIGHT);
 
     private final int encTicks;

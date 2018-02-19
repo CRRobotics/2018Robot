@@ -45,13 +45,15 @@ public class MoveLiftWithJoystick extends Command {
         double yVal = OI.controller.getLeftStickY();
         SmartDashboard.putNumber("left stick y", yVal);
         if (Math.abs(yVal) < CONTROLLER_JOYSTICK_DEADZONE) yVal = 0;
-        else yVal = (yVal - CONTROLLER_JOYSTICK_DEADZONE) / (1 - CONTROLLER_JOYSTICK_DEADZONE);
+        else yVal = (yVal - CONTROLLER_JOYSTICK_DEADZONE); // (1 - CONTROLLER_JOYSTICK_DEADZONE);
         double multiplier = 1;
-//        if (LIFT_MAX_HEIGHT - lift.getEncPos() <= LIFT_SLOW_DISTANCE) multiplier = (LIFT_MAX_HEIGHT - lift.getEncPos()) / LIFT_SLOW_DISTANCE;
-//        else if (lift.getEncPos() <= LIFT_SLOW_DISTANCE) multiplier = lift.getEncPos() / LIFT_SLOW_DISTANCE;
-        double speed = yVal * multiplier;
-//        if (speed < 0.1) speed = 0.1;
+        double speed = yVal;
+        if (speed < 0) {
+            speed *= 0.8;
+            if(lift.getEncPos() < 4000) speed = (speed * lift.getEncPos() / 8000) -.1;
+        }
 
+//        if(lift.getEncPos() < 2500)
 //        if ((lift.isAtSecondStageLimit() && speed > 0) || (lift.encoderPresent() && (lift.getEncPos() > LIFT_MAX_HEIGHT - LIFT_TOLERANCE) && speed > 0)) speed = 0;
 //        if (lift.isAtLowerLimit() && speed < 0) speed = 0;
 

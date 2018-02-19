@@ -44,7 +44,7 @@ public class MonitorCube extends Command {
         switch (state) {
             case Watching:
                 if (cubeAcquisition.shouldHaveCube() && !cubeAcquisition.isCubeDetectedAtBack()) {
-                    cubeAcquisition.setSpeedsPercent(-0.3, -0.3);
+                    cubeAcquisition.setSpeedsPercent(-0.1, -0.1);
                     state = State.Spinning;
                     startedSpinningTime = System.currentTimeMillis();
                 }
@@ -55,6 +55,7 @@ public class MonitorCube extends Command {
                     state = State.Watching;
                 } else if (System.currentTimeMillis() - startedSpinningTime > 500) {
                     cubeAcquisition.setShouldHaveCube(false);
+                    cubeAcquisition.setSpeedsPercent(0, 0);
                     state = State.Watching;
                 }
                 break;

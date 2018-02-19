@@ -80,7 +80,7 @@ public class Constants {
     }
 
     public static final double JOYSTICK_DEADZONE = 0.05;
-    public static final double CONTROLLER_JOYSTICK_DEADZONE = 0.15;
+    public static final double CONTROLLER_JOYSTICK_DEADZONE = 0.2;
 
 
     public static final int LIFT_MAX_SPEED = 1700;
