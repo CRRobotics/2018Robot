@@ -4,6 +4,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
+/**
+ * Sets the acquisition motors spinning at a given speed.
+ * @see CubeAcquisition
+ */
 public class SetAcquisitionSpinning extends Command {
     private CubeAcquisition cubeAcquisition;
     private double speed;

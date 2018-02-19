@@ -3,6 +3,11 @@ package org.team639.robot.commands.cube;
 import edu.wpi.first.wpilibj.command.Command;
 import org.team639.robot.Robot;
 
+/**
+ * Tells the cube acquisition system whether it should currently have a cube.
+ * @see org.team639.robot.subsystems.CubeAcquisition
+ * @see MonitorCube
+ */
 public class SetShouldHaveCube extends Command {
     private boolean shouldHaveCube;
 

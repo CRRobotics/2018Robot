@@ -24,6 +24,7 @@ public class RaiseAcquisition extends Command {
      */
     @Override
     protected void initialize() {
+        // TODO: Open acquisition if no cube is present
         if (cubeAcquisition.isCubeDetectedAtBack() || cubeAcquisition.getPistonMode() == CubeAcquisition.PistonMode.Open) {
             cubeAcquisition.setRaised(true);
         }

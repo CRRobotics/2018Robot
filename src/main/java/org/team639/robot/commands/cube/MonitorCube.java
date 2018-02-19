@@ -4,8 +4,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
-import static org.team639.robot.Constants.DEFAULT_ACQ_SPEED;
-
+/**
+ * A command that tries to hold on to a cube if it is knocked loose.
+ * @see CubeAcquisition
+ * @see SetShouldHaveCube
+ */
 public class MonitorCube extends Command {
     private CubeAcquisition cubeAcquisition;
 

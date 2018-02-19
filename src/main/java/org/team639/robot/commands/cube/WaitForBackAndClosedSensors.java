@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
+/**
+ * A command that waits for both the back sensor and arms closed sensor of the acquisition to return true.
+ */
 public class WaitForBackAndClosedSensors extends Command {
     private CubeAcquisition cubeAcquisition;
 

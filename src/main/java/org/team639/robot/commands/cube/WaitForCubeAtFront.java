@@ -4,6 +4,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
+/**
+ * A command that waits for the front acquisition sensor to be triggered.
+ * @see CubeAcquisition
+ */
 public class WaitForCubeAtFront extends Command {
     private CubeAcquisition cubeAcquisition;
 
