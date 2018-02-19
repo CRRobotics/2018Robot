@@ -1,5 +1,6 @@
 org.team639.lib
 org.team639.lib.commands
+org.team639.lib.constants
 org.team639.lib.controls
 org.team639.lib.led
 org.team639.lib.led.patterns
