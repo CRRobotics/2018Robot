@@ -153,6 +153,22 @@ public class DriveTrain extends Subsystem {
      */
     public void setSpeedsPercent(double lSpeed, double rSpeed) {
         double range = currentGear == DriveGear.High ? HIGH_SPEED_RANGE : LOW_SPEED_RANGE;
+        double l_vel = getLeftEncVelocity();
+        double r_vel = getRightEncVelocity();
+
+        if((l_vel > 0) == (r_vel > 0)) {
+            double avg_vel = Math.abs((l_vel + r_vel) / 2);
+            DriveGear g = getCurrentGear();
+            if(avg_vel > Constants.DriveTrain.IDEAL_SHIFT_SPEED * 1.02 && getCurrentGear() == DriveGear.Low) g = DriveGear.High;
+            if(avg_vel < Constants.DriveTrain.IDEAL_SHIFT_SPEED * .98 && getCurrentGear() == DriveGear.High) g = DriveGear.Low;
+            if(lSpeed < 0 == rSpeed < 0) {
+                double avg_cmd = Math.abs((lSpeed + rSpeed) / 2) * range;
+                if(avg_cmd < avg_vel && avg_cmd < Constants.DriveTrain.IDEAL_SHIFT_SPEED * .98) g = DriveGear.Low;
+            }
+            setCurrentGear(g);
+        } else {
+            setCurrentGear(DriveGear.Low);
+        }
 
         // Limits speeds to the range [-1, 1]
         if (Math.abs(lSpeed) > 1) lSpeed = lSpeed < 0 ? -1 : 1;
@@ -296,6 +312,7 @@ public class DriveTrain extends Subsystem {
      */
     public void setCurrentGear(DriveGear gear) {
         this.currentGear = gear;
+        if(gear == currentGear) return;
         switch (gear) {
             case Low:
                 shifter.set(true);

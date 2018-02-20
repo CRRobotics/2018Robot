@@ -25,6 +25,9 @@ public class Constants {
         public static final double HIGH_DRIVE_F = 1023/HIGH_SPEED_RANGE;
         public static final double HIGH_ARCADE_RATE = 0.03;
 
+        //public static final double IDEAL_SHIFT_SPEED = 1.926*39.37/4.0/(2*Math.PI)*4096*0.1; // ticks per 100ms?
+        public static final double IDEAL_SHIFT_SPEED = 5000;
+
         public static final double LOW_MIN_DRIVE_PERCENT = 0.09;
 
         public static final double LOW_SPEED_RANGE = 11100;
@@ -107,15 +110,17 @@ public class Constants {
     public static final double LIFT_POS_D = 0;
 
 
-    public static final int LIFT_MAX_HEIGHT = 40000; // TODO: FIND REAL VALUEs!!!!
-    public static final int LIFT_SCALE_HEIGHT = 0;
-    public static final int LIFT_SWITCH_HEIGHT = 0;
-    public static final int LIFT_EXCHANGE_HEIGHT = 0;
-    public static final int LIFT_CLIMB_HEIGHT = 0;
+    public static final int LIFT_MAX_HEIGHT = 40850; // TODO: THIS IS PROBABLY THE REAL VALUE BUT MAYBE NOT
+    public static final int LIFT_SCALE_HEIGHT = LIFT_MAX_HEIGHT;
+    public static final int LIFT_SWITCH_HEIGHT = 13474;
+    public static final int LIFT_EXCHANGE_HEIGHT = 2807;
+    public static final int LIFT_CLIMB_HEIGHT = 0; //TODO FIND HEIGHT
 
 //    public static final int LIFT_UPPER_LIMIT = 395000;
 //    public static final int LIFT_LOWER_SLOW_DISTANCE = 50000;
-    public static final int LIFT_SLOW_DISTANCE = 4000;
+    public static final int LIFT_TOP_SLOW_DISTANCE = 1000;
+    public static final int LIFT_BOTTOM_SLOW_DISTANCE = 4000;
+
 
     public static final double LIFT_ZERO_SPEED = 0.15;
 
