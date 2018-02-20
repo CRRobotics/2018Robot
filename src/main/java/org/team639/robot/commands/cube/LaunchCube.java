@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.*;
 import org.team639.lib.commands.ExecuteCommandAndWait;
 import org.team639.robot.Robot;
 
-import static org.team639.robot.Constants.DEFAULT_ACQ_SPEED;
+import static org.team639.robot.Constants.Acquisition.DEFAULT_ACQ_SPEED;
 
 /**
  * Launches a cube

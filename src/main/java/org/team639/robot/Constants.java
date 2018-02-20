@@ -7,6 +7,13 @@ package org.team639.robot;
 public class Constants {
     public static final boolean REAL = true;
 
+    public static class Acquisition {
+        public static final double DEFAULT_ACQ_SPEED = 0.5;
+        public static final double MONITOR_CUBE_TIMEOUT = 1.5;
+        public static final double MONITOR_CUBE_SPEED = 0.2;
+
+    }
+
     public static class DriveTrain {
         // TODO: Tune everything.
         public static final double HIGH_MIN_DRIVE_PERCENT = 0.09;
@@ -114,5 +121,4 @@ public class Constants {
 
     public static final int LIFT_TOLERANCE = 200;
 
-    public static final double DEFAULT_ACQ_SPEED = 0.5;
 }

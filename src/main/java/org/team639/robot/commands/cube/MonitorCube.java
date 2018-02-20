@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
+import static org.team639.robot.Constants.Acquisition.MONITOR_CUBE_SPEED;
+import static org.team639.robot.Constants.Acquisition.MONITOR_CUBE_TIMEOUT;
+
 /**
  * A command that tries to hold on to a cube if it is knocked loose.
  * @see CubeAcquisition
@@ -44,7 +47,7 @@ public class MonitorCube extends Command {
         switch (state) {
             case Watching:
                 if (cubeAcquisition.shouldHaveCube() && !cubeAcquisition.isCubeDetectedAtBack()) {
-                    cubeAcquisition.setSpeedsPercent(-0.1, -0.1);
+                    cubeAcquisition.setSpeedsPercent(-1 * MONITOR_CUBE_SPEED, -1 * MONITOR_CUBE_SPEED);
                     state = State.Spinning;
                     startedSpinningTime = System.currentTimeMillis();
                 }
@@ -53,7 +56,7 @@ public class MonitorCube extends Command {
                 if (cubeAcquisition.isCubeDetectedAtBack()) {
                     cubeAcquisition.setSpeedsPercent(0, 0);
                     state = State.Watching;
-                } else if (System.currentTimeMillis() - startedSpinningTime > 500) {
+                } else if (System.currentTimeMillis() - startedSpinningTime > MONITOR_CUBE_TIMEOUT) {
                     cubeAcquisition.setShouldHaveCube(false);
                     cubeAcquisition.setSpeedsPercent(0, 0);
                     state = State.Watching;

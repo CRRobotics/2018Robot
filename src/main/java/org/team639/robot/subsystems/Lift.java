@@ -53,7 +53,7 @@ public class Lift extends Subsystem {
 
         mainTalon.setNeutralMode(NeutralMode.Brake);
 
-        mainTalon.configAllowableClosedloopError(0, 50, 10);
+        mainTalon.configAllowableClosedloopError(0, 50, 0);
 
         brake = RobotMap.getLiftBrake();
 
@@ -102,7 +102,7 @@ public class Lift extends Subsystem {
      * Sets the current position of the relative encoder to zero.
      */
     public void zeroEncoder() {
-        mainTalon.getSensorCollection().setQuadraturePosition(0, 10);
+        mainTalon.getSensorCollection().setQuadraturePosition(0, 0);
     }
 
     /**

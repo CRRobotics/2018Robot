@@ -63,21 +63,21 @@ public class DriveTrain extends Subsystem {
         leftFollower1.setInverted(true);
         leftFollower2.setInverted(true);
 
-        leftDrive.configAllowableClosedloopError(0,50,10);
-        rightDrive.configAllowableClosedloopError(0,50,10);
+        leftDrive.configAllowableClosedloopError(0,50,0);
+        rightDrive.configAllowableClosedloopError(0,50,0);
 
-        leftDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-        rightDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+        leftDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+        rightDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
 //        leftDrive.setSensorPhase(true);
 
-        leftDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
-        rightDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
+        leftDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 0);
+        rightDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 0);
 
         setNeutralMode(NeutralMode.Brake);
 
-        leftDrive.configClosedloopRamp(0.5, 10);
-        rightDrive.configClosedloopRamp(0.5, 10);
+        leftDrive.configClosedloopRamp(0.5, 0);
+        rightDrive.configClosedloopRamp(0.5, 0);
 
 
         leftFollower1.follow(leftDrive);
@@ -127,14 +127,14 @@ public class DriveTrain extends Subsystem {
         kI = i;
         kD = d;
         kF = f;
-        rightDrive.config_kP(0, kP, 10);
-        rightDrive.config_kI(0, kI, 10);
-        rightDrive.config_kD(0, kD, 10);
-        rightDrive.config_kF(0, kF, 10);
-        leftDrive.config_kP(0, kP, 10);
-        leftDrive.config_kI(0, kI, 10);
-        leftDrive.config_kD(0, kD, 10);
-        leftDrive.config_kF(0, kF, 10);
+        rightDrive.config_kP(0, kP, 0);
+        rightDrive.config_kI(0, kI, 0);
+        rightDrive.config_kD(0, kD, 0);
+        rightDrive.config_kF(0, kF, 0);
+        leftDrive.config_kP(0, kP, 0);
+        leftDrive.config_kI(0, kI, 0);
+        leftDrive.config_kD(0, kD, 0);
+        leftDrive.config_kF(0, kF, 0);
 
     }
 
@@ -286,8 +286,8 @@ public class DriveTrain extends Subsystem {
      */
     public void setRampRate(double rampRate) {
         this.rampRate = rampRate;
-        leftDrive.configClosedloopRamp(rampRate, 10);
-        rightDrive.configClosedloopRamp(rampRate, 10);
+        leftDrive.configClosedloopRamp(rampRate, 0);
+        rightDrive.configClosedloopRamp(rampRate, 0);
     }
 
     /**

@@ -29,6 +29,4 @@ public class WaitForBackAndClosedSensors extends Command {
     protected boolean isFinished() {
         return cubeAcquisition.isCubeDetectedAtBack() && cubeAcquisition.isClosed();
     }
-
-
 }
