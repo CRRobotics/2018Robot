@@ -86,7 +86,7 @@ public class Robot extends TimedRobot {
         lift = new Lift();
         ledStrip = new LEDStrip(42);
 
-        SmartDashboard.putNumber("pos p", LIFT_POS_P);
+        SmartDashboard.putNumber("drive p", HIGH_DRIVE_P);
         SmartDashboard.putNumber("lift max pid", LIFT_MAX);
         SmartDashboard.putNumber("lift min pid", LIFT_MIN);
         SmartDashboard.putNumber("l max", lMax);
@@ -114,10 +114,9 @@ public class Robot extends TimedRobot {
         startingPosition.addObject("Left", StartingPosition.Left);
         startingPosition.addObject("Right", StartingPosition.Right);
         SmartDashboard.putData("Starting position", startingPosition);
-
-        SmartDashboard.putNumber("drive p", LIFT_P);
+       // SmartDashboard.putNumber("drive p", LIFT_P);
         SmartDashboard.putNumber("drive i", LIFT_I);
-        SmartDashboard.putNumber("drive d", LIFT_D);
+        SmartDashboard.putNumber("drive d", HIGH_DRIVE_D);
         SmartDashboard.putNumber("rate", ADF_RATE);
         SmartDashboard.putNumber("tolerance", LIFT_TOLERANCE);
 //        SmartDashboard.putNumber("min", LIFT_CRUISE);
@@ -212,6 +211,10 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("left enc", driveTrain.getLeftEncPos());
         SmartDashboard.putNumber("right enc", driveTrain.getRightEncPos());
+
+        SmartDashboard.putNumber("Left PercentVBus", RobotMap.getLeftDrive().getMotorOutputPercent());
+        SmartDashboard.putNumber("Right PercentVBus", RobotMap.getRightDrive().getMotorOutputPercent());
+        SmartDashboard.putString("Current gear", Robot.getDriveTrain().getCurrentGear().name());
 
         double r = driveTrain.getRightEncVelocity();
         double l = driveTrain.getLeftEncVelocity();
