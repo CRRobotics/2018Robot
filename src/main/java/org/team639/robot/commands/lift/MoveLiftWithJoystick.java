@@ -3,6 +3,7 @@ package org.team639.robot.commands.lift;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.team639.lib.controls.LogitechF310;
 import org.team639.robot.OI;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.Lift;
@@ -46,17 +47,18 @@ public class MoveLiftWithJoystick extends Command {
         SmartDashboard.putNumber("left stick y", yVal);
         if (Math.abs(yVal) < CONTROLLER_JOYSTICK_DEADZONE) yVal = 0;
         else yVal = (yVal - CONTROLLER_JOYSTICK_DEADZONE); // (1 - CONTROLLER_JOYSTICK_DEADZONE);
-        double multiplier = 1;
+        double multiplier = 1 - (0.8 * OI.controller.getControllerAxis(LogitechF310.ControllerAxis.LeftTrigger));
+        double lift_pos = lift.getEncPos();
         double speed = yVal;
         if (speed < 0) {
             speed *= 0.8;
-            if(lift.getEncPos() < LIFT_SLOW_DISTANCE) speed = (speed * lift.getEncPos() / 8000) -.1;
+            if(lift_pos < LIFT_BOTTOM_SLOW_DISTANCE) speed *= lift_pos / LIFT_BOTTOM_SLOW_DISTANCE * .9 + .1;
         }
 
-        if (speed > 0 && LIFT_MAX_HEIGHT - lift.getEncPos() < LIFT_SLOW_DISTANCE) {
-            speed = speed * lift.getEncPos() / 7000 + .1;
+        if (speed > 0 && LIFT_MAX_HEIGHT - lift_pos < LIFT_TOP_SLOW_DISTANCE) {
+            speed *= (LIFT_MAX_HEIGHT - lift_pos) / LIFT_TOP_SLOW_DISTANCE * .9 + .1;
         }
-
+        speed *= multiplier;
 //        if(lift.getEncPos() < 2500)
 //        if ((lift.isAtSecondStageLimit() && speed > 0) || (lift.encoderPresent() && (lift.getEncPos() > LIFT_MAX_HEIGHT - LIFT_TOLERANCE) && speed > 0)) speed = 0;
 //        if (lift.isAtLowerLimit() && speed < 0) speed = 0;
