@@ -71,8 +71,8 @@ public class DriveTrain extends Subsystem {
 
 //        leftDrive.setSensorPhase(true);
 
-        leftDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 0);
-        rightDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 0);
+        leftDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 20, 0);
+        rightDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 20, 0);
 
         setNeutralMode(NeutralMode.Brake);
 
@@ -156,7 +156,7 @@ public class DriveTrain extends Subsystem {
         double l_vel = getLeftEncVelocity();
         double r_vel = getRightEncVelocity();
 
-        if((l_vel > 0) == (r_vel > 0)) {
+        /*if((l_vel > 0) == (r_vel > 0)) {
             double avg_vel = Math.abs((l_vel + r_vel) / 2);
             DriveGear g = getCurrentGear();
             if(avg_vel > Constants.DriveTrain.IDEAL_SHIFT_SPEED * 1.02 && getCurrentGear() == DriveGear.Low) g = DriveGear.High;
@@ -168,7 +168,7 @@ public class DriveTrain extends Subsystem {
             setCurrentGear(g);
         } else {
             setCurrentGear(DriveGear.Low);
-        }
+        }*/
 
         // Limits speeds to the range [-1, 1]
         if (Math.abs(lSpeed) > 1) lSpeed = lSpeed < 0 ? -1 : 1;
@@ -311,8 +311,8 @@ public class DriveTrain extends Subsystem {
      * @param gear The gear to change to.
      */
     public void setCurrentGear(DriveGear gear) {
-        this.currentGear = gear;
         if(gear == currentGear) return;
+        this.currentGear = gear;
         switch (gear) {
             case Low:
                 shifter.set(true);
