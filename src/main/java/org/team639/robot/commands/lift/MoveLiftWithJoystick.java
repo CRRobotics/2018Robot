@@ -37,10 +37,10 @@ public class MoveLiftWithJoystick extends Command {
      */
     @Override
     protected void execute() {
-        double p = SmartDashboard.getNumber("drive p", LIFT_P);
-        double i = SmartDashboard.getNumber("drive i", LIFT_I);
-        double d = SmartDashboard.getNumber("drive d", LIFT_D);
-        lift.setPID(p, i, d, LIFT_F);
+//        double p = SmartDashboard.getNumber("drive p", LIFT_P);
+//        double i = SmartDashboard.getNumber("drive i", LIFT_I);
+//        double d = SmartDashboard.getNumber("drive d", LIFT_D);
+//        lift.setPID(p, i, d, LIFT_F);
 
         double yVal = OI.controller.getLeftStickY();
         SmartDashboard.putNumber("left stick y", yVal);

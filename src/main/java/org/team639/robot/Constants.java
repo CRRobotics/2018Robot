@@ -9,7 +9,7 @@ public class Constants {
 
     public static class Acquisition {
         public static final double DEFAULT_ACQ_SPEED = 0.5;
-        public static final double MONITOR_CUBE_TIMEOUT = 1.5;
+        public static final double MONITOR_CUBE_TIMEOUT = 1500;
         public static final double MONITOR_CUBE_SPEED = 0.2;
 
     }
