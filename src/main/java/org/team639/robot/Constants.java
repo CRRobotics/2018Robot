@@ -5,10 +5,10 @@ package org.team639.robot;
  * Part of 2018Robot.
  */
 public class Constants {
-    public static final boolean REAL = true;
+    public static final boolean REAL = false;
 
     public static class Acquisition {
-        public static final double DEFAULT_ACQ_SPEED = 0.5;
+        public static final double DEFAULT_ACQ_SPEED = 0.4;
         public static final double MONITOR_CUBE_TIMEOUT = 1500;
         public static final double MONITOR_CUBE_SPEED = 0.2;
 
@@ -30,7 +30,7 @@ public class Constants {
 
         public static final double LOW_MIN_DRIVE_PERCENT = 0.09;
 
-        public static final double LOW_SPEED_RANGE = 11100;
+        public static final double LOW_SPEED_RANGE = 18000 * .95;
         public static final double LOW_DRIVE_P = 0.1;
         public static final double LOW_DRIVE_I = 0;
         public static final double LOW_DRIVE_D = 0;
@@ -110,10 +110,10 @@ public class Constants {
     public static final double LIFT_POS_D = 0;
 
 
-    public static final int LIFT_MAX_HEIGHT = 40850; // TODO: THIS IS PROBABLY THE REAL VALUE BUT MAYBE NOT
+    public static final int LIFT_MAX_HEIGHT = 40700; // TODO: THIS IS PROBABLY THE REAL VALUE BUT MAYBE NOT
     public static final int LIFT_SCALE_HEIGHT = LIFT_MAX_HEIGHT;
     public static final int LIFT_SWITCH_HEIGHT = 13474;
-    public static final int LIFT_EXCHANGE_HEIGHT = 2807;
+    public static final int LIFT_EXCHANGE_HEIGHT = 2500;//2807; 950 is mark's guess
     public static final int LIFT_CLIMB_HEIGHT = 0; //TODO FIND HEIGHT
 
 //    public static final int LIFT_UPPER_LIMIT = 395000;

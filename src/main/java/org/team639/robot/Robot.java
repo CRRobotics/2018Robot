@@ -87,11 +87,6 @@ public class Robot extends TimedRobot {
         ledStrip = new LEDStrip(42);
 
         SmartDashboard.putNumber("drive p", HIGH_DRIVE_P);
-        SmartDashboard.putNumber("lift max pid", LIFT_MAX);
-        SmartDashboard.putNumber("lift min pid", LIFT_MIN);
-        SmartDashboard.putNumber("l max", lMax);
-        SmartDashboard.putNumber("r max", rMax);
-
         SmartDashboard.putNumber("rrate", HIGH_ARCADE_RATE);
 
         // Driver options init
@@ -191,13 +186,13 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
 
-        SmartDashboard.putNumber("lift pos", lift.getEncPos());
+//        SmartDashboard.putNumber("lift pos", lift.getEncPos());
         SmartDashboard.putNumber("pdp energy", RobotMap.getPdp().getTotalEnergy());
 
-        SmartDashboard.putNumber("lift speed", Math.abs(lift.getEncVelocity()));
-        SmartDashboard.putNumber("lift velocity", lift.getEncVelocity());
+//        SmartDashboard.putNumber("lift speed", Math.abs(lift.getEncVelocity()));
+//        SmartDashboard.putNumber("lift velocity", lift.getEncVelocity());
 
-        SmartDashboard.putNumber("lift enc", lift.getEncPos());
+//        SmartDashboard.putNumber("lift enc", lift.getEncPos());
 
         SmartDashboard.putBoolean("drivetrain encoders", driveTrain.encodersPresent());
         SmartDashboard.putNumber("Left speed", driveTrain.getLeftEncVelocity());
@@ -209,8 +204,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("inner", cubeAcquisition.isCubeDetectedAtBack());
         SmartDashboard.putBoolean("arms", cubeAcquisition.isClosed());
 
-        SmartDashboard.putNumber("left enc", driveTrain.getLeftEncPos());
-        SmartDashboard.putNumber("right enc", driveTrain.getRightEncPos());
+//        SmartDashboard.putNumber("left enc", driveTrain.getLeftEncPos());
+//        SmartDashboard.putNumber("right enc", driveTrain.getRightEncPos());
 
         SmartDashboard.putNumber("Left PercentVBus", RobotMap.getLeftDrive().getMotorOutputPercent());
         SmartDashboard.putNumber("Right PercentVBus", RobotMap.getRightDrive().getMotorOutputPercent());

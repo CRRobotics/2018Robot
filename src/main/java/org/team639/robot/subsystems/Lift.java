@@ -26,6 +26,8 @@ public class Lift extends Subsystem {
 
     private ControlMode currentControlMode;
 
+//    private Solenoid climbingPiston;
+
     private double kP;
     private double kI;
     private double kD;
@@ -56,7 +58,7 @@ public class Lift extends Subsystem {
         mainTalon.configAllowableClosedloopError(0, 50, 0);
 
         brake = RobotMap.getLiftBrake();
-
+//        climbingPiston = RobotMap.getClimbPiston();
 //        mainTalon.configMotionCruiseVelocity(LIFT_CRUISE, 0);
 //        mainTalon.configMotionAcceleration(LIFT_ACCELERATION, 0);
 

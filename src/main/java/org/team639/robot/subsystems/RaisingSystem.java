@@ -11,11 +11,11 @@ import org.team639.robot.RobotMap;
 public class RaisingSystem extends Subsystem {
     private Solenoid leftPiston;
     private Solenoid rightPiston;
-
-    public RaisingSystem() {
-        leftPiston = RobotMap.getRaisingLeft();
-        rightPiston = RobotMap.getRaisingRight();
-    }
+//
+//    public RaisingSystem() {
+//        leftPiston = RobotMap.getRaisingLeft();
+//        rightPiston = RobotMap.getRaisingRight();
+//    }
 
     /**
      * Returns whether or not the left piston is extended.

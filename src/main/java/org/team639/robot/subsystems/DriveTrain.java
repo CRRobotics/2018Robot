@@ -38,12 +38,24 @@ public class DriveTrain extends Subsystem {
     private DriveGear currentGear;
     private ControlMode currentControlMode;
 
+    public boolean getAutoShift() {
+        return autoShift;
+    }
+
+    public void setAutoShift(boolean autoShift) {
+        this.autoShift = autoShift;
+    }
+
+    private boolean autoShift = false;
+
+
+
     /**
      * The gears of the robot.
      */
     public enum DriveGear {
         High,
-        Low
+        Low,
     }
 
     /**
@@ -76,8 +88,8 @@ public class DriveTrain extends Subsystem {
 
         setNeutralMode(NeutralMode.Brake);
 
-        leftDrive.configClosedloopRamp(0.5, 0);
-        rightDrive.configClosedloopRamp(0.5, 0);
+        leftDrive.configClosedloopRamp(0, 0);
+        rightDrive.configClosedloopRamp(0, 0);
 
 
         leftFollower1.follow(leftDrive);
@@ -156,19 +168,23 @@ public class DriveTrain extends Subsystem {
         double l_vel = getLeftEncVelocity();
         double r_vel = getRightEncVelocity();
 
-        /*if((l_vel > 0) == (r_vel > 0)) {
-            double avg_vel = Math.abs((l_vel + r_vel) / 2);
-            DriveGear g = getCurrentGear();
-            if(avg_vel > Constants.DriveTrain.IDEAL_SHIFT_SPEED * 1.02 && getCurrentGear() == DriveGear.Low) g = DriveGear.High;
-            if(avg_vel < Constants.DriveTrain.IDEAL_SHIFT_SPEED * .98 && getCurrentGear() == DriveGear.High) g = DriveGear.Low;
-            if(lSpeed < 0 == rSpeed < 0) {
-                double avg_cmd = Math.abs((lSpeed + rSpeed) / 2) * range;
-                if(avg_cmd < avg_vel && avg_cmd < Constants.DriveTrain.IDEAL_SHIFT_SPEED * .98) g = DriveGear.Low;
+        if(autoShift) {
+            if ((l_vel > 0) == (r_vel > 0)) {
+                double avg_vel = Math.abs((l_vel + r_vel) / 2);
+                DriveGear g = getCurrentGear();
+                if (avg_vel > Constants.DriveTrain.IDEAL_SHIFT_SPEED * 1.02 && getCurrentGear() == DriveGear.Low)
+                    g = DriveGear.High;
+                if (avg_vel < Constants.DriveTrain.IDEAL_SHIFT_SPEED * .98 && getCurrentGear() == DriveGear.High)
+                    g = DriveGear.Low;
+                if (lSpeed < 0 == rSpeed < 0) {
+                    double avg_cmd = Math.abs((lSpeed + rSpeed) / 2) * range;
+                    if (avg_cmd < avg_vel && avg_cmd < Constants.DriveTrain.IDEAL_SHIFT_SPEED * .98) g = DriveGear.Low;
+                }
+                setCurrentGear(g);
+            } else {
+                setCurrentGear(DriveGear.Low);
             }
-            setCurrentGear(g);
-        } else {
-            setCurrentGear(DriveGear.Low);
-        }*/
+        }
 
         // Limits speeds to the range [-1, 1]
         if (Math.abs(lSpeed) > 1) lSpeed = lSpeed < 0 ? -1 : 1;

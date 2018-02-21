@@ -60,7 +60,6 @@ public class AutoDriveForward extends Command {
 
     protected void initialize() {
         done = false;
-
         if (!useAbsoluteAngle) angle = driveTrain.getRobotYaw();
 
         SmartDashboard.putNumber("target", targetTicks);

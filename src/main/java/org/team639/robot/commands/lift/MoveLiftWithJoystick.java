@@ -45,19 +45,20 @@ public class MoveLiftWithJoystick extends Command {
 
         double yVal = OI.controller.getLeftStickY();
         SmartDashboard.putNumber("left stick y", yVal);
+        double sign = yVal < 0 ? -1 : 1;
         if (Math.abs(yVal) < CONTROLLER_JOYSTICK_DEADZONE) yVal = 0;
-        else yVal = (yVal - CONTROLLER_JOYSTICK_DEADZONE); // (1 - CONTROLLER_JOYSTICK_DEADZONE);
+        else yVal = (yVal - sign * CONTROLLER_JOYSTICK_DEADZONE) / (1 - CONTROLLER_JOYSTICK_DEADZONE);
         double multiplier = 1 - (0.8 * OI.controller.getControllerAxis(LogitechF310.ControllerAxis.LeftTrigger));
         double lift_pos = lift.getEncPos();
         double speed = yVal;
         if (speed < 0) {
-            speed *= 0.8;
+            //speed *= 0.8;
             if(lift_pos < LIFT_BOTTOM_SLOW_DISTANCE) speed *= lift_pos / LIFT_BOTTOM_SLOW_DISTANCE * .9 + .1;
         }
 
-        if (speed > 0 && LIFT_MAX_HEIGHT - lift_pos < LIFT_TOP_SLOW_DISTANCE) {
+        /*if (speed > 0 && LIFT_MAX_HEIGHT - lift_pos < LIFT_TOP_SLOW_DISTANCE) {
             speed *= (LIFT_MAX_HEIGHT - lift_pos) / LIFT_TOP_SLOW_DISTANCE * .9 + .1;
-        }
+        }*/
         speed *= multiplier;
 //        if(lift.getEncPos() < 2500)
 //        if ((lift.isAtSecondStageLimit() && speed > 0) || (lift.encoderPresent() && (lift.getEncPos() > LIFT_MAX_HEIGHT - LIFT_TOLERANCE) && speed > 0)) speed = 0;
@@ -65,7 +66,7 @@ public class MoveLiftWithJoystick extends Command {
 
         if (speed == 0) lift.setBrake(true);
         else lift.setBrake(false);
-
+        SmartDashboard.putNumber("lift speed percent", speed);
         lift.setSpeedPercent(speed);
     }
 

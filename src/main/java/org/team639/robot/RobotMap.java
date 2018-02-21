@@ -46,10 +46,7 @@ public class RobotMap {
     private static TalonSRX liftMain;
     private static TalonSRX liftFollower;
     private static Solenoid liftBrake;
-
-    // Raising subsystem
-    private static Solenoid raisingLeft;
-    private static Solenoid raisingRight;
+    private static Solenoid climbPiston;
 
     private RobotMap() {}
 
@@ -103,6 +100,7 @@ public class RobotMap {
             liftMain = new TalonSRX(6);
             liftFollower = new TalonSRX(7);
 
+            climbPiston = new Solenoid(2);
             liftBrake = new Solenoid(6);
 
             initialized = true;
@@ -249,21 +247,7 @@ public class RobotMap {
         return acqOpen2;
     }
 
-    /**
-     * Returns the left piston of the raising subsystem.
-     * @return The left piston of the raising subsystem.
-     */
-    public static Solenoid getRaisingLeft() {
-        return raisingLeft;
-    }
-
-    /**
-     * Returns the right piston of the raising subsystem.
-     * @return The right piston of the raising subsystem.
-     */
-    public static Solenoid getRaisingRight() {
-        return raisingRight;
-    }
+    public static Solenoid getClimbPiston() { return climbPiston; }
 
     /**
      * Returns the pdp.
