@@ -151,7 +151,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        super.autonomousInit();
+        driveTrain.setAutoShift(false);
     }
 
     /**
@@ -163,6 +163,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         driveTrain.setNeutralMode(NeutralMode.Brake);
+        driveTrain.setAutoShift(true);
 
         ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
 //        ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));

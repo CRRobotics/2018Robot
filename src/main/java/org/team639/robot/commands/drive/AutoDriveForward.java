@@ -37,6 +37,8 @@ public class AutoDriveForward extends Command {
     private PID pid;
     private PID turnPID;
 
+    private boolean prevAutoShiftState;
+
     public AutoDriveForward(double distance) {
         super("AutoDriveForward");
         requires(driveTrain);
@@ -62,13 +64,15 @@ public class AutoDriveForward extends Command {
         done = false;
         if (!useAbsoluteAngle) angle = driveTrain.getRobotYaw();
 
-        SmartDashboard.putNumber("target", targetTicks);
+//        SmartDashboard.putNumber("target", targetTicks);
 
+        prevAutoShiftState = driveTrain.getAutoShift();
+        driveTrain.setAutoShift(false);
 
         targetLeft = driveTrain.getLeftEncPos() + targetTicks;
         targetRight = driveTrain.getRightEncPos() + targetTicks;
 
-        SmartDashboard.putNumber("startError", targetLeft - driveTrain.getLeftEncPos());
+//        SmartDashboard.putNumber("startError", targetLeft - driveTrain.getLeftEncPos());
 
         driveTrain.setSpeedsPercent(0, 0);
         driveTrain.setCurrentControlMode(ControlMode.Velocity);
@@ -112,5 +116,6 @@ public class AutoDriveForward extends Command {
     @Override
     protected void end() {
         driveTrain.setSpeedsPercent(0, 0);
+        driveTrain.setAutoShift(prevAutoShiftState);
     }
 }
