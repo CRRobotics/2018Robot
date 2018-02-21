@@ -168,7 +168,7 @@ public class DriveTrain extends Subsystem {
         double l_vel = getLeftEncVelocity();
         double r_vel = getRightEncVelocity();
 
-        if(autoShift) {
+        //if(autoShift) {
             if ((l_vel > 0) == (r_vel > 0)) {
                 double avg_vel = Math.abs((l_vel + r_vel) / 2);
                 DriveGear g = getCurrentGear();
@@ -184,7 +184,7 @@ public class DriveTrain extends Subsystem {
             } else {
                 setCurrentGear(DriveGear.Low);
             }
-        }
+        //}
 
         // Limits speeds to the range [-1, 1]
         if (Math.abs(lSpeed) > 1) lSpeed = lSpeed < 0 ? -1 : 1;
@@ -327,7 +327,7 @@ public class DriveTrain extends Subsystem {
      * @param gear The gear to change to.
      */
     public void setCurrentGear(DriveGear gear) {
-        if(gear == currentGear) return;
+        //if(gear == currentGear) return; // optimization that might break debugging stuff
         this.currentGear = gear;
         switch (gear) {
             case Low:
