@@ -24,10 +24,9 @@ public class RaiseAcquisition extends Command {
      */
     @Override
     protected void initialize() {
-        // TODO: Open acquisition if no cube is present
-        if (cubeAcquisition.isCubeDetectedAtBack() || cubeAcquisition.getPistonMode() == CubeAcquisition.PistonMode.Open) {
-            cubeAcquisition.setRaised(true);
-        }
+        // Using shouldHaveCube here has the small potential to cause a problem but will not once the new sensor is installed and working.
+        if (!cubeAcquisition.shouldHaveCube() && !cubeAcquisition.isCubeDetectedAtBack()) cubeAcquisition.setPistonMode(CubeAcquisition.PistonMode.Open);
+        cubeAcquisition.setRaised(true);
     }
 
     /**

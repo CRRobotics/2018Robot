@@ -1,5 +1,6 @@
 package org.team639.lib.controls;
 
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 
 public abstract class JoystickManager {
