@@ -46,7 +46,7 @@ public class AutoTurnToAngle extends Command {
 
         prevAutoShiftState = driveTrain.getAutoShift();
         driveTrain.setAutoShift(false);
-        driveTrain.setCurrentGear(DriveTrain.DriveGear.High); // TODO: Maybe low is better.
+        driveTrain.setCurrentGear(DriveTrain.DriveGear.Low);
 //        double p = SmartDashboard.getNumber("drive p", TTA_P);
 //        double i = SmartDashboard.getNumber("drive i", TTA_I);
 //        double d = SmartDashboard.getNumber("drive d", TTA_D);

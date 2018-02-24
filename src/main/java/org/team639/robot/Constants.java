@@ -87,6 +87,15 @@ public class Constants {
         public static final double ADF_RATE = 0.005;
         public static final double ADF_I_CAP = 0.2;
         public static final double ADF_TOLERANCE = 800;
+
+        public static final double FANCY_P = 0.0000028;
+        public static final double FANCY_I = 0;
+        public static final double FANCY_D = 0;
+        public static final double FANCY_MIN = 0.09; // 0.045;
+        public static final double FANCY_MAX = 0.5;
+        public static final double FANCY_RATE = 0.005;
+        public static final double FANCY_I_CAP = 0.2;
+        public static final double FANCY_TOLERANCE = 800;
     }
 
     public static final double JOYSTICK_DEADZONE = 0.05;

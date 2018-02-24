@@ -77,7 +77,7 @@ public class AutoDriveForward extends Command {
         driveTrain.setSpeedsPercent(0, 0);
         driveTrain.setCurrentControlMode(ControlMode.Velocity);
         // Dominic "DJ" Towns was here.
-        driveTrain.setCurrentGear(DriveTrain.DriveGear.High);
+        driveTrain.setCurrentGear(DriveTrain.DriveGear.Low);
 
 //        double p = SmartDashboard.getNumber("drive p", ADF_P);
 //        double i = SmartDashboard.getNumber("drive i", ADF_I);

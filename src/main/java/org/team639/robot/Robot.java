@@ -2,7 +2,6 @@ package org.team639.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -11,6 +10,7 @@ import org.team639.lib.led.LEDColor;
 import org.team639.lib.led.patterns.*;
 import org.team639.robot.commands.auto.StartingPosition;
 import org.team639.robot.commands.drive.DriveMode;
+import org.team639.robot.commands.drive.fancyauto.DriveTracker;
 import org.team639.robot.subsystems.CubeAcquisition;
 import org.team639.robot.subsystems.DriveTrain;
 import org.team639.robot.subsystems.LEDStrip;
@@ -34,6 +34,9 @@ public class Robot extends TimedRobot {
     private static CubeAcquisition cubeAcquisition;
     private static Lift lift;
     private static LEDStrip ledStrip;
+
+    private static DriveTracker driveTracker;
+
     // Driver options
     private static SendableChooser<DriveMode> driveMode;
     private static SendableChooser<ControlMode> driveTalonControlMode;
@@ -67,6 +70,15 @@ public class Robot extends TimedRobot {
         return ledStrip;
     }
 
+    public static double getTrackedX() {
+        return driveTracker.getX();
+    }
+
+    public static double getTrackedY() {
+        return driveTracker.getY();
+    }
+
+
     /**
      * Robot-wide initialization code should go here.
      * <p>
@@ -85,6 +97,8 @@ public class Robot extends TimedRobot {
         cubeAcquisition = new CubeAcquisition();
         lift = new Lift();
         ledStrip = new LEDStrip(42);
+
+        driveTracker = new DriveTracker(0, 0);
 
         SmartDashboard.putNumber("drive p", HIGH_DRIVE_P);
         SmartDashboard.putNumber("rrate", HIGH_ARCADE_RATE);
@@ -186,6 +200,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        driveTracker.collect();
 
 //        SmartDashboard.putNumber("lift pos", lift.getEncPos());
         SmartDashboard.putNumber("pdp energy", RobotMap.getPdp().getTotalEnergy());
