@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 import org.team639.lib.controls.JoystickManager;
 import org.team639.lib.controls.LogitechF310;
+import org.team639.robot.commands.auto.FancyTest;
+import org.team639.robot.commands.auto.FancyTest2;
 import org.team639.robot.commands.auto.OneCubeSwitch;
 import org.team639.robot.commands.climbing.ClimberDeploySequence;
 import org.team639.robot.commands.cube.*;
@@ -56,10 +58,10 @@ public class OI {
 
         drive.mapButton(LogitechF310.Buttons.RB, new ShiftHigh(), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.LB, new ShiftLow(), JoystickManager.MappingType.WhenPressed);
-        drive.mapButton(LogitechF310.Buttons.Y, new OneCubeSwitch(), JoystickManager.MappingType.WhenPressed);
-        drive.mapButton(LogitechF310.Buttons.A, new AutoDriveForward(12), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.Y, new FancyTest(), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.A, new FancyTest2(), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.B, new ZeroYaw(), JoystickManager.MappingType.WhenPressed);
-//
+
         drive.mapButton(LogitechF310.Buttons.POVLeft, new AutoTurnToAngle(180), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.POVUp, new AutoTurnToAngle(90), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.POVRight, new AutoTurnToAngle(0), JoystickManager.MappingType.WhenPressed);

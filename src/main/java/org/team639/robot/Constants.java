@@ -5,7 +5,7 @@ package org.team639.robot;
  * Part of 2018Robot.
  */
 public class Constants {
-    public static final boolean REAL = true;
+    public static final boolean REAL = false;
 
     public static class Acquisition {
         public static final double DEFAULT_ACQ_SPEED = 0.4;
@@ -88,14 +88,23 @@ public class Constants {
         public static final double ADF_I_CAP = 0.2;
         public static final double ADF_TOLERANCE = 800;
 
-        public static final double FANCY_P = 0.0000028;
+        public static final double FANCY_P = 0.02;
         public static final double FANCY_I = 0;
         public static final double FANCY_D = 0;
         public static final double FANCY_MIN = 0.09; // 0.045;
-        public static final double FANCY_MAX = 0.5;
-        public static final double FANCY_RATE = 0.005;
+        public static final double FANCY_MAX = 0.6;
+        public static final double FANCY_RATE = 0.015;
         public static final double FANCY_I_CAP = 0.2;
-        public static final double FANCY_TOLERANCE = 800;
+        public static final double FANCY_TOLERANCE = 4;
+
+        public static final double FANCY_AC_P = 0.028;
+        public static final double FANCY_AC_I = 0;
+        public static final double FANCY_AC_D = 0;
+        public static final double FANCY_AC_MIN = 0;
+        public static final double FANCY_AC_MAX = 0.4;
+        public static final double FANCY_AC_RATE = 0.03;
+        public static final double FANCY_AC_I_CAP = 0.2;
+        public static final double FANCY_AC_TOLERANCE = 1;
     }
 
     public static final double JOYSTICK_DEADZONE = 0.05;

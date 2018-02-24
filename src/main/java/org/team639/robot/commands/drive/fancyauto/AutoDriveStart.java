@@ -51,7 +51,7 @@ public class AutoDriveStart extends Command {
 
         speed = FANCY_MIN;
 //
-        turnPID = new PID(AC_P, AC_I, AC_D, AC_MIN, AC_MAX, AC_RATE, AC_TOLERANCE, AC_I_CAP);
+        turnPID = new PID(FANCY_AC_P, FANCY_AC_I, FANCY_AC_D, FANCY_AC_MIN, FANCY_AC_MAX, FANCY_AC_RATE, FANCY_AC_TOLERANCE, FANCY_AC_I_CAP);
     }
 
     protected void execute() {
@@ -60,6 +60,10 @@ public class AutoDriveStart extends Command {
 
         if (speed < FANCY_MAX) speed += FANCY_RATE;
         if (speed > FANCY_MAX) speed = FANCY_MAX;
+
+        double sx = Robot.getTrackedX();
+        double sy = Robot.getTrackedY();
+        this.angle = Math.toDegrees(Math.atan2(y - sy, x - sx));
 
         double error = AngleMath.shortestAngle(driveTrain.getRobotYaw(), angle);
         double output = turnPID.compute(error);

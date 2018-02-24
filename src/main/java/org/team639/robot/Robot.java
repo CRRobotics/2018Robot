@@ -78,6 +78,10 @@ public class Robot extends TimedRobot {
         return driveTracker.getY();
     }
 
+    public static void resetTrackedPosition(double x, double y) {
+        driveTracker.reset(x, y);
+    }
+
 
     /**
      * Robot-wide initialization code should go here.
@@ -177,7 +181,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         driveTrain.setNeutralMode(NeutralMode.Brake);
-        driveTrain.setAutoShift(true);
+        driveTrain.setAutoShift(false);
 
         ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
 //        ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));
@@ -202,6 +206,9 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         driveTracker.collect();
 
+        SmartDashboard.putNumber("x pos", driveTracker.getX());
+        SmartDashboard.putNumber("y pos", driveTracker.getY());
+
 //        SmartDashboard.putNumber("lift pos", lift.getEncPos());
         SmartDashboard.putNumber("pdp energy", RobotMap.getPdp().getTotalEnergy());
 
@@ -222,10 +229,6 @@ public class Robot extends TimedRobot {
 
 //        SmartDashboard.putNumber("left enc", driveTrain.getLeftEncPos());
 //        SmartDashboard.putNumber("right enc", driveTrain.getRightEncPos());
-
-        SmartDashboard.putNumber("Left PercentVBus", RobotMap.getLeftDrive().getMotorOutputPercent());
-        SmartDashboard.putNumber("Right PercentVBus", RobotMap.getRightDrive().getMotorOutputPercent());
-        SmartDashboard.putString("Current gear", Robot.getDriveTrain().getCurrentGear().name());
 
         double r = driveTrain.getRightEncVelocity();
         double l = driveTrain.getLeftEncVelocity();

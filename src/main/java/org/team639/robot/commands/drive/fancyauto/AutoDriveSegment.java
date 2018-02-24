@@ -44,11 +44,15 @@ public class AutoDriveSegment extends Command {
         driveTrain.setCurrentControlMode(ControlMode.Velocity);
         driveTrain.setCurrentGear(DriveTrain.DriveGear.Low);
 
-        turnPID = new PID(AC_P, AC_I, AC_D, AC_MIN, AC_MAX, AC_RATE, AC_TOLERANCE, AC_I_CAP);
+        turnPID = new PID(FANCY_AC_P, FANCY_AC_I, FANCY_AC_D, FANCY_AC_MIN, FANCY_AC_MAX, FANCY_AC_RATE, FANCY_AC_TOLERANCE, FANCY_AC_I_CAP);
     }
 
     protected void execute() {
         double dist = Math.sqrt(Math.pow(Robot.getTrackedX() - x, 2) + Math.pow(Robot.getTrackedY() - y, 2));
+
+        double sx = Robot.getTrackedX();
+        double sy = Robot.getTrackedY();
+        this.angle = Math.toDegrees(Math.atan2(y - sy, x - sx));
 
         double error = AngleMath.shortestAngle(driveTrain.getRobotYaw(), angle);
         double output = turnPID.compute(error);

@@ -17,6 +17,8 @@ public class DriveTracker {
     private double lastRightDist;
     private double lastLeftDist;
 
+    private double lastAngle;
+
     public DriveTracker(double startX, double startY) {
         driveTrain = Robot.getDriveTrain();
         reset(startX, startY);
@@ -25,7 +27,10 @@ public class DriveTracker {
     public void collect() {
         double l = driveTrain.getLeftEncPos() / TICKS_PER_INCH;
         double r = driveTrain.getRightEncPos() / TICKS_PER_INCH;
-        double angle = driveTrain.getRobotYaw();
+        double a = driveTrain.getRobotYaw();
+
+        double angle = (a + lastAngle) / 2;
+        lastAngle = a;
 
         double avg = ((l - lastLeftDist) + (r - lastRightDist)) / 2;
 
@@ -40,8 +45,10 @@ public class DriveTracker {
         this.x = x;
         this.y = y;
 
-        lastRightDist = driveTrain.getRightEncPos();
-        lastLeftDist = driveTrain.getLeftEncPos();
+        lastRightDist = driveTrain.getRightEncPos() / TICKS_PER_INCH;
+        lastLeftDist = driveTrain.getLeftEncPos() / TICKS_PER_INCH;
+
+        lastAngle = driveTrain.getRobotYaw();
     }
 
     public double getX() {

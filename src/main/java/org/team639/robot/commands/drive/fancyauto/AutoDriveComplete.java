@@ -15,7 +15,7 @@ import static org.team639.robot.Constants.DriveTrain.AC_I_CAP;
 /**
  * Command that drives a to a point with no acceleration limits but a smooth deceleration.
  */
-public class AutoDriveFinish extends Command {
+public class AutoDriveComplete extends Command {
     private DriveTrain driveTrain = Robot.getDriveTrain();
 
     private boolean done = false;
@@ -29,7 +29,7 @@ public class AutoDriveFinish extends Command {
     private PID pid;
     private PID turnPID;
 
-    public AutoDriveFinish(double x, double y) {
+    public AutoDriveComplete(double x, double y) {
         super("AutoDriveForward");
         requires(driveTrain);
 
@@ -49,7 +49,7 @@ public class AutoDriveFinish extends Command {
         driveTrain.setCurrentControlMode(ControlMode.Velocity);
         driveTrain.setCurrentGear(DriveTrain.DriveGear.Low);
 
-        pid = new PID(FANCY_P, FANCY_I, FANCY_D, FANCY_MIN, FANCY_MAX, 1, FANCY_TOLERANCE, FANCY_I_CAP);
+        pid = new PID(FANCY_P, FANCY_I, FANCY_D, FANCY_MIN, FANCY_MAX, FANCY_RATE, FANCY_TOLERANCE, FANCY_I_CAP);
 //
         turnPID = new PID(FANCY_AC_P, FANCY_AC_I, FANCY_AC_D, FANCY_AC_MIN, FANCY_AC_MAX, FANCY_AC_RATE, FANCY_AC_TOLERANCE, FANCY_AC_I_CAP);
     }
