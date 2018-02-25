@@ -3,13 +3,13 @@ package org.team639.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.led.LEDColor;
 import org.team639.lib.led.patterns.*;
 import org.team639.robot.commands.auto.StartingPosition;
+import org.team639.robot.commands.drive.AutoDriveForward;
 import org.team639.robot.commands.drive.DriveMode;
 import org.team639.robot.commands.drive.fancyauto.DriveTracker;
 import org.team639.robot.subsystems.CubeAcquisition;
@@ -44,6 +44,7 @@ public class Robot extends TimedRobot {
     private static SendableChooser<DriveMode> driveMode;
     private static SendableChooser<ControlMode> driveTalonControlMode;
     private static SendableChooser<StartingPosition> startingPosition;
+    private static SendableChooser<Command> autoSelector;
 
     /**
      * Returns a reference to the robot's drivetrain.
@@ -144,9 +145,6 @@ public class Robot extends TimedRobot {
 
         driveTracker = new DriveTracker(0, 0);
 
-        SmartDashboard.putNumber("drive p", HIGH_DRIVE_P);
-        SmartDashboard.putNumber("rrate", HIGH_ARCADE_RATE);
-
         // Driver options init
         driveMode = new SendableChooser<>();
         driveMode.addDefault("2 Joystick Arcade Right", DriveMode.Arcade2JoystickRightDrive);
@@ -167,15 +165,11 @@ public class Robot extends TimedRobot {
         startingPosition.addObject("Left", StartingPosition.Left);
         startingPosition.addObject("Right", StartingPosition.Right);
         SmartDashboard.putData("Starting position", startingPosition);
-       // SmartDashboard.putNumber("drive p", LIFT_P);
-        SmartDashboard.putNumber("drive i", LIFT_I);
-        SmartDashboard.putNumber("drive d", HIGH_DRIVE_D);
-        SmartDashboard.putNumber("rate", ADF_RATE);
-        SmartDashboard.putNumber("tolerance", LIFT_TOLERANCE);
-//        SmartDashboard.putNumber("min", LIFT_CRUISE);
-//        SmartDashboard.putNumber("max", ADF_MAX);
 
-
+        SmartDashboard.putNumber("Auto delay", 0);
+        autoSelector = new SendableChooser<>();
+        autoSelector.addDefault("Drive over line", new AutoDriveForward(196));
+        SmartDashboard.putData("Auto selector", autoSelector);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
     }
@@ -209,7 +203,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        // TODO: Select auto.
+        auto = new CommandGroup() {
+            { // Instance Initializer block -- Basically an anonymous constructor
+                addSequential(new WaitCommand(SmartDashboard.getNumber("Auto delay", 0)));
+                addSequential(autoSelector.getSelected());
+            }
+        };
+        auto.start();
         driveTrain.setAutoShift(false);
     }
 
