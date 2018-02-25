@@ -1,5 +1,6 @@
 package org.team639.robot.commands.drive.fancyauto;
 
+import org.team639.lib.math.AngleMath;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.DriveTrain;
 
@@ -24,12 +25,15 @@ public class DriveTracker {
         reset(startX, startY);
     }
 
+    /**
+     * Uses current information to update approximated position. Should be called as often as possible.
+     */
     public void collect() {
         double l = driveTrain.getLeftEncPos() / TICKS_PER_INCH;
         double r = driveTrain.getRightEncPos() / TICKS_PER_INCH;
         double a = driveTrain.getRobotYaw();
 
-        double angle = (a + lastAngle) / 2;
+        double angle = a + AngleMath.shortestAngle(a, lastAngle) / 2;
         lastAngle = a;
 
         double avg = ((l - lastLeftDist) + (r - lastRightDist)) / 2;
@@ -41,6 +45,11 @@ public class DriveTracker {
         y += Math.sin(Math.toRadians(angle)) * avg;
     }
 
+    /**
+     * Resets the approximated position to the specified point
+     * @param x The x value to reset to.
+     * @param y The y value to reset to.
+     */
     public void reset(double x, double y) {
         this.x = x;
         this.y = y;
@@ -51,10 +60,18 @@ public class DriveTracker {
         lastAngle = driveTrain.getRobotYaw();
     }
 
+    /**
+     * Returns the approximated current x position.
+     * @return The approximated current x position.
+     */
     public double getX() {
         return x;
     }
 
+    /**
+     * Returns the approximated current y position.
+     * @return The approximated current y position.
+     */
     public double getY() {
         return y;
     }

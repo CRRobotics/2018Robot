@@ -8,8 +8,6 @@ import org.team639.robot.Robot;
 import org.team639.robot.subsystems.DriveTrain;
 
 import static org.team639.robot.Constants.Auto.*;
-import static org.team639.robot.Constants.DriveTrain.*;
-import static org.team639.robot.Constants.DriveTrain.AC_I_CAP;
 
 /**
  * A Command that drives to a point limiting only acceleration, max speed, and min speed. DOES NOT STOP THE MOTORS WHEN FINISHED.

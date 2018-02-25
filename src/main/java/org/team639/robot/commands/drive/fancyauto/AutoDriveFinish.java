@@ -13,7 +13,7 @@ import static org.team639.robot.Constants.DriveTrain.*;
 import static org.team639.robot.Constants.DriveTrain.AC_I_CAP;
 
 /**
- * Command that drives a to a point with no acceleration limits but a smooth deceleration.
+ * Command that drives to a point with no acceleration limits but a smooth deceleration.
  */
 public class AutoDriveFinish extends Command {
     private DriveTrain driveTrain = Robot.getDriveTrain();

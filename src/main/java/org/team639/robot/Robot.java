@@ -3,6 +3,7 @@ package org.team639.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,7 +28,9 @@ public class Robot extends TimedRobot {
 
     private static double rMax = 0;
     private static double lMax = 0;
-    public static double liftMax = 0;
+    private static double liftMax = 0;
+
+    private Command auto; // The auto period (very important)
 
     // Subsystems
     private static DriveTrain driveTrain;
@@ -42,14 +45,26 @@ public class Robot extends TimedRobot {
     private static SendableChooser<ControlMode> driveTalonControlMode;
     private static SendableChooser<StartingPosition> startingPosition;
 
+    /**
+     * Returns a reference to the robot's drivetrain.
+     * @return a reference to the robot's drivetrain.
+     */
     public static DriveTrain getDriveTrain() {
         return driveTrain;
     }
 
+    /**
+     * Returns a reference to the robot's cube acquisition system.
+     * @return a reference to the robot's cube acquisition system.
+     */
     public static CubeAcquisition getCubeAcquisition() {
         return cubeAcquisition;
     }
 
+    /**
+     * Returns the drive mode selected by the driver on shuffleboard.
+     * @return The drive mode selected by the driver on shuffleboard.
+     */
     public static DriveMode getDriveMode() {
         return driveMode.getSelected();
     }
@@ -58,26 +73,51 @@ public class Robot extends TimedRobot {
         return driveTalonControlMode.getSelected();
     }
 
+    /**
+     * Returns the starting position of the robot, specified on shuffleboard by the drive team.
+     * @return The starting position of the robot, specified on shuffleboard by the drive team.
+     */
     public static StartingPosition getStartingPosition() {
         return startingPosition.getSelected();
     }
 
+    /**
+     * Returns a reference to the robot's lift.
+     * @return a reference to the robot's lift.
+     */
     public static Lift getLift() {
         return lift;
     }
 
+    /**
+     * Returns a reference to the robot's LED strip.
+     * @return a reference to the robot's LED strip.
+     */
     public static LEDStrip getLedStrip() {
         return ledStrip;
     }
 
+    /**
+     * Returns the approximate x location of the robot reported by the drive tracker.
+     * @return The approximate x location of the robot reported by the drive tracker.
+     */
     public static double getTrackedX() {
         return driveTracker.getX();
     }
 
+    /**
+     * Returns the approximate y location of the robot reported by the drive tracker.
+     * @return The approximate y location of the robot reported by the drive tracker.
+     */
     public static double getTrackedY() {
         return driveTracker.getY();
     }
 
+    /**
+     * Resets the drive tracker to the specified coordinates.
+     * @param x The x value to reset to.
+     * @param y The y value to reset to.
+     */
     public static void resetTrackedPosition(double x, double y) {
         driveTracker.reset(x, y);
     }
@@ -169,6 +209,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
+        // TODO: Select auto.
         driveTrain.setAutoShift(false);
     }
 
@@ -181,7 +222,9 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         driveTrain.setNeutralMode(NeutralMode.Brake);
-        driveTrain.setAutoShift(false);
+        driveTrain.setAutoShift(true);
+
+        if (auto != null) auto.cancel(); // Stop the auto
 
         ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
 //        ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));
@@ -261,7 +304,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        super.autonomousPeriodic();
+        Scheduler.getInstance().run();
     }
 
     /**
