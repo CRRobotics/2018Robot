@@ -34,6 +34,7 @@ public class DriveTracker {
         double a = driveTrain.getRobotYaw();
 
         double angle = a + AngleMath.shortestAngle(a, lastAngle) / 2;
+        angle = AngleMath.constrainTo360(angle);
         lastAngle = a;
 
         double avg = ((l - lastLeftDist) + (r - lastRightDist)) / 2;

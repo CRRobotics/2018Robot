@@ -37,4 +37,15 @@ public class AngleMath {
             return 0;
         }
     }
+
+    /**
+     * Handles wrapping angles to keep them in the range [0, 360).
+     * @param val The value to constrain.
+     * @return The value in the range [0, 360).
+     */
+    public static double constrainTo360(double val) {
+        val %= 360;
+        if (val < 0) val = 360 + val;
+        return val;
+    }
 }
