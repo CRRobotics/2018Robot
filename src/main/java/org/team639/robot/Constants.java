@@ -26,7 +26,7 @@ public class Constants {
         public static final double HIGH_ARCADE_RATE = 0.03;
 
         //public static final double IDEAL_SHIFT_SPEED = 1.926*39.37/4.0/(2*Math.PI)*4096*0.1; // ticks per 100ms?
-        public static final double IDEAL_SHIFT_SPEED = 5000;
+//        public static final double IDEAL_SHIFT_SPEED = 5000;
 
         public static final double LOW_MIN_DRIVE_PERCENT = 0.09;
 
@@ -42,6 +42,8 @@ public class Constants {
 
         public static final double ENC_TICKS_PER_ROTATION = 4096 * 3 * 54 / 30; // Quad encoder has 1024 ticks (* 4 = 4096). 3 and 54/30 are gear ratios.
         public static final double TICKS_PER_INCH = ENC_TICKS_PER_ROTATION / WHEEL_CIRCUMFERENCE_INCHES;
+
+        public static final double IDEAL_SHIFT_SPEED = REAL ? 1.926 * 39.37 * TICKS_PER_INCH * 0.1 : 5000;
 
         public static final double DRIVE_FORWARD_TOLERANCE = 200;
 

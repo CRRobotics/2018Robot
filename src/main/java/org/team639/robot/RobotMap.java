@@ -3,6 +3,8 @@ package org.team639.robot;
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.*;
 
@@ -33,8 +35,8 @@ public class RobotMap {
     private static AHRS ahrs;
 
     // Acquisition
-    private static TalonSRX leftAcquisition;
-    private static TalonSRX rightAcquisition;
+    private static SpeedController leftAcquisition;
+    private static SpeedController rightAcquisition;
     private static DigitalInput innerCubeDetector;
     private static AnalogInput outerCubeDetector;
     private static DigitalInput armsClosed;
@@ -85,8 +87,13 @@ public class RobotMap {
             ahrs = new AHRS(SPI.Port.kMXP);
 
             // Acquisition
-            leftAcquisition = new TalonSRX(8);
-            rightAcquisition = new TalonSRX(9);
+            if (REAL) {
+                leftAcquisition = new WPI_TalonSRX(8);
+                rightAcquisition = new WPI_TalonSRX(9);
+            } else {
+                leftAcquisition = new Spark(0);
+                rightAcquisition = new Spark(1);
+            }
             innerCubeDetector = new DigitalInput(0);
             outerCubeDetector = new AnalogInput(0);
             armsClosed = new DigitalInput(2);
@@ -175,7 +182,7 @@ public class RobotMap {
      * Returns the Talon controlling the left side of the acquisition.
      * @return The Talon controlling the left side of the acquisition.
      */
-    public static TalonSRX getLeftAcquisition() {
+    public static SpeedController getLeftAcquisition() {
         return leftAcquisition;
     }
 
@@ -183,7 +190,7 @@ public class RobotMap {
      * Returns the Talon controlling the right side of the acquisition.
      * @return The Talon controlling the right side of the acquisition.
      */
-    public static TalonSRX getRightAcquisition() {
+    public static SpeedController getRightAcquisition() {
         return rightAcquisition;
     }
 

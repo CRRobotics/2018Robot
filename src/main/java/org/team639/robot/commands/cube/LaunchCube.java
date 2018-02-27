@@ -25,6 +25,7 @@ public class LaunchCube extends CommandGroup {
         });
         addSequential(new SetAcquisitionSpinning(DEFAULT_ACQ_SPEED));
         addSequential(new WaitCommand(0.5));
+        addSequential(new SetAcquisitionSpinning(0));
         addSequential(new OpenAcquisition());
         addSequential(new RaiseAcquisition());
     }

@@ -8,10 +8,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.led.LEDColor;
 import org.team639.lib.led.patterns.*;
+import org.team639.robot.commands.auto.OneCubeSwitch;
 import org.team639.robot.commands.auto.StartingPosition;
 import org.team639.robot.commands.drive.AutoDriveForward;
 import org.team639.robot.commands.drive.DriveMode;
 import org.team639.robot.commands.drive.fancyauto.DriveTracker;
+import org.team639.robot.commands.lift.ZeroLift;
 import org.team639.robot.subsystems.CubeAcquisition;
 import org.team639.robot.subsystems.DriveTrain;
 import org.team639.robot.subsystems.LEDStrip;
@@ -169,6 +171,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Auto delay", 0);
         autoSelector = new SendableChooser<>();
         autoSelector.addDefault("Drive over line", new AutoDriveForward(196));
+        autoSelector.addObject("One Cube Switch", new OneCubeSwitch());
         SmartDashboard.putData("Auto selector", autoSelector);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
@@ -203,12 +206,15 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        auto = new CommandGroup() {
-            { // Instance Initializer block -- Basically an anonymous constructor
-                addSequential(new WaitCommand(SmartDashboard.getNumber("Auto delay", 0)));
-                addSequential(autoSelector.getSelected());
-            }
-        };
+        StartingPosition position = startingPosition.getSelected();
+        driveTracker.reset(position.x, position.y);
+        auto = /*new CommandGroup() {*/
+//            { // Instance Initializer block -- Basically an anonymous constructor
+//                addSequential(new ZeroLift());
+//                addSequential(new WaitCommand(SmartDashboard.getNumber("Auto delay", 0)));
+                /*addSequential(*/autoSelector.getSelected();/*);*/
+//            }
+//        };
         auto.start();
         driveTrain.setAutoShift(false);
     }
