@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.led.LEDColor;
 import org.team639.lib.led.patterns.*;
+import org.team639.robot.commands.auto.AutoBoilerplate;
 import org.team639.robot.commands.auto.OneCubeSwitch;
 import org.team639.robot.commands.auto.StartingPosition;
 import org.team639.robot.commands.drive.AutoDriveForward;
@@ -208,13 +209,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         StartingPosition position = startingPosition.getSelected();
         driveTracker.reset(position.x, position.y);
-        auto = /*new CommandGroup() {*/
-//            { // Instance Initializer block -- Basically an anonymous constructor
-//                addSequential(new ZeroLift());
-//                addSequential(new WaitCommand(SmartDashboard.getNumber("Auto delay", 0)));
-                /*addSequential(*/autoSelector.getSelected();/*);*/
-//            }
-//        };
+        auto = new AutoBoilerplate(auto, SmartDashboard.getNumber("delay", 0));
         auto.start();
         driveTrain.setAutoShift(false);
     }
