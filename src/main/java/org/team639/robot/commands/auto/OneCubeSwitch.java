@@ -2,6 +2,7 @@ package org.team639.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import openrio.powerup.MatchData;
+import org.team639.robot.Robot;
 import org.team639.robot.commands.cube.*;
 import org.team639.robot.commands.drive.AutoDriveForward;
 import org.team639.robot.commands.drive.AutoTurnToAngle;
@@ -15,9 +16,18 @@ import org.team639.robot.commands.lift.MoveToSetPosition;
  */
 public class OneCubeSwitch extends CommandGroup {
     public OneCubeSwitch() {
-        addSequential(new AutoDriveStart(70.5, 84.25));
-        addSequential(new AutoDriveFinish(70.5, 101.5));
-        addParallel(new MoveToSetPosition(LiftPosition.SwitchHeight));
+        AutoUtils.OwnedSide switchSide = AutoUtils.getOwnedSide(AutoUtils.GameFeature.SwitchNear);
+
+        // Don't do anything if game data is not received or we are in the wrong place.
+        if (switchSide == AutoUtils.OwnedSide.Unknown /*|| Robot.getStartingPosition() != StartingPosition.Center*/) return;
+
+        int side = switchSide == AutoUtils.OwnedSide.Right ? 1 : -1;
+
+        addSequential(new AutoDriveStart(side * 50.5, 64.25));
+
+        addParallel(new AutoDriveFinish(side * 70.5, 101.5));
+        addSequential(new MoveToSetPosition(LiftPosition.SwitchHeight));
+
         addSequential(new LaunchCube());
 
 //        addSequential(new CloseAcquisition());

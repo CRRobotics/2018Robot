@@ -35,47 +35,67 @@ public class AutoUtils {
             // Wait and retry in case the message isn't available yet,
             while ((msg == null || msg.length() < 3) && retries < 100) {
                 msg = DriverStation.getInstance().getGameSpecificMessage();
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    // I don't think we care about this.
+                }
                 retries++;
             }
             info = new HashMap<>();
-            switch (msg.charAt(0)) { // Closest switch.
-                case 'l':
-                case 'L':
-                    info.put(GameFeature.SwitchNear, OwnedSide.Left);
-                    break;
-                case 'r':
-                case 'R':
-                    info.put(GameFeature.SwitchNear, OwnedSide.Right);
-                    break;
-                default:
-                    info.put(GameFeature.SwitchNear, OwnedSide.Unknown);
-                    break;
-            }
-            switch (msg.charAt(1)) { // Scale
-                case 'l':
-                case 'L':
-                    info.put(GameFeature.Scale, OwnedSide.Left);
-                    break;
-                case 'r':
-                case 'R':
-                    info.put(GameFeature.Scale, OwnedSide.Right);
-                    break;
-                default:
+            if (msg == null || msg.length() < 1) {
+                info.put(GameFeature.SwitchNear, OwnedSide.Unknown);
+                info.put(GameFeature.Scale, OwnedSide.Unknown);
+                info.put(GameFeature.SwitchFar, OwnedSide.Unknown);
+            } else {
+                switch (msg.charAt(0)) { // Closest switch.
+                    case 'l':
+                    case 'L':
+                        info.put(GameFeature.SwitchNear, OwnedSide.Left);
+                        break;
+                    case 'r':
+                    case 'R':
+                        info.put(GameFeature.SwitchNear, OwnedSide.Right);
+                        break;
+                    default:
+                        info.put(GameFeature.SwitchNear, OwnedSide.Unknown);
+                        break;
+                }
+                if (msg.length() >= 2) {
+                    switch (msg.charAt(1)) { // Scale
+                        case 'l':
+                        case 'L':
+                            info.put(GameFeature.Scale, OwnedSide.Left);
+                            break;
+                        case 'r':
+                        case 'R':
+                            info.put(GameFeature.Scale, OwnedSide.Right);
+                            break;
+                        default:
+                            info.put(GameFeature.Scale, OwnedSide.Unknown);
+                            break;
+                    }
+                } else {
                     info.put(GameFeature.Scale, OwnedSide.Unknown);
-                    break;
-            }
-            switch (msg.charAt(2)) { // Far switch
-                case 'l':
-                case 'L':
-                    info.put(GameFeature.SwitchFar, OwnedSide.Left);
-                    break;
-                case 'r':
-                case 'R':
-                    info.put(GameFeature.SwitchFar, OwnedSide.Right);
-                    break;
-                default:
+                }
+
+                if (msg.length() >= 3) {
+                    switch (msg.charAt(2)) { // Far switch
+                        case 'l':
+                        case 'L':
+                            info.put(GameFeature.SwitchFar, OwnedSide.Left);
+                            break;
+                        case 'r':
+                        case 'R':
+                            info.put(GameFeature.SwitchFar, OwnedSide.Right);
+                            break;
+                        default:
+                            info.put(GameFeature.SwitchFar, OwnedSide.Unknown);
+                            break;
+                    }
+                } else {
                     info.put(GameFeature.SwitchFar, OwnedSide.Unknown);
-                    break;
+                }
             }
         }
         return info;

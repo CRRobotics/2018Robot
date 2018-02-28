@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.led.LEDColor;
 import org.team639.lib.led.patterns.*;
 import org.team639.robot.commands.auto.AutoBoilerplate;
+import org.team639.robot.commands.auto.AutoCrossLine;
 import org.team639.robot.commands.auto.OneCubeSwitch;
 import org.team639.robot.commands.auto.StartingPosition;
 import org.team639.robot.commands.drive.AutoDriveForward;
@@ -47,7 +48,7 @@ public class Robot extends TimedRobot {
     private static SendableChooser<DriveMode> driveMode;
     private static SendableChooser<ControlMode> driveTalonControlMode;
     private static SendableChooser<StartingPosition> startingPosition;
-    private static SendableChooser<Command> autoSelector;
+    private static SendableChooser<Class<? extends Command>> autoSelector;
 
     /**
      * Returns a reference to the robot's drivetrain.
@@ -171,8 +172,8 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("Auto delay", 0);
         autoSelector = new SendableChooser<>();
-        autoSelector.addDefault("Drive over line", new AutoDriveForward(196));
-        autoSelector.addObject("One Cube Switch", new OneCubeSwitch());
+        autoSelector.addDefault("Drive over line", AutoCrossLine.class); // Passing class types to be instantiated later.
+        autoSelector.addObject("One Cube Switch", OneCubeSwitch.class);
         SmartDashboard.putData("Auto selector", autoSelector);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
@@ -209,7 +210,16 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         StartingPosition position = startingPosition.getSelected();
         driveTracker.reset(position.x, position.y);
-        auto = new AutoBoilerplate(auto, SmartDashboard.getNumber("delay", 0));
+        try { // This try/catch is for the call to Class<? extends Command>.newInstance that constructs the auto (hopefully).
+            auto = new AutoBoilerplate(autoSelector.getSelected().newInstance(), SmartDashboard.getNumber("delay", 0));
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } finally {
+            // TODO: Better default action
+            auto = new AutoDriveForward(196);
+        }
         auto.start();
         driveTrain.setAutoShift(false);
     }
