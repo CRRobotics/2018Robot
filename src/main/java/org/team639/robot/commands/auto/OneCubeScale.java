@@ -5,25 +5,29 @@ import openrio.powerup.MatchData;
 import org.team639.robot.Robot;
 import org.team639.robot.commands.drive.AutoDriveForward;
 import org.team639.robot.commands.drive.AutoTurnToAngle;
+import org.team639.robot.commands.drive.fancyauto.AutoDriveFinish;
+import org.team639.robot.commands.drive.fancyauto.AutoDriveStart;
+import org.team639.robot.commands.lift.LiftPosition;
+import org.team639.robot.commands.lift.MoveToSetPosition;
 
 public class OneCubeScale extends CommandGroup {
     public OneCubeScale() {
-
-        MatchData.OwnedSide side = MatchData.getOwnedSide(MatchData.GameFeature.SCALE);
+        AutoUtils.OwnedSide scaleSide = AutoUtils.getOwnedSide(AutoUtils.GameFeature.Scale);
         StartingPosition position = Robot.getStartingPosition();
 
+        if (position == StartingPosition.Center) { // Center is a miss-click. Drive straight over line.
+            addSequential(new AutoCrossLine());
+            return;
+        }
 
-        if ((side == MatchData.OwnedSide.RIGHT && position == StartingPosition.Right) || (side == MatchData.OwnedSide.LEFT && position == StartingPosition.Left)) {
-            addSequential(new AutoDriveForward(10));
-            double relAngle = Math.toDegrees(Math.atan(41.88 / 247.15)) * (position == StartingPosition.Left ? -1 : 1);
-            addSequential(new AutoTurnToAngle(90 + relAngle));
-            addSequential(new AutoDriveForward(Math.sqrt(Math.pow(41.88, 2) + Math.pow(247.15, 2))));
-            addSequential(new AutoDriveForward(10));
+        int side = position == StartingPosition.Right ? 1 : -1;
+
+        if ((position == StartingPosition.Right && scaleSide == AutoUtils.OwnedSide.Right) || (position == StartingPosition.Left && scaleSide == AutoUtils.OwnedSide.Left)) {
+            addSequential(new AutoDriveStart(side * 115.5, 196));
+            addParallel(new MoveToSetPosition(LiftPosition.ScaleHeight));
+            addSequential(new AutoDriveFinish(side * 90.12, 288));
         } else {
-            addSequential(new AutoDriveForward(219));
-            int direction = position == StartingPosition.Left ? -1 : 1;
-            addSequential(new AutoTurnToAngle(90 + 90 * direction));
-            addSequential(new AutoDriveForward(80.65));
+            // TODO: go to lift on opposite side
         }
 
         // TODO: Actually place a cube here.
