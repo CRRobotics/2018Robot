@@ -5,7 +5,7 @@ package org.team639.robot.commands.auto;
  */
 public enum StartingPosition {
     Right(115.5, 19.25),
-    Center(0, 19.25),
+    Center(4.5, 19.25),
     Left(-115.5, 19.25);
 
     public final double x;

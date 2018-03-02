@@ -3,9 +3,11 @@ package org.team639.robot.commands.auto;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import openrio.powerup.MatchData;
 import org.team639.robot.Robot;
+import org.team639.robot.commands.cube.LaunchCube;
 import org.team639.robot.commands.drive.AutoDriveForward;
 import org.team639.robot.commands.drive.AutoTurnToAngle;
 import org.team639.robot.commands.drive.fancyauto.AutoDriveFinish;
+import org.team639.robot.commands.drive.fancyauto.AutoDriveSegment;
 import org.team639.robot.commands.drive.fancyauto.AutoDriveStart;
 import org.team639.robot.commands.lift.LiftPosition;
 import org.team639.robot.commands.lift.MoveToSetPosition;
@@ -28,6 +30,14 @@ public class OneCubeScale extends CommandGroup {
             addSequential(new AutoDriveFinish(side * 90.12, 288));
         } else {
             // TODO: go to lift on opposite side
+            addSequential(new AutoDriveStart(side * 115.5, 196));
+            addSequential(new AutoDriveSegment(side * 85.5, 226));
+            addSequential(new AutoDriveSegment(side * -30, 226));
+
+            addParallel(new MoveToSetPosition(LiftPosition.ScaleHeight));
+            addSequential(new AutoDriveFinish(side * -60, 299));
+
+            addSequential(new LaunchCube());
         }
 
         // TODO: Actually place a cube here.
