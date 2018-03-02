@@ -35,6 +35,10 @@ public class MonitorCube extends Command {
      */
     @Override
     protected void initialize() {
+        if (cubeAcquisition.isCubeDetectedAtBack()) {
+            cubeAcquisition.setShouldHaveCube(true);
+        }
+
         startedSpinningTime = 0;
         state = State.Watching;
     }
@@ -56,7 +60,7 @@ public class MonitorCube extends Command {
                 if (cubeAcquisition.isCubeDetectedAtBack()) {
                     cubeAcquisition.setSpeedsPercent(0, 0);
                     state = State.Watching;
-                } else if (System.currentTimeMillis() - startedSpinningTime > MONITOR_CUBE_TIMEOUT) {
+                } else if (!cubeAcquisition.isCubeDetectedAtFront()) {
                     cubeAcquisition.setShouldHaveCube(false);
                     cubeAcquisition.setSpeedsPercent(0, 0);
                     state = State.Watching;

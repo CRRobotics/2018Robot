@@ -38,7 +38,7 @@ public class RobotMap {
     private static SpeedController leftAcquisition;
     private static SpeedController rightAcquisition;
     private static DigitalInput innerCubeDetector;
-    private static AnalogInput outerCubeDetector;
+    private static DigitalInput outerCubeDetector;
     private static DigitalInput armsClosed;
     private static Solenoid cubeRaise;
     private static Solenoid acqOpen1;
@@ -95,13 +95,11 @@ public class RobotMap {
                 rightAcquisition = new Spark(1);
             }
             innerCubeDetector = new DigitalInput(0);
-            outerCubeDetector = new AnalogInput(0);
+            outerCubeDetector = new DigitalInput(1);
             armsClosed = new DigitalInput(2);
             cubeRaise = new Solenoid(1);
             acqOpen1 = new Solenoid(0);
             acqOpen2 = new Solenoid(7);
-            //lets go acquisition!
-
 
             // Lift
             liftMain = new TalonSRX(6);
@@ -206,7 +204,7 @@ public class RobotMap {
      * Returns the outer IR cube detector on the acquisition.
      * @return The outer IR cube detector on the acquisition.
      */
-    public static AnalogInput getOuterCubeDetector() {
+    public static DigitalInput getOuterCubeDetector() {
         return outerCubeDetector;
     }
 
