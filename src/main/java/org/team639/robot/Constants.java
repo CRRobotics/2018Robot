@@ -5,20 +5,22 @@ package org.team639.robot;
  * Part of 2018Robot.
  */
 public class Constants {
-    public static final boolean REAL = false;
+    public static final boolean REAL = true;
 
     public static class Acquisition {
         public static final double DEFAULT_ACQ_SPEED = 0.4;
         public static final double MONITOR_CUBE_TIMEOUT = 1500;
         public static final double MONITOR_CUBE_SPEED = 0.2;
 
+        public static final double ACQ_RAISE_TIME = 0.75;
+        public static final double ACQ_LOWER_TIME = 0.75;
     }
 
     public static class DriveTrain {
         // TODO: Tune everything.
         public static final double HIGH_MIN_DRIVE_PERCENT = 0.09;
 
-        public static final double HIGH_SPEED_RANGE = 33000 * 0.95;
+        public static final double HIGH_SPEED_RANGE = 30000 * 0.95;
         public static final double HIGH_DRIVE_P = 0.1;
         public static final double HIGH_DRIVE_I = 0;
         public static final double HIGH_DRIVE_D = 0;
@@ -43,7 +45,7 @@ public class Constants {
         public static final double ENC_TICKS_PER_ROTATION = 4096 * 3 * 54 / 30; // Quad encoder has 1024 ticks (* 4 = 4096). 3 and 54/30 are gear ratios.
         public static final double TICKS_PER_INCH = ENC_TICKS_PER_ROTATION / WHEEL_CIRCUMFERENCE_INCHES;
 
-        public static final double IDEAL_SHIFT_SPEED = REAL ? 1.926 * 39.37 * TICKS_PER_INCH * 0.1 : 5000;
+        public static final double IDEAL_SHIFT_SPEED = /*REAL ? 1.926 * 39.37 * TICKS_PER_INCH * 0.1 :*/ 5000;
 
         public static final double DRIVE_FORWARD_TOLERANCE = 200;
 

@@ -21,7 +21,7 @@ public class CubeAcquisition extends Subsystem {
     private SpeedController right;
 
     private DigitalInput innerCubeDetector;
-    private DigitalInput outerCubeDetector;
+    private AnalogInput outerCubeDetector;
     private DigitalInput armsClosed;
 
     private boolean innerDetectorEnabled = true;
@@ -129,11 +129,11 @@ public class CubeAcquisition extends Subsystem {
      * @return Whether or not a cube is at the back of the acquisition.
      */
     public boolean isCubeDetectedAtBack() {
-        return innerDetectorEnabled && innerCubeDetector.get();
+        return innerDetectorEnabled && outerCubeDetector.getVoltage() > 3;
     }
 
     public boolean isCubeDetectedAtFront() {
-        return  outerDetectorEnabled && outerCubeDetector.get();
+        return  outerDetectorEnabled && outerCubeDetector.getVoltage() > 1;
     }
 
     /**

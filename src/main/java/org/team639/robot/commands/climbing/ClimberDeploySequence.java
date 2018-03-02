@@ -6,13 +6,16 @@ import org.team639.lib.controls.LogitechF310;
 import org.team639.robot.OI;
 import org.team639.robot.commands.cube.*;
 
+import static org.team639.robot.Constants.Acquisition.ACQ_LOWER_TIME;
+
+/**
+ * Performs the actions necessary to deploy the climbing bars.
+ */
 public class ClimberDeploySequence extends CommandGroup {
     public ClimberDeploySequence() {
         addSequential(new LowerAcquisition());
         addSequential(new OpenAcquisition());
-        addSequential(new WaitCommand(0.5)); // TODO: Verify this time
+        addSequential(new WaitCommand(ACQ_LOWER_TIME)); // TODO: Verify this time
         addSequential(new ReleaseArms());
-        addSequential(new RaiseAcquisition());
-        addSequential(new CloseAcquisition());
     }
 }

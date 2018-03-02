@@ -8,10 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.led.LEDColor;
 import org.team639.lib.led.patterns.*;
-import org.team639.robot.commands.auto.AutoBoilerplate;
-import org.team639.robot.commands.auto.AutoCrossLine;
-import org.team639.robot.commands.auto.OneCubeSwitch;
-import org.team639.robot.commands.auto.StartingPosition;
+import org.team639.robot.commands.auto.*;
 import org.team639.robot.commands.drive.AutoDriveForward;
 import org.team639.robot.commands.drive.DriveMode;
 import org.team639.robot.commands.drive.fancyauto.DriveTracker;
@@ -174,6 +171,7 @@ public class Robot extends TimedRobot {
         autoSelector = new SendableChooser<>();
         autoSelector.addDefault("Drive over line", AutoCrossLine.class); // Passing class types to be instantiated later.
         autoSelector.addObject("One Cube Switch", OneCubeSwitch.class);
+        autoSelector.addObject("One Cube Scale", OneCubeScale.class);
         SmartDashboard.putData("Auto selector", autoSelector);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
@@ -264,7 +262,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("y pos", driveTracker.getY());
 
 //        SmartDashboard.putNumber("lift pos", lift.getEncPos());
-        SmartDashboard.putNumber("pdp energy", RobotMap.getPdp().getTotalEnergy());
+//        SmartDashboard.putNumber("pdp energy", RobotMap.getPdp().getTotalEnergy());
 
 //        SmartDashboard.putNumber("lift speed", Math.abs(lift.getEncVelocity()));
 //        SmartDashboard.putNumber("lift velocity", lift.getEncVelocity());

@@ -49,6 +49,7 @@ public class OI {
         controller.mapButton(LogitechF310.Buttons.POVUp, new RaiseAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVDown, new LowerAcquisition(), JoystickManager.MappingType.WhenPressed);
         mapCondition(climbTrigger, new ClimberDeploySequence(), JoystickManager.MappingType.WhenPressed);
+        mapCondition(climbTrigger, new RaiseAndClose(), JoystickManager.MappingType.WhenReleased);
 
         controller.mapButton(LogitechF310.Buttons.POVRight, new MoveToSetPosition(LiftPosition.ExchangeHeight), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVRight, new ReturnLiftControl(), JoystickManager.MappingType.WhenReleased);
@@ -56,11 +57,11 @@ public class OI {
         controller.mapButton(LogitechF310.Buttons.POVLeft, new MoveToSetPosition(LiftPosition.SwitchHeight), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVLeft, new ReturnLiftControl(), JoystickManager.MappingType.WhenReleased);
 
-        drive.mapButton(LogitechF310.Buttons.RB, new ShiftHigh(), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(LogitechF310.Buttons.RB, new SetAutoShift(true), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.LB, new ShiftLow(), JoystickManager.MappingType.WhenPressed);
-        drive.mapButton(LogitechF310.Buttons.Y, new FancyTest(), JoystickManager.MappingType.WhenPressed);
-        drive.mapButton(LogitechF310.Buttons.A, new FancyTest2(), JoystickManager.MappingType.WhenPressed);
-        drive.mapButton(LogitechF310.Buttons.B, new ZeroYaw(), JoystickManager.MappingType.WhenPressed);
+//        drive.mapButton(LogitechF310.Buttons.Y, new FancyTest(), JoystickManager.MappingType.WhenPressed);
+//        drive.mapButton(LogitechF310.Buttons.A, new FancyTest2(), JoystickManager.MappingType.WhenPressed);
+//        drive.mapButton(LogitechF310.Buttons.B, new ZeroYaw(), JoystickManager.MappingType.WhenPressed);
 
         drive.mapButton(LogitechF310.Buttons.POVLeft, new AutoTurnToAngle(180), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.POVUp, new AutoTurnToAngle(90), JoystickManager.MappingType.WhenPressed);
