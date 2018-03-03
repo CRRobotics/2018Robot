@@ -27,7 +27,7 @@ public class OneCubeSwitch extends CommandGroup {
 //        addParallel(new MoveToSetPosition(LiftPosition.SwitchHeight));
         addSequential(new AutoDriveForward(10, 90));
 //        double angle = 90 + Math.toDegrees(Math.atan(4.5 * 12 / 87.5)) * (switchSide == AutoUtils.OwnedSide.Right ? -1 : 1);
-        double angle = switchSide == AutoUtils.OwnedSide.Right ? Math.toDegrees(Math.atan2(81.5, (28.75 + 4))) : Math.toDegrees(Math.atan2(81.5, (28.75 - 4)));
+        double angle = switchSide == AutoUtils.OwnedSide.Right ? Math.toDegrees(Math.atan2(81.5, (28.75 - 4))) : Math.toDegrees(Math.atan2(81.5, -1 * (28.75 + 4)));
         addSequential(new AutoTurnToAngle(angle));
         addSequential(new AutoDriveForward(Math.sqrt(Math.pow(28.75 + (side * 4), 2) + Math.pow(81.5, 2))), angle);
         addSequential(new AutoTurnToAngle(90));

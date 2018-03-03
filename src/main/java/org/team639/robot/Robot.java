@@ -142,7 +142,7 @@ public class Robot extends TimedRobot {
         driveTrain = new DriveTrain();
         cubeAcquisition = new CubeAcquisition();
         lift = new Lift();
-        ledStrip = new LEDStrip(42);
+        ledStrip = new LEDStrip(84);
 
         driveTracker = new DriveTracker(0, 0);
 
@@ -172,6 +172,7 @@ public class Robot extends TimedRobot {
         autoSelector.addDefault("Drive over line", AutoCrossLine.class); // Passing class types to be instantiated later.
         autoSelector.addObject("One Cube Switch", OneCubeSwitch.class);
         autoSelector.addObject("One Cube Scale", OneCubeScale.class);
+        autoSelector.addObject("Switch side chance", AutoSwitchSideGuess.class);
         SmartDashboard.putData("Auto selector", autoSelector);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
@@ -186,7 +187,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
 //        ledStrip.changeMode(new LEDSolid(new LEDColor(200, 0, 0), ledStrip.getLength()));
-        /*LEDColor[] arr = {
+        LEDColor[] arr = {
                 new LEDColor(200, 0, 0),
                 new LEDColor(200, 0, 0),
 //                new LEDColor(0, 200, 0),
@@ -194,8 +195,8 @@ public class Robot extends TimedRobot {
                 new LEDColor(0, 0, 200),
                 new LEDColor(0, 0, 200)
         };
-        ledStrip.changeMode(new LEDScrollingSequence(arr, ledStrip.getLength(), 150));*/
-        ledStrip.changeMode(new SinePattern(ledStrip.getLength()));
+        ledStrip.changeMode(new LEDScrollingSequence(arr, ledStrip.getLength(), 150));
+//        ledStrip.changeMode(new SinePattern(ledStrip.getLength()));
     }
 
     /**
@@ -234,7 +235,9 @@ public class Robot extends TimedRobot {
 
         if (auto != null) auto.cancel(); // Stop the auto
 
-        ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
+//        ledStrip.changeMode(new LEDSolid(new LEDColor(200, 0, 0), ledStrip.getLength()));
+        ledStrip.changeMode(new SinePattern(ledStrip.getLength()));
+//        ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
 //        ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));
 //        ledStrip.changeMode(new LEDVelocityLighting(ledStrip.getLength(), (int)HIGH_SPEED_RANGE, () -> driveTrain.getLeftEncVelocity()));
     }

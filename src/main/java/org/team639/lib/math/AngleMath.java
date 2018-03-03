@@ -48,4 +48,8 @@ public class AngleMath {
         if (val < 0) val = 360 + val;
         return val;
     }
+
+    public static double pythagHypotenuse(double a, double b) {
+        return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+    }
 }

@@ -83,7 +83,7 @@ public class Constants {
         public static final double TTA_I_CAP = 0.2;
         public static final double TTA_TOLERANCE = 2;
 
-        public static final double ADF_P = 0.0000028;
+        public static final double ADF_P = 0.000012;
         public static final double ADF_I = 0;
         public static final double ADF_D = 0;
         public static final double ADF_MIN = 0.09; // 0.045;
