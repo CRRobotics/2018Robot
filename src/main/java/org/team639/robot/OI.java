@@ -46,6 +46,7 @@ public class OI {
         controller.mapButton(LogitechF310.Buttons.X, new CloseOnCubeAtFront(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.X, new CloseAndIntake(), JoystickManager.MappingType.WhenReleased);
         controller.mapButton(LogitechF310.Buttons.Y, new ZeroLift(), JoystickManager.MappingType.WhenPressed);
+//        controller.mapButton();
         controller.mapButton(LogitechF310.Buttons.POVUp, new RaiseAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVDown, new LowerAcquisition(), JoystickManager.MappingType.WhenPressed);
         mapCondition(climbTrigger, new ClimberDeploySequence(), JoystickManager.MappingType.WhenPressed);

@@ -47,6 +47,11 @@ public class Robot extends TimedRobot {
     private static SendableChooser<StartingPosition> startingPosition;
     private static SendableChooser<Class<? extends Command>> autoSelector;
 
+    // LEDs
+    private static SinePattern defaultPattern;
+
+    public static SinePattern getDefaultPattern() { return defaultPattern; }
+
     /**
      * Returns a reference to the robot's drivetrain.
      * @return a reference to the robot's drivetrain.
@@ -143,6 +148,7 @@ public class Robot extends TimedRobot {
         cubeAcquisition = new CubeAcquisition();
         lift = new Lift();
         ledStrip = new LEDStrip(84);
+        defaultPattern = new SinePattern(ledStrip.getLength());
 
         driveTracker = new DriveTracker(0, 0);
 
@@ -236,7 +242,7 @@ public class Robot extends TimedRobot {
         if (auto != null) auto.cancel(); // Stop the auto
 
 //        ledStrip.changeMode(new LEDSolid(new LEDColor(200, 0, 0), ledStrip.getLength()));
-        ledStrip.changeMode(new SinePattern(ledStrip.getLength()));
+        ledStrip.changeMode(defaultPattern);
 //        ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
 //        ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));
 //        ledStrip.changeMode(new LEDVelocityLighting(ledStrip.getLength(), (int)HIGH_SPEED_RANGE, () -> driveTrain.getLeftEncVelocity()));

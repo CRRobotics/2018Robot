@@ -127,7 +127,7 @@ public class Constants {
     public static final double LIFT_MIN = .15;
     public static final double LIFT_MAX = .6;
 
-    public static final double LIFT_POS_P = 0.00018;
+    public static final double LIFT_POS_P = 0.00036;
     public static final double LIFT_POS_I = 0;
     public static final double LIFT_POS_D = 0;
 

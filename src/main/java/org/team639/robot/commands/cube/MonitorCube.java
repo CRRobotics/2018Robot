@@ -1,6 +1,8 @@
 package org.team639.robot.commands.cube;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
+import org.team639.lib.led.patterns.GreenFlashPattern;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
@@ -37,6 +39,21 @@ public class MonitorCube extends Command {
     protected void initialize() {
         if (cubeAcquisition.isCubeDetectedAtBack()) {
             cubeAcquisition.setShouldHaveCube(true);
+            new TimedCommand(3){
+                @Override
+                public void initialize() {
+                    Robot.getLedStrip().changeMode(new GreenFlashPattern(Robot.getLedStrip().getLength()));
+                }
+                @Override
+                public void interrupted() {
+                    end();
+                }
+                @Override
+                public void end() {
+                    Robot.getLedStrip().changeMode(Robot.getDefaultPattern());
+                }
+
+            }.start();
         }
 
         startedSpinningTime = 0;

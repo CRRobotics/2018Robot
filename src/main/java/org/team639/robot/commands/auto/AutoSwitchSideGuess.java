@@ -12,7 +12,8 @@ import org.team639.robot.commands.lift.MoveToSetPosition;
  */
 public class AutoSwitchSideGuess extends CommandGroup {
     public AutoSwitchSideGuess() {
-        addSequential(new AutoDriveForward(101.5));
+        addSequential(new MoveToSetPosition(LiftPosition.SwitchHeight));
+        addSequential(new AutoDriveForward(101.5), 7);
         StartingPosition pos = Robot.getStartingPosition();
         AutoUtils.OwnedSide side = AutoUtils.getOwnedSide(AutoUtils.GameFeature.SwitchNear);
         if ((pos == StartingPosition.Right && side == AutoUtils.OwnedSide.Right) || (pos == StartingPosition.Left && side == AutoUtils.OwnedSide.Left)) {

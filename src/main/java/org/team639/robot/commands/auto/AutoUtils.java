@@ -31,6 +31,7 @@ public class AutoUtils {
     public static Map<GameFeature, OwnedSide> getMatchData() {
         if (gameData == null) {
             String msg = DriverStation.getInstance().getGameSpecificMessage();
+            System.out.println("getMatchData using " + msg);
             int retries = 0;
             // Wait and retry in case the message isn't available yet,
 //            while ((msg == null || msg.length() < 3) && retries < 100) {

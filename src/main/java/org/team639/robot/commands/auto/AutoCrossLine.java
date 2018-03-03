@@ -8,7 +8,7 @@ import org.team639.robot.commands.drive.AutoDriveForward;
  */
 public class AutoCrossLine extends CommandGroup {
     public AutoCrossLine() {
-        addSequential(new AutoDriveForward(160));
+        addSequential(new AutoDriveForward(196));
         // TODO: Consider adding code to handle the case where the robot is in the center starting position.
     }
 }
