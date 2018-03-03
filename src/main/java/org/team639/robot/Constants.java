@@ -10,7 +10,7 @@ public class Constants {
     public static class Acquisition {
         public static final double DEFAULT_ACQ_SPEED = 0.4;
         public static final double MONITOR_CUBE_TIMEOUT = 1500;
-        public static final double MONITOR_CUBE_SPEED = 0.2;
+        public static final double MONITOR_CUBE_SPEED = 0.4;
 
         public static final double ACQ_RAISE_TIME = 0.75;
         public static final double ACQ_LOWER_TIME = 0.75;
@@ -96,7 +96,7 @@ public class Constants {
         public static final double FANCY_I = 0;
         public static final double FANCY_D = 0;
         public static final double FANCY_MIN = 0.09; // 0.045;
-        public static final double FANCY_MAX = 0.6;
+        public static final double FANCY_MAX = 0.3;
         public static final double FANCY_RATE = 0.015;
         public static final double FANCY_I_CAP = 0.2;
         public static final double FANCY_TOLERANCE = 4;
@@ -118,9 +118,9 @@ public class Constants {
     public static final int LIFT_MAX_SPEED = 1700;
 
     //lift speed pid
-    public static final double LIFT_P = 0;
-    public static final double LIFT_I = 0;
-    public static final double LIFT_D = 0;
+    public static final double LIFT_P = 0; //0.1;
+    public static final double LIFT_I = 0; //0.001;
+    public static final double LIFT_D = 0; //5;
     public static final double LIFT_F = 1023.0 / LIFT_MAX_SPEED;
 
     public static final double LIFT_RATE = .03;
@@ -130,6 +130,9 @@ public class Constants {
     public static final double LIFT_POS_P = 0.00018;
     public static final double LIFT_POS_I = 0;
     public static final double LIFT_POS_D = 0;
+
+//    public static final double TICKS_PER_INCH = 2.5 * Math.PI * 4096
+//    public static final double LIFT_THRESHOLD = ;
 
 
     public static final int LIFT_MAX_HEIGHT = 40700; // TODO: THIS IS PROBABLY THE REAL VALUE BUT MAYBE NOT

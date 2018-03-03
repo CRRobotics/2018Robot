@@ -50,6 +50,11 @@ public class MonitorCube extends Command {
     protected void execute() {
         switch (state) {
             case Watching:
+                if (cubeAcquisition.shouldHaveCube()) {
+                    cubeAcquisition.setSpeedsPercent(-0.2, -0.2);
+                } else {
+                    cubeAcquisition.setSpeedsPercent(0, 0);
+                }
                 if (cubeAcquisition.shouldHaveCube() && !cubeAcquisition.isCubeDetectedAtBack()) {
                     cubeAcquisition.setSpeedsPercent(-1 * MONITOR_CUBE_SPEED, -1 * MONITOR_CUBE_SPEED);
                     state = State.Spinning;

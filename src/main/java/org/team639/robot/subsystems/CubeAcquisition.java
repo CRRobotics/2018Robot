@@ -62,7 +62,7 @@ public class CubeAcquisition extends Subsystem {
         acqOpen1 = RobotMap.getAcqOpen1();
         acqOpen2 = RobotMap.getAcqOpen2();
 
-        mode = PistonMode.Floating;
+        mode = PistonMode.Closed;
         setPistonMode(mode);
 
         setRaised(true);

@@ -12,16 +12,6 @@ import static org.team639.robot.Constants.LIFT_ZERO_SPEED;
 public class ZeroLift extends Command {
     private Lift lift;
 
-    /**
-     * The state of the process.
-     */
-    private enum State {
-        Up,
-        Down,
-        Done
-    }
-
-    private State state;
     private boolean done;
 
     public ZeroLift() {
@@ -37,9 +27,9 @@ public class ZeroLift extends Command {
     protected void initialize() {
         lift.setBrake(false);
         if (lift.isAtLowerLimit()) {
-            state = State.Up;
+            done = true;
         } else {
-            state = State.Down;
+            done = false;
         }
     }
 
@@ -48,22 +38,12 @@ public class ZeroLift extends Command {
      */
     @Override
     protected void execute() {
-        switch (state) {
-            case Up:
-                lift.setSpeedPercent(LIFT_ZERO_SPEED);
-                if (!lift.isAtLowerLimit()) {
-                    state = State.Down;
-                    lift.setSpeedPercent(-1 * LIFT_ZERO_SPEED);
-                }
-                break;
-            case Down:
-                lift.setSpeedPercent(-1 * LIFT_ZERO_SPEED);
-                if (lift.isAtLowerLimit()) {
-                    lift.zeroEncoder();
-                    state = State.Done;
-                    lift.setSpeedPercent(0);
-                }
-                break;
+        if (lift.isAtLowerLimit()) {
+            lift.zeroEncoder();
+            done = true;
+            lift.setSpeedPercent(0);
+        } else {
+            lift.setSpeedPercent(-1 * LIFT_ZERO_SPEED);
         }
     }
 
@@ -103,6 +83,6 @@ public class ZeroLift extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return state == State.Done;
+        return done;
     }
 }

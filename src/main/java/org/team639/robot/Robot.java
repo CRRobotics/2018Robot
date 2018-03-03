@@ -212,11 +212,10 @@ public class Robot extends TimedRobot {
             auto = new AutoBoilerplate(autoSelector.getSelected().newInstance(), SmartDashboard.getNumber("delay", 0));
         } catch (InstantiationException e) {
             e.printStackTrace();
+            auto = new AutoCrossLine();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-        } finally {
-            // TODO: Better default action
-            auto = new AutoDriveForward(196);
+            auto = new AutoCrossLine();
         }
         auto.start();
         driveTrain.setAutoShift(false);

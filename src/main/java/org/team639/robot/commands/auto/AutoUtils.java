@@ -33,15 +33,15 @@ public class AutoUtils {
             String msg = DriverStation.getInstance().getGameSpecificMessage();
             int retries = 0;
             // Wait and retry in case the message isn't available yet,
-            while ((msg == null || msg.length() < 3) && retries < 100) {
-                msg = DriverStation.getInstance().getGameSpecificMessage();
-                try {
-                    Thread.sleep(5);
-                } catch (InterruptedException e) {
-                    // I don't think we care about this.
-                }
-                retries++;
-            }
+//            while ((msg == null || msg.length() < 3) && retries < 100) {
+//                msg = DriverStation.getInstance().getGameSpecificMessage();
+////                try {
+//////                    Thread.sleep(5);
+////                } catch (InterruptedException e) {
+////                    // I don't think we care about this.
+////                }
+//                retries++;
+//            }
             info = new HashMap<>();
             if (msg == null || msg.length() < 1) {
                 info.put(GameFeature.SwitchNear, OwnedSide.Unknown);
