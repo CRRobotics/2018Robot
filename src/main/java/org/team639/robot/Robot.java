@@ -1,7 +1,8 @@
 package org.team639.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;import edu.wpi.cscore.VideoMode;
+import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.*;
@@ -10,10 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.led.LEDColor;
 import org.team639.lib.led.patterns.*;
 import org.team639.robot.commands.auto.*;
-import org.team639.robot.commands.drive.AutoDriveForward;
 import org.team639.robot.commands.drive.DriveMode;
 import org.team639.robot.commands.drive.fancyauto.DriveTracker;
-import org.team639.robot.commands.lift.ZeroLift;
 import org.team639.robot.subsystems.CubeAcquisition;
 import org.team639.robot.subsystems.DriveTrain;
 import org.team639.robot.subsystems.LEDStrip;
@@ -145,7 +144,8 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         RobotMap.init(); // Initialize all sensors, motors, etc.
 
-        // CameraServer.getInstance().startAutomaticCapture();
+        VideoSource c = CameraServer.getInstance().startAutomaticCapture();
+        c.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 30);
 
         // Subsystem initializations
         driveTrain = new DriveTrain();
