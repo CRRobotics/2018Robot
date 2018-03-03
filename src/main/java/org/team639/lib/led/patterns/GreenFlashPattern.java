@@ -40,12 +40,13 @@ public class GreenFlashPattern extends LEDPattern {
         for(int i = 0; i < len; i++) {
             LEDColor c = new LEDColor(
                     0,
-                    (int)(Math.pow(Math.sin(i * 0.2 + offset), 2)*127 + 127),
+                    (int)Math.round(Math.pow(Math.max(0, Math.sin(i * 0.2 + offset)), 2)*256),
                     0
             );
             ca[i] = c;
         }
-        offset += 3;
+        offset = (offset + 1.5f) % (float)(2*Math.PI);
+        //offset %= 2*Math.PI;
         return ca;
     }
 }

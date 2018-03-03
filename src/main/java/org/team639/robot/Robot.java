@@ -2,6 +2,7 @@ package org.team639.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -143,6 +144,9 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         RobotMap.init(); // Initialize all sensors, motors, etc.
+
+        // CameraServer.getInstance().startAutomaticCapture();
+
         // Subsystem initializations
         driveTrain = new DriveTrain();
         cubeAcquisition = new CubeAcquisition();
@@ -153,7 +157,7 @@ public class Robot extends TimedRobot {
         driveTracker = new DriveTracker(0, 0);
 
         // Driver options init
-        driveMode = new SendableChooser<>();
+        driveMode = new SendableChooser<>(  );
         driveMode.addDefault("2 Joystick Arcade Right", DriveMode.Arcade2JoystickRightDrive);
         driveMode.addObject("1 Joystick Arcade", DriveMode.Arcade1Joystick);
         driveMode.addObject("Tank", DriveMode.Tank);

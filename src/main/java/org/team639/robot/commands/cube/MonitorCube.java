@@ -39,7 +39,7 @@ public class MonitorCube extends Command {
     protected void initialize() {
         if (cubeAcquisition.isCubeDetectedAtBack()) {
             cubeAcquisition.setShouldHaveCube(true);
-            new TimedCommand(3){
+            new TimedCommand(1){
                 @Override
                 public void initialize() {
                     Robot.getLedStrip().changeMode(new GreenFlashPattern(Robot.getLedStrip().getLength()));
