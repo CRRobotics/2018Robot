@@ -74,7 +74,7 @@ public class Constants {
 
     public static class Auto {
         //Turn To Angle constants
-        public static final double TTA_P = 0.014;
+        public static final double TTA_P = 0.028;
         public static final double TTA_I = 0;
         public static final double TTA_D = 0;
         public static final double TTA_MIN = 0.09;
