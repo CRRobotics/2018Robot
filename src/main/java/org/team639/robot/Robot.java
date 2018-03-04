@@ -1,7 +1,8 @@
 package org.team639.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;import edu.wpi.cscore.VideoMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import edu.wpi.cscore.VideoMode;
 import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -17,10 +18,6 @@ import org.team639.robot.subsystems.CubeAcquisition;
 import org.team639.robot.subsystems.DriveTrain;
 import org.team639.robot.subsystems.LEDStrip;
 import org.team639.robot.subsystems.Lift;
-
-import static org.team639.robot.Constants.*;
-import static org.team639.robot.Constants.Auto.*;
-import static org.team639.robot.Constants.DriveTrain.*;
 
 /**
  * The main robot class.
@@ -143,9 +140,9 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         RobotMap.init(); // Initialize all sensors, motors, etc.
-
-        VideoSource c = CameraServer.getInstance().startAutomaticCapture();
-        c.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 30);
+//
+//        VideoSource c = CameraServer.getInstance().startAutomaticCapture();
+//        c.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 30);
 
         // Subsystem initializations
         driveTrain = new DriveTrain();
@@ -272,6 +269,8 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("x pos", driveTracker.getX());
         SmartDashboard.putNumber("y pos", driveTracker.getY());
+
+        SmartDashboard.putString("Selected auto mode", autoSelector.getSelected().getName());
 
 //        SmartDashboard.putNumber("lift pos", lift.getEncPos());
 //        SmartDashboard.putNumber("pdp energy", RobotMap.getPdp().getTotalEnergy());

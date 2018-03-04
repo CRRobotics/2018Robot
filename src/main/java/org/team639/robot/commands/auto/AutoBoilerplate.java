@@ -8,7 +8,7 @@ import org.team639.robot.commands.lift.ZeroLift;
 
 public class AutoBoilerplate extends CommandGroup {
     public AutoBoilerplate(Command auto, double delay) {
-        addSequential(new PrintCommand("Starting boilerplate"));
+        addSequential(new PrintCommand("Starting boilerplate -- " + auto.getClass().getName()));
         addParallel(new ZeroLift(), 1);
         addSequential(new PrintCommand("zeroed lift"));
         if(delay > 0) addSequential(new WaitCommand(delay));

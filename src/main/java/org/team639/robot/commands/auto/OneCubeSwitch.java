@@ -35,7 +35,7 @@ public class OneCubeSwitch extends CommandGroup {
         addSequential(new AutoTurnToAngle(angle));
         addSequential(new AutoDriveForward(Math.sqrt(Math.pow(55 + (side * 4), 2) + Math.pow(81.5, 2))), angle);
         addSequential(new AutoTurnToAngle(90));
-        addSequential(new AutoDriveForward(10, 90));
+        addSequential(new AutoDriveForward(10, 90), 1.5);
         addSequential(new LowerAcquisition());
         addSequential(new EjectCube());
         // TODO: TEST

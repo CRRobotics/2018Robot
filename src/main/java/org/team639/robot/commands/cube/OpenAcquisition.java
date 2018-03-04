@@ -25,7 +25,7 @@ public class OpenAcquisition extends Command {
     @Override
     protected void initialize() {
         cubeAcquisition.setPistonMode(CubeAcquisition.PistonMode.Open);
-//        System.out.println("opening");
+        System.out.println("opening");
         cubeAcquisition.setShouldHaveCube(false);
     }
 
