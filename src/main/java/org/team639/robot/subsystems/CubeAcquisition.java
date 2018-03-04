@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team639.robot.RobotMap;
 import org.team639.robot.commands.cube.MonitorCube;
@@ -16,8 +17,8 @@ import org.team639.robot.commands.cube.MonitorCube;
  * The best subsystem.
  */
 public class CubeAcquisition extends Subsystem {
-    private TalonSRX left;
-    private TalonSRX right;
+    private SpeedController left;
+    private SpeedController right;
 
     private DigitalInput innerCubeDetector;
     private AnalogInput outerCubeDetector;
@@ -51,9 +52,6 @@ public class CubeAcquisition extends Subsystem {
         left = RobotMap.getLeftAcquisition();
         right = RobotMap.getRightAcquisition();
 
-        left.setNeutralMode(NeutralMode.Brake);
-        right.setNeutralMode(NeutralMode.Brake);
-
         left.setInverted(true);
 
         innerCubeDetector = RobotMap.getInnerCubeDetector();
@@ -64,7 +62,7 @@ public class CubeAcquisition extends Subsystem {
         acqOpen1 = RobotMap.getAcqOpen1();
         acqOpen2 = RobotMap.getAcqOpen2();
 
-        mode = PistonMode.Floating;
+        mode = PistonMode.Closed;
         setPistonMode(mode);
 
         setRaised(true);
@@ -122,8 +120,8 @@ public class CubeAcquisition extends Subsystem {
      * @param rSpeed The percentage of max speed to set the right side.
      */
     public void setSpeedsPercent(double lSpeed, double rSpeed) {
-        left.set(ControlMode.PercentOutput, lSpeed);
-        right.set(ControlMode.PercentOutput, rSpeed);
+        left.set(lSpeed);
+        right.set(rSpeed);
     }
 
     /**
@@ -131,7 +129,7 @@ public class CubeAcquisition extends Subsystem {
      * @return Whether or not a cube is at the back of the acquisition.
      */
     public boolean isCubeDetectedAtBack() {
-        return innerDetectorEnabled && innerCubeDetector.get();
+        return innerDetectorEnabled && outerCubeDetector.getVoltage() > 3;
     }
 
     public boolean isCubeDetectedAtFront() {
@@ -185,6 +183,6 @@ public class CubeAcquisition extends Subsystem {
      */
     @Override
     protected void initDefaultCommand() {
-//        setDefaultCommand(new MonitorCube());
+          setDefaultCommand(new MonitorCube());
     }
 }

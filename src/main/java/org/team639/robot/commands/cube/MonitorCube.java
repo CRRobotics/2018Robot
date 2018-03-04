@@ -1,8 +1,13 @@
 package org.team639.robot.commands.cube;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
+import org.team639.lib.led.patterns.GreenFlashPattern;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
+
+import static org.team639.robot.Constants.Acquisition.MONITOR_CUBE_SPEED;
+import static org.team639.robot.Constants.Acquisition.MONITOR_CUBE_TIMEOUT;
 
 /**
  * A command that tries to hold on to a cube if it is knocked loose.
@@ -32,6 +37,25 @@ public class MonitorCube extends Command {
      */
     @Override
     protected void initialize() {
+        if (cubeAcquisition.isCubeDetectedAtBack()) {
+            cubeAcquisition.setShouldHaveCube(true);
+            new TimedCommand(1){
+                @Override
+                public void initialize() {
+                    Robot.getLedStrip().changeMode(new GreenFlashPattern(Robot.getLedStrip().getLength()));
+                }
+                @Override
+                public void interrupted() {
+                    end();
+                }
+                @Override
+                public void end() {
+                    Robot.getLedStrip().changeMode(Robot.getDefaultPattern());
+                }
+
+            }.start();
+        }
+
         startedSpinningTime = 0;
         state = State.Watching;
     }
@@ -43,8 +67,13 @@ public class MonitorCube extends Command {
     protected void execute() {
         switch (state) {
             case Watching:
+                if (cubeAcquisition.shouldHaveCube()) {
+                    cubeAcquisition.setSpeedsPercent(-0.2, -0.2);
+                } else {
+                    cubeAcquisition.setSpeedsPercent(0, 0);
+                }
                 if (cubeAcquisition.shouldHaveCube() && !cubeAcquisition.isCubeDetectedAtBack()) {
-                    cubeAcquisition.setSpeedsPercent(-0.3, -0.3);
+                    cubeAcquisition.setSpeedsPercent(-1 * MONITOR_CUBE_SPEED, -1 * MONITOR_CUBE_SPEED);
                     state = State.Spinning;
                     startedSpinningTime = System.currentTimeMillis();
                 }
@@ -53,8 +82,9 @@ public class MonitorCube extends Command {
                 if (cubeAcquisition.isCubeDetectedAtBack()) {
                     cubeAcquisition.setSpeedsPercent(0, 0);
                     state = State.Watching;
-                } else if (System.currentTimeMillis() - startedSpinningTime > 500) {
+                } else if (!cubeAcquisition.isCubeDetectedAtFront()) {
                     cubeAcquisition.setShouldHaveCube(false);
+                    cubeAcquisition.setSpeedsPercent(0, 0);
                     state = State.Watching;
                 }
                 break;

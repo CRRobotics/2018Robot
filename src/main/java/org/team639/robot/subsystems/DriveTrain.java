@@ -38,12 +38,24 @@ public class DriveTrain extends Subsystem {
     private DriveGear currentGear;
     private ControlMode currentControlMode;
 
+    public boolean getAutoShift() {
+        return autoShift;
+    }
+
+    public void setAutoShift(boolean autoShift) {
+        this.autoShift = autoShift;
+    }
+
+    private boolean autoShift = false;
+
+
+
     /**
      * The gears of the robot.
      */
     public enum DriveGear {
         High,
-        Low
+        Low,
     }
 
     /**
@@ -63,21 +75,21 @@ public class DriveTrain extends Subsystem {
         leftFollower1.setInverted(true);
         leftFollower2.setInverted(true);
 
-        leftDrive.configAllowableClosedloopError(0,50,10);
-        rightDrive.configAllowableClosedloopError(0,50,10);
+        leftDrive.configAllowableClosedloopError(0,50,0);
+        rightDrive.configAllowableClosedloopError(0,50,0);
 
-        leftDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-        rightDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+        leftDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+        rightDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
 //        leftDrive.setSensorPhase(true);
 
-        leftDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
-        rightDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 10);
+        leftDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 20, 0);
+        rightDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 20, 0);
 
         setNeutralMode(NeutralMode.Brake);
 
-        leftDrive.configClosedloopRamp(0.5, 10);
-        rightDrive.configClosedloopRamp(0.5, 10);
+        leftDrive.configClosedloopRamp(0, 0);
+        rightDrive.configClosedloopRamp(0, 0);
 
 
         leftFollower1.follow(leftDrive);
@@ -127,14 +139,14 @@ public class DriveTrain extends Subsystem {
         kI = i;
         kD = d;
         kF = f;
-        rightDrive.config_kP(0, kP, 10);
-        rightDrive.config_kI(0, kI, 10);
-        rightDrive.config_kD(0, kD, 10);
-        rightDrive.config_kF(0, kF, 10);
-        leftDrive.config_kP(0, kP, 10);
-        leftDrive.config_kI(0, kI, 10);
-        leftDrive.config_kD(0, kD, 10);
-        leftDrive.config_kF(0, kF, 10);
+        rightDrive.config_kP(0, kP, 0);
+        rightDrive.config_kI(0, kI, 0);
+        rightDrive.config_kD(0, kD, 0);
+        rightDrive.config_kF(0, kF, 0);
+        leftDrive.config_kP(0, kP, 0);
+        leftDrive.config_kI(0, kI, 0);
+        leftDrive.config_kD(0, kD, 0);
+        leftDrive.config_kF(0, kF, 0);
 
     }
 
@@ -153,6 +165,26 @@ public class DriveTrain extends Subsystem {
      */
     public void setSpeedsPercent(double lSpeed, double rSpeed) {
         double range = currentGear == DriveGear.High ? HIGH_SPEED_RANGE : LOW_SPEED_RANGE;
+        double l_vel = getLeftEncVelocity();
+        double r_vel = getRightEncVelocity();
+
+        if(autoShift) {
+            if ((l_vel > 0) == (r_vel > 0)) {
+                double avg_vel = Math.abs((l_vel + r_vel) / 2);
+                DriveGear g = getCurrentGear();
+                if (avg_vel > Constants.DriveTrain.IDEAL_SHIFT_SPEED * 1.02 && getCurrentGear() == DriveGear.Low)
+                    g = DriveGear.High;
+                if (avg_vel < Constants.DriveTrain.IDEAL_SHIFT_SPEED * .98 && getCurrentGear() == DriveGear.High)
+                    g = DriveGear.Low;
+                if (lSpeed < 0 == rSpeed < 0) {
+                    double avg_cmd = Math.abs((lSpeed + rSpeed) / 2) * range;
+                    if (avg_cmd < avg_vel && avg_cmd < Constants.DriveTrain.IDEAL_SHIFT_SPEED * .98) g = DriveGear.Low;
+                }
+                setCurrentGear(g);
+            } else {
+                setCurrentGear(DriveGear.Low);
+            }
+        }
 
         // Limits speeds to the range [-1, 1]
         if (Math.abs(lSpeed) > 1) lSpeed = lSpeed < 0 ? -1 : 1;
@@ -286,8 +318,8 @@ public class DriveTrain extends Subsystem {
      */
     public void setRampRate(double rampRate) {
         this.rampRate = rampRate;
-        leftDrive.configClosedloopRamp(rampRate, 10);
-        rightDrive.configClosedloopRamp(rampRate, 10);
+        leftDrive.configClosedloopRamp(rampRate, 0);
+        rightDrive.configClosedloopRamp(rampRate, 0);
     }
 
     /**
@@ -295,6 +327,7 @@ public class DriveTrain extends Subsystem {
      * @param gear The gear to change to.
      */
     public void setCurrentGear(DriveGear gear) {
+        //if(gear == currentGear) return; // optimization that might break debugging stuff
         this.currentGear = gear;
         switch (gear) {
             case Low:

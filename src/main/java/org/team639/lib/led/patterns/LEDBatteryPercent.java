@@ -27,7 +27,7 @@ public class LEDBatteryPercent extends LEDPattern{
             percentRed = percent;
             percentGreen = percent / 6;
         }
-        for(int i = 0; i < round(percent*pattern.length)+1; i++) {
+        for(int i = 0; i < round(percent*pattern.length); i++) {
             pattern[i] = new LEDColor(round(255*percentRed), round(percentGreen*255), 0);
         }
         for(int i = round(percent*pattern.length); i < pattern.length; i++){

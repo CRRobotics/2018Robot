@@ -30,6 +30,8 @@ public class AutoTurnToAngle extends Command {
 
     private PID pid;
 
+    private boolean prevAutoShiftState;
+
     public AutoTurnToAngle(double angle) {
         super("AutoTurnToAngle");
         driveTrain = Robot.getDriveTrain();
@@ -40,6 +42,11 @@ public class AutoTurnToAngle extends Command {
     //anthony is a pretty cool guy
     protected void initialize() {
         done = false;
+
+
+        prevAutoShiftState = driveTrain.getAutoShift();
+        driveTrain.setAutoShift(false);
+        driveTrain.setCurrentGear(DriveTrain.DriveGear.Low);
 //        double p = SmartDashboard.getNumber("drive p", TTA_P);
 //        double i = SmartDashboard.getNumber("drive i", TTA_I);
 //        double d = SmartDashboard.getNumber("drive d", TTA_D);
@@ -76,5 +83,6 @@ public class AutoTurnToAngle extends Command {
     @Override
     protected void end() {
         driveTrain.setSpeedsPercent(0, 0);
+        driveTrain.setAutoShift(prevAutoShiftState);
     }
 }

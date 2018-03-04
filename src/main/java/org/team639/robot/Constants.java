@@ -7,20 +7,32 @@ package org.team639.robot;
 public class Constants {
     public static final boolean REAL = true;
 
+    public static class Acquisition {
+        public static final double DEFAULT_ACQ_SPEED = 0.4;
+        public static final double MONITOR_CUBE_TIMEOUT = 1500;
+        public static final double MONITOR_CUBE_SPEED = 0.4;
+
+        public static final double ACQ_RAISE_TIME = 0.75;
+        public static final double ACQ_LOWER_TIME = 0.75;
+    }
+
     public static class DriveTrain {
         // TODO: Tune everything.
         public static final double HIGH_MIN_DRIVE_PERCENT = 0.09;
 
-        public static final double HIGH_SPEED_RANGE = 33000 * 0.95;
+        public static final double HIGH_SPEED_RANGE = 30000 * 0.95;
         public static final double HIGH_DRIVE_P = 0.1;
         public static final double HIGH_DRIVE_I = 0;
         public static final double HIGH_DRIVE_D = 0;
         public static final double HIGH_DRIVE_F = 1023/HIGH_SPEED_RANGE;
         public static final double HIGH_ARCADE_RATE = 0.03;
 
+        //public static final double IDEAL_SHIFT_SPEED = 1.926*39.37/4.0/(2*Math.PI)*4096*0.1; // ticks per 100ms?
+//        public static final double IDEAL_SHIFT_SPEED = 5000;
+
         public static final double LOW_MIN_DRIVE_PERCENT = 0.09;
 
-        public static final double LOW_SPEED_RANGE = 11100;
+        public static final double LOW_SPEED_RANGE = 18000 * .95;
         public static final double LOW_DRIVE_P = 0.1;
         public static final double LOW_DRIVE_I = 0;
         public static final double LOW_DRIVE_D = 0;
@@ -32,6 +44,8 @@ public class Constants {
 
         public static final double ENC_TICKS_PER_ROTATION = 4096 * 3 * 54 / 30; // Quad encoder has 1024 ticks (* 4 = 4096). 3 and 54/30 are gear ratios.
         public static final double TICKS_PER_INCH = ENC_TICKS_PER_ROTATION / WHEEL_CIRCUMFERENCE_INCHES;
+
+        public static final double IDEAL_SHIFT_SPEED = /*REAL ? 1.926 * 39.37 * TICKS_PER_INCH * 0.1 :*/ 5000;
 
         public static final double DRIVE_FORWARD_TOLERANCE = 200;
 
@@ -60,7 +74,7 @@ public class Constants {
 
     public static class Auto {
         //Turn To Angle constants
-        public static final double TTA_P = 0.007;
+        public static final double TTA_P = 0.028;
         public static final double TTA_I = 0;
         public static final double TTA_D = 0;
         public static final double TTA_MIN = 0.09;
@@ -69,7 +83,7 @@ public class Constants {
         public static final double TTA_I_CAP = 0.2;
         public static final double TTA_TOLERANCE = 2;
 
-        public static final double ADF_P = 0.0000028;
+        public static final double ADF_P = 0.000012;
         public static final double ADF_I = 0;
         public static final double ADF_D = 0;
         public static final double ADF_MIN = 0.09; // 0.045;
@@ -77,36 +91,64 @@ public class Constants {
         public static final double ADF_RATE = 0.005;
         public static final double ADF_I_CAP = 0.2;
         public static final double ADF_TOLERANCE = 800;
+
+        public static final double FANCY_P = 0.02;
+        public static final double FANCY_I = 0;
+        public static final double FANCY_D = 0;
+        public static final double FANCY_MIN = 0.09; // 0.045;
+        public static final double FANCY_MAX = 0.3;
+        public static final double FANCY_RATE = 0.015;
+        public static final double FANCY_I_CAP = 0.2;
+        public static final double FANCY_TOLERANCE = 4;
+
+        public static final double FANCY_AC_P = 0.028;
+        public static final double FANCY_AC_I = 0;
+        public static final double FANCY_AC_D = 0;
+        public static final double FANCY_AC_MIN = 0;
+        public static final double FANCY_AC_MAX = 0.4;
+        public static final double FANCY_AC_RATE = 0.03;
+        public static final double FANCY_AC_I_CAP = 0.2;
+        public static final double FANCY_AC_TOLERANCE = 1;
     }
 
     public static final double JOYSTICK_DEADZONE = 0.05;
-    public static final double CONTROLLER_JOYSTICK_DEADZONE = 0.15;
+    public static final double CONTROLLER_JOYSTICK_DEADZONE = 0.2;
 
 
     public static final int LIFT_MAX_SPEED = 1700;
 
     //lift speed pid
-    public static final double LIFT_P = 0;
-    public static final double LIFT_I = 0;
-    public static final double LIFT_D = 0;
+    public static final double LIFT_P = 0; //0.1;
+    public static final double LIFT_I = 0; //0.001;
+    public static final double LIFT_D = 0; //5;
     public static final double LIFT_F = 1023.0 / LIFT_MAX_SPEED;
 
-    public static final int LIFT_CRUISE = LIFT_MAX_SPEED;
-    public static final int LIFT_ACCELERATION = LIFT_MAX_SPEED / 10;
+    public static final double LIFT_RATE = .03;
+    public static final double LIFT_MIN = .15;
+    public static final double LIFT_MAX = .6;
 
-    public static final int LIFT_MAX_HEIGHT = 40000; // TODO: FIND REAL VALUEs!!!!
-    public static final int LIFT_SCALE_HEIGHT = 0;
-    public static final int LIFT_SWITCH_HEIGHT = 0;
-    public static final int LIFT_EXCHANGE_HEIGHT = 0;
-    public static final int LIFT_CLIMB_HEIGHT = 0;
+    public static final double LIFT_POS_P = 0.00036;
+    public static final double LIFT_POS_I = 0;
+    public static final double LIFT_POS_D = 0;
+
+//    public static final double TICKS_PER_INCH = 2.5 * Math.PI * 4096
+//    public static final double LIFT_THRESHOLD = ;
+
+
+    public static final int LIFT_MAX_HEIGHT = 40700; // TODO: THIS IS PROBABLY THE REAL VALUE BUT MAYBE NOT
+    public static final int LIFT_SCALE_HEIGHT = LIFT_MAX_HEIGHT;
+    public static final int LIFT_SWITCH_HEIGHT = 13474;
+    public static final int LIFT_EXCHANGE_HEIGHT = 2500;//2807; 950 is mark's guess
+    public static final int LIFT_CLIMB_HEIGHT = 0; //TODO FIND HEIGHT
 
 //    public static final int LIFT_UPPER_LIMIT = 395000;
 //    public static final int LIFT_LOWER_SLOW_DISTANCE = 50000;
-    public static final int LIFT_SLOW_DISTANCE = 2000;
+    public static final int LIFT_TOP_SLOW_DISTANCE = 1000;
+    public static final int LIFT_BOTTOM_SLOW_DISTANCE = 4000;
+
 
     public static final double LIFT_ZERO_SPEED = 0.15;
 
     public static final int LIFT_TOLERANCE = 200;
 
-    public static final double DEFAULT_ACQ_SPEED = 0.5;
 }

@@ -3,6 +3,8 @@ package org.team639.robot;
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.*;
 
@@ -14,7 +16,7 @@ import static org.team639.robot.Constants.REAL;
 public class RobotMap {
     private static boolean initialized = false;
 
-    private static PowerDistributionPanel pdp;
+//    private static PowerDistributionPanel pdp;
 
     // Left drive
     private static TalonSRX leftDrive;
@@ -33,8 +35,8 @@ public class RobotMap {
     private static AHRS ahrs;
 
     // Acquisition
-    private static TalonSRX leftAcquisition;
-    private static TalonSRX rightAcquisition;
+    private static SpeedController leftAcquisition;
+    private static SpeedController rightAcquisition;
     private static DigitalInput innerCubeDetector;
     private static AnalogInput outerCubeDetector;
     private static DigitalInput armsClosed;
@@ -46,12 +48,10 @@ public class RobotMap {
     private static TalonSRX liftMain;
     private static TalonSRX liftFollower;
     private static Solenoid liftBrake;
+    private static Solenoid climbPiston;
 
-    // Raising subsystem
-    private static Solenoid raisingLeft;
-    private static Solenoid raisingRight;
-
-    private RobotMap() {}
+    private RobotMap() {
+    }
 
     /**
      * Initializes all of the motors, sensors, etc.
@@ -60,7 +60,7 @@ public class RobotMap {
     public static void init() {
         if (!initialized) {
 
-            pdp = new PowerDistributionPanel();
+//            pdp = new PowerDistributionPanel(0);
 
             // Left drive
             leftDrive = new TalonSRX(3);
@@ -88,21 +88,25 @@ public class RobotMap {
             ahrs = new AHRS(SPI.Port.kMXP);
 
             // Acquisition
-            leftAcquisition = new TalonSRX(8);
-            rightAcquisition = new TalonSRX(9);
+            if (REAL) {
+                leftAcquisition = new WPI_TalonSRX(8);
+                rightAcquisition = new WPI_TalonSRX(9);
+            } else {
+                leftAcquisition = new Spark(0);
+                rightAcquisition = new Spark(1);
+            }
             innerCubeDetector = new DigitalInput(0);
             outerCubeDetector = new AnalogInput(0);
             armsClosed = new DigitalInput(2);
             cubeRaise = new Solenoid(1);
             acqOpen1 = new Solenoid(0);
             acqOpen2 = new Solenoid(7);
-            //lets go acquisition!
-
 
             // Lift
             liftMain = new TalonSRX(6);
             liftFollower = new TalonSRX(7);
 
+            climbPiston = new Solenoid(2);
             liftBrake = new Solenoid(6);
 
             initialized = true;
@@ -111,6 +115,7 @@ public class RobotMap {
 
     /**
      * Returns the left side Talon.
+     *
      * @return The left side Talon.
      */
     public static TalonSRX getLeftDrive() {
@@ -119,6 +124,7 @@ public class RobotMap {
 
     /**
      * Returns the first left side Victor.
+     *
      * @return the first left side Victor.
      */
     public static IMotorController getLeftFollower1() {
@@ -127,6 +133,7 @@ public class RobotMap {
 
     /**
      * Returns the second left side Victor.
+     *
      * @return the second left side Victor.
      */
     public static IMotorController getLeftFollower2() {
@@ -135,6 +142,7 @@ public class RobotMap {
 
     /**
      * Returns the right side Talon.
+     *
      * @return The right side Talon.
      */
     public static TalonSRX getRightDrive() {
@@ -143,6 +151,7 @@ public class RobotMap {
 
     /**
      * Returns the first right side Victor.
+     *
      * @return The first right side Victor.
      */
     public static IMotorController getRightFollower1() {
@@ -151,6 +160,7 @@ public class RobotMap {
 
     /**
      * Returns the second right side Victor.
+     *
      * @return The second right side Victor.
      */
     public static IMotorController getRightFollower2() {
@@ -159,6 +169,7 @@ public class RobotMap {
 
     /**
      * Returns the solenoid that controls gear shifting on the drivetrain.
+     *
      * @return The solenoid that controls gear shifting on the drivetrain.
      */
     public static Solenoid getDriveShifter() {
@@ -167,6 +178,7 @@ public class RobotMap {
 
     /**
      * Returns the navX gyro.
+     *
      * @return The navX gyro.
      */
     public static AHRS getAhrs() {
@@ -175,22 +187,25 @@ public class RobotMap {
 
     /**
      * Returns the Talon controlling the left side of the acquisition.
+     *
      * @return The Talon controlling the left side of the acquisition.
      */
-    public static TalonSRX getLeftAcquisition() {
+    public static SpeedController getLeftAcquisition() {
         return leftAcquisition;
     }
 
     /**
      * Returns the Talon controlling the right side of the acquisition.
+     *
      * @return The Talon controlling the right side of the acquisition.
      */
-    public static TalonSRX getRightAcquisition() {
+    public static SpeedController getRightAcquisition() {
         return rightAcquisition;
     }
 
     /**
      * Returns the IR cube detector on the acquisition.
+     *
      * @return The IR cube detector on the acquisition.
      */
     public static DigitalInput getInnerCubeDetector() {
@@ -199,6 +214,7 @@ public class RobotMap {
 
     /**
      * Returns the outer IR cube detector on the acquisition.
+     *
      * @return The outer IR cube detector on the acquisition.
      */
     public static AnalogInput getOuterCubeDetector() {
@@ -207,6 +223,7 @@ public class RobotMap {
 
     /**
      * Returns the DigitalInput detecting whether the arms are open or closed.
+     *
      * @return The DigitalInput detecting whether the arms are open or closed.
      */
     public static DigitalInput getArmsClosed() {
@@ -215,6 +232,7 @@ public class RobotMap {
 
     /**
      * Returns the main Talon that controls the lift.
+     *
      * @return The main Talon that controls the lift.
      */
     public static TalonSRX getLiftMain() {
@@ -223,6 +241,7 @@ public class RobotMap {
 
     /**
      * Returns the follower Talon of the lift.
+     *
      * @return The follower Talon of the lift.
      */
     public static TalonSRX getLiftFollower() {
@@ -231,6 +250,7 @@ public class RobotMap {
 
     /**
      * Returns the solenoid which locks the first stage in place.
+     *
      * @return The solenoid which locks the first stage in place.
      */
     public static Solenoid getLiftBrake() {
@@ -249,27 +269,7 @@ public class RobotMap {
         return acqOpen2;
     }
 
-    /**
-     * Returns the left piston of the raising subsystem.
-     * @return The left piston of the raising subsystem.
-     */
-    public static Solenoid getRaisingLeft() {
-        return raisingLeft;
-    }
-
-    /**
-     * Returns the right piston of the raising subsystem.
-     * @return The right piston of the raising subsystem.
-     */
-    public static Solenoid getRaisingRight() {
-        return raisingRight;
-    }
-
-    /**
-     * Returns the pdp.
-     * @return The pdp.
-     */
-    public static PowerDistributionPanel getPdp() {
-        return pdp;
+    public static Solenoid getClimbPiston() {
+        return climbPiston;
     }
 }

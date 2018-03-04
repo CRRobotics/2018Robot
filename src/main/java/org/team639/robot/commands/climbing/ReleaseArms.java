@@ -1,22 +1,13 @@
-package org.team639.robot.commands.cube;
+package org.team639.robot.commands.climbing;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.team639.robot.Robot;
-import org.team639.robot.subsystems.CubeAcquisition;
+import org.team639.lib.controls.LogitechF310;
+import org.team639.robot.OI;
+import org.team639.robot.RobotMap;
 
-/**
- * A command that tells the acquisition to open and then immediately finishes.
- * @see CubeAcquisition
- */
-public class OpenAcquisition extends Command {
-    private CubeAcquisition cubeAcquisition;
+public class ReleaseArms extends Command {
+    public ReleaseArms(){
 
-    /**
-     * Creates a new CubeAcquisition and requires needed subsystem.
-     */
-    public OpenAcquisition() {
-        super("OpenAcquisition");
-        cubeAcquisition = Robot.getCubeAcquisition();
     }
 
     /**
@@ -24,9 +15,7 @@ public class OpenAcquisition extends Command {
      */
     @Override
     protected void initialize() {
-        cubeAcquisition.setPistonMode(CubeAcquisition.PistonMode.Open);
-        System.out.println("opening");
-        cubeAcquisition.setShouldHaveCube(false);
+            RobotMap.getClimbPiston().set(true);
     }
 
     /**
@@ -35,6 +24,12 @@ public class OpenAcquisition extends Command {
      * <p>
      * <p>It may be useful for a team to reference the {@link Command#isTimedOut() isTimedOut()}
      * method for time-sensitive commands.
+     * <p>
+     * <p>Returning false will result in the command never ending automatically. It may still be
+     * cancelled manually or interrupted by another command. Returning true will result in the
+     * command executing once and finishing immediately. We recommend using
+     * for this.
+     *
      * @return whether this command is finished.
      * @see Command#isTimedOut() isTimedOut()
      */

@@ -52,7 +52,8 @@ public class JoystickDrive extends Command {
 //        double min = SmartDashboard.getNumber("min", 0.2);
 //        double max = SmartDashboard.getNumber("max", 0.5);
         turnPID = new PID(p, i, d, min, max, rate, tolerance, iCap);
-        driveTrain.setRampRate(0.5);
+        driveTrain.setRampRate(0);//.5);
+        //FIXME: doesn't necessarily resend constants
         driveTrain.setCurrentGear(driveTrain.getCurrentGear()); // Resets to default pid values for current gear.
     }
 
@@ -63,11 +64,11 @@ public class JoystickDrive extends Command {
         if (!driveTrain.encodersPresent()) driveTrain.setCurrentControlMode(ControlMode.PercentOutput); // TODO: Time limit to wait before switching
         else driveTrain.setCurrentControlMode(Robot.getDriveTalonControlMode());
 
-//        double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
-//        double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
-//        double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_I);
+        double p = SmartDashboard.getNumber("drive p", Constants.DriveTrain.HIGH_DRIVE_P);
+        double i = SmartDashboard.getNumber("drive i", Constants.DriveTrain.HIGH_DRIVE_I);
+        double d = SmartDashboard.getNumber("drive d", Constants.DriveTrain.HIGH_DRIVE_I);
 
-        driveTrain.setPID(HIGH_DRIVE_P, HIGH_DRIVE_I, HIGH_DRIVE_D, HIGH_DRIVE_F);
+        driveTrain.setPID(p, i, d, HIGH_DRIVE_F);
 
         DriveMode mode;
         double x;
@@ -142,8 +143,8 @@ public class JoystickDrive extends Command {
      * @param turning The turning magnitude from -1 to 1
      */
     public void arcadeDrive(double speed, double turning) {
-        speed = speed * 2 / 3;
-        turning /= 3;
+        speed = speed * 2 / 3; //Math.abs(speed);//speed * 2 / 3;
+        turning /= 3; //Math.abs(turning);
         double rate = SmartDashboard.getNumber("rrate", HIGH_ARCADE_RATE); //driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
 
 //        if (Math.abs(speed - lastSetpointSpeed) > rate) {
@@ -155,7 +156,7 @@ public class JoystickDrive extends Command {
         lastSetpointSpeed = speed;
         lastSetpointTurning = turning;
 
-        if (speed < 0) turning *= -1;
+        if (speed < -.01) turning *= -1;
 
         driveTrain.setSpeedsPercent(speed + turning, speed - turning);
     }

@@ -2,23 +2,22 @@ package org.team639.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.cscore.VideoMode;
+import edu.wpi.cscore.VideoSource;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.led.LEDColor;
 import org.team639.lib.led.patterns.*;
-import org.team639.robot.commands.auto.StartingPosition;
+import org.team639.robot.commands.auto.*;
 import org.team639.robot.commands.drive.DriveMode;
+import org.team639.robot.commands.drive.fancyauto.DriveTracker;
 import org.team639.robot.subsystems.CubeAcquisition;
 import org.team639.robot.subsystems.DriveTrain;
 import org.team639.robot.subsystems.LEDStrip;
 import org.team639.robot.subsystems.Lift;
-
-import static org.team639.robot.Constants.*;
-import static org.team639.robot.Constants.Auto.*;
-import static org.team639.robot.Constants.DriveTrain.*;
 
 /**
  * The main robot class.
@@ -27,26 +26,49 @@ public class Robot extends TimedRobot {
 
     private static double rMax = 0;
     private static double lMax = 0;
-    public static double liftMax = 0;
+    private static double liftMax = 0;
+
+    private Command auto; // The auto period (very important)
 
     // Subsystems
     private static DriveTrain driveTrain;
     private static CubeAcquisition cubeAcquisition;
     private static Lift lift;
     private static LEDStrip ledStrip;
+
+    private static DriveTracker driveTracker;
+
     // Driver options
     private static SendableChooser<DriveMode> driveMode;
     private static SendableChooser<ControlMode> driveTalonControlMode;
     private static SendableChooser<StartingPosition> startingPosition;
+    private static SendableChooser<Class<? extends Command>> autoSelector;
 
+    // LEDs
+    private static SinePattern defaultPattern;
+
+    public static SinePattern getDefaultPattern() { return defaultPattern; }
+
+    /**
+     * Returns a reference to the robot's drivetrain.
+     * @return a reference to the robot's drivetrain.
+     */
     public static DriveTrain getDriveTrain() {
         return driveTrain;
     }
 
+    /**
+     * Returns a reference to the robot's cube acquisition system.
+     * @return a reference to the robot's cube acquisition system.
+     */
     public static CubeAcquisition getCubeAcquisition() {
         return cubeAcquisition;
     }
 
+    /**
+     * Returns the drive mode selected by the driver on shuffleboard.
+     * @return The drive mode selected by the driver on shuffleboard.
+     */
     public static DriveMode getDriveMode() {
         return driveMode.getSelected();
     }
@@ -55,17 +77,55 @@ public class Robot extends TimedRobot {
         return driveTalonControlMode.getSelected();
     }
 
+    /**
+     * Returns the starting position of the robot, specified on shuffleboard by the drive team.
+     * @return The starting position of the robot, specified on shuffleboard by the drive team.
+     */
     public static StartingPosition getStartingPosition() {
         return startingPosition.getSelected();
     }
 
+    /**
+     * Returns a reference to the robot's lift.
+     * @return a reference to the robot's lift.
+     */
     public static Lift getLift() {
         return lift;
     }
 
+    /**
+     * Returns a reference to the robot's LED strip.
+     * @return a reference to the robot's LED strip.
+     */
     public static LEDStrip getLedStrip() {
         return ledStrip;
     }
+
+    /**
+     * Returns the approximate x location of the robot reported by the drive tracker.
+     * @return The approximate x location of the robot reported by the drive tracker.
+     */
+    public static double getTrackedX() {
+        return driveTracker.getX();
+    }
+
+    /**
+     * Returns the approximate y location of the robot reported by the drive tracker.
+     * @return The approximate y location of the robot reported by the drive tracker.
+     */
+    public static double getTrackedY() {
+        return driveTracker.getY();
+    }
+
+    /**
+     * Resets the drive tracker to the specified coordinates.
+     * @param x The x value to reset to.
+     * @param y The y value to reset to.
+     */
+    public static void resetTrackedPosition(double x, double y) {
+        driveTracker.reset(x, y);
+    }
+
 
     /**
      * Robot-wide initialization code should go here.
@@ -80,19 +140,21 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         RobotMap.init(); // Initialize all sensors, motors, etc.
+//
+//        VideoSource c = CameraServer.getInstance().startAutomaticCapture();
+//        c.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 30);
+
         // Subsystem initializations
         driveTrain = new DriveTrain();
         cubeAcquisition = new CubeAcquisition();
         lift = new Lift();
-        ledStrip = new LEDStrip(42);
+        ledStrip = new LEDStrip(84);
+        defaultPattern = new SinePattern(ledStrip.getLength());
 
-        SmartDashboard.putNumber("l max", lMax);
-        SmartDashboard.putNumber("r max", rMax);
-
-        SmartDashboard.putNumber("rrate", HIGH_ARCADE_RATE);
+        driveTracker = new DriveTracker(0, 0);
 
         // Driver options init
-        driveMode = new SendableChooser<>();
+        driveMode = new SendableChooser<>(  );
         driveMode.addDefault("2 Joystick Arcade Right", DriveMode.Arcade2JoystickRightDrive);
         driveMode.addObject("1 Joystick Arcade", DriveMode.Arcade1Joystick);
         driveMode.addObject("Tank", DriveMode.Tank);
@@ -112,16 +174,13 @@ public class Robot extends TimedRobot {
         startingPosition.addObject("Right", StartingPosition.Right);
         SmartDashboard.putData("Starting position", startingPosition);
 
-        SmartDashboard.putNumber("drive p", ADF_P);
-        SmartDashboard.putNumber("drive i", ADF_I);
-        SmartDashboard.putNumber("drive d", ADF_D);
-        SmartDashboard.putNumber("rate", ADF_RATE);
-        SmartDashboard.putNumber("tolerance", ADF_TOLERANCE);
-        SmartDashboard.putNumber("min", ADF_MIN);
-        SmartDashboard.putNumber("max", ADF_MAX);
-
-        SmartDashboard.putNumber("accel", LIFT_ACCELERATION);
-        SmartDashboard.putNumber("cruise", LIFT_CRUISE);
+        SmartDashboard.putNumber("Auto delay", 0);
+        autoSelector = new SendableChooser<>();
+        autoSelector.addDefault("Drive over line", AutoCrossLine.class); // Passing class types to be instantiated later.
+        autoSelector.addObject("One Cube Switch", OneCubeSwitch.class);
+        autoSelector.addObject("One Cube Scale", OneCubeScale.class);
+        autoSelector.addObject("Switch side chance", AutoSwitchSideGuess.class);
+        SmartDashboard.putData("Auto selector", autoSelector);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
     }
@@ -135,7 +194,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
 //        ledStrip.changeMode(new LEDSolid(new LEDColor(200, 0, 0), ledStrip.getLength()));
-        /*LEDColor[] arr = {
+        LEDColor[] arr = {
                 new LEDColor(200, 0, 0),
                 new LEDColor(200, 0, 0),
 //                new LEDColor(0, 200, 0),
@@ -143,8 +202,8 @@ public class Robot extends TimedRobot {
                 new LEDColor(0, 0, 200),
                 new LEDColor(0, 0, 200)
         };
-        ledStrip.changeMode(new LEDScrollingSequence(arr, ledStrip.getLength(), 150));*/
-        ledStrip.changeMode(new SinePattern(ledStrip.getLength()));
+        ledStrip.changeMode(new LEDScrollingSequence(arr, ledStrip.getLength(), 150));
+//        ledStrip.changeMode(new SinePattern(ledStrip.getLength()));
     }
 
     /**
@@ -155,7 +214,19 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        super.autonomousInit();
+        StartingPosition position = startingPosition.getSelected();
+        driveTracker.reset(position.x, position.y);
+        try { // This try/catch is for the call to Class<? extends Command>.newInstance that constructs the auto (hopefully).
+            auto = new AutoBoilerplate(autoSelector.getSelected().newInstance(), SmartDashboard.getNumber("delay", 0));
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+            auto = new AutoCrossLine();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            auto = new AutoCrossLine();
+        }
+        auto.start();
+        driveTrain.setAutoShift(false);
     }
 
     /**
@@ -167,8 +238,13 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         driveTrain.setNeutralMode(NeutralMode.Brake);
+        driveTrain.setAutoShift(true);
 
-        ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
+        if (auto != null) auto.cancel(); // Stop the auto
+
+//        ledStrip.changeMode(new LEDSolid(new LEDColor(200, 0, 0), ledStrip.getLength()));
+        ledStrip.changeMode(defaultPattern);
+//        ledStrip.changeMode(new LEDBlink(new LEDColor(200, 0, 0), ledStrip.getLength(), 500));
 //        ledStrip.changeMode(new LEDBatteryPercent(ledStrip.getLength()));
 //        ledStrip.changeMode(new LEDVelocityLighting(ledStrip.getLength(), (int)HIGH_SPEED_RANGE, () -> driveTrain.getLeftEncVelocity()));
     }
@@ -189,12 +265,20 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        SmartDashboard.putNumber("pdp energy", RobotMap.getPdp().getTotalEnergy());
+        driveTracker.collect();
 
-        SmartDashboard.putNumber("lift speed", Math.abs(lift.getEncVelocity()));
-        SmartDashboard.putNumber("lift velocity", lift.getEncVelocity());
+        SmartDashboard.putNumber("x pos", driveTracker.getX());
+        SmartDashboard.putNumber("y pos", driveTracker.getY());
 
-        SmartDashboard.putNumber("lift enc", lift.getEncPos());
+        SmartDashboard.putString("Selected auto mode", autoSelector.getSelected().getName());
+
+//        SmartDashboard.putNumber("lift pos", lift.getEncPos());
+//        SmartDashboard.putNumber("pdp energy", RobotMap.getPdp().getTotalEnergy());
+
+//        SmartDashboard.putNumber("lift speed", Math.abs(lift.getEncVelocity()));
+//        SmartDashboard.putNumber("lift velocity", lift.getEncVelocity());
+
+//        SmartDashboard.putNumber("lift enc", lift.getEncPos());
 
         SmartDashboard.putBoolean("drivetrain encoders", driveTrain.encodersPresent());
         SmartDashboard.putNumber("Left speed", driveTrain.getLeftEncVelocity());
@@ -206,8 +290,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("inner", cubeAcquisition.isCubeDetectedAtBack());
         SmartDashboard.putBoolean("arms", cubeAcquisition.isClosed());
 
-        SmartDashboard.putNumber("left enc", driveTrain.getLeftEncPos());
-        SmartDashboard.putNumber("right enc", driveTrain.getRightEncPos());
+//        SmartDashboard.putNumber("left enc", driveTrain.getLeftEncPos());
+//        SmartDashboard.putNumber("right enc", driveTrain.getRightEncPos());
 
         double r = driveTrain.getRightEncVelocity();
         double l = driveTrain.getLeftEncVelocity();
@@ -240,7 +324,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        super.autonomousPeriodic();
+        Scheduler.getInstance().run();
     }
 
     /**

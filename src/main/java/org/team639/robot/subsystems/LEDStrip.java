@@ -3,6 +3,7 @@ package org.team639.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.team639.lib.led.LEDColor;
 import org.team639.lib.led.LEDPattern;
+import org.team639.lib.led.patterns.LEDBatteryPercent;
 import org.team639.lib.led.patterns.LEDBlink;
 import org.team639.lib.led.patterns.LEDOff;
 import org.team639.robot.commands.leds.LEDRefresh;
@@ -32,7 +33,7 @@ public class LEDStrip extends Subsystem {
         }
         pattern = new LEDOff(length);
 
-        changeMode(new LEDBlink(new LEDColor(255, 0, 0), this.length, 1000));
+        changeMode(new LEDBatteryPercent(length));
     }
 
     public void changeMode(LEDPattern pattern) {

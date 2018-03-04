@@ -3,7 +3,7 @@ package org.team639.lib.led.patterns;
 import org.team639.lib.led.LEDColor;
 import org.team639.lib.led.LEDPattern;
 
-public class SinePattern extends LEDPattern {
+public class GreenFlashPattern extends LEDPattern {
     /**
      * Called whenever the pattern becomes active.
      *
@@ -11,7 +11,7 @@ public class SinePattern extends LEDPattern {
      */
     private int len;
     private float offset = 0;
-    public SinePattern(int len) {
+    public GreenFlashPattern(int len) {
         this.len = len;
     }
 
@@ -39,13 +39,14 @@ public class SinePattern extends LEDPattern {
         LEDColor[] ca = new LEDColor[len];
         for(int i = 0; i < len; i++) {
             LEDColor c = new LEDColor(
-                    (int)(Math.sin(i * 0.1 + offset)*127 + 127),
-                    (int)(Math.sin(i * 0.1 + Math.PI * 2 / 3. + offset)*127 + 127),
-                    (int)(Math.sin(i * 0.1 + Math.PI * 4 / 3. + offset)*127 + 127)
+                    0,
+                    (int)Math.round(Math.pow(Math.max(0, Math.sin(i * 0.2 + offset)), 2)*256),
+                    0
             );
             ca[i] = c;
         }
-        offset += .05;
+        offset = (offset + 1.5f) % (float)(2*Math.PI);
+        //offset %= 2*Math.PI;
         return ca;
     }
 }

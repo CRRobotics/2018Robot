@@ -26,6 +26,8 @@ public class Lift extends Subsystem {
 
     private ControlMode currentControlMode;
 
+//    private Solenoid climbingPiston;
+
     private double kP;
     private double kI;
     private double kD;
@@ -44,21 +46,21 @@ public class Lift extends Subsystem {
         mainTalon.configReverseSoftLimitEnable(false, 0);
 
         mainTalon.configForwardSoftLimitEnable(true, 0);
-        mainTalon.configForwardSoftLimitThreshold(40950, 0);
+        mainTalon.configForwardSoftLimitThreshold(LIFT_MAX_HEIGHT, 0);
 
         mainTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         mainTalon.setSensorPhase(true);
 
-        mainTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 1, 0);
+        mainTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature, 20, 0);
 
         mainTalon.setNeutralMode(NeutralMode.Brake);
 
-        mainTalon.configAllowableClosedloopError(0, 50, 10);
+        mainTalon.configAllowableClosedloopError(0, 50, 0);
 
         brake = RobotMap.getLiftBrake();
-
-        mainTalon.configMotionCruiseVelocity(LIFT_CRUISE, 0);
-        mainTalon.configMotionAcceleration(LIFT_ACCELERATION, 0);
+//        climbingPiston = RobotMap.getClimbPiston();
+//        mainTalon.configMotionCruiseVelocity(LIFT_CRUISE, 0);
+//        mainTalon.configMotionAcceleration(LIFT_ACCELERATION, 0);
 
         setPID(LIFT_P, LIFT_I, LIFT_D, LIFT_F);
         if (encoderPresent()) setCurrentControlMode(ControlMode.Velocity); // TODO: make this velocity again
@@ -102,7 +104,7 @@ public class Lift extends Subsystem {
      * Sets the current position of the relative encoder to zero.
      */
     public void zeroEncoder() {
-        mainTalon.getSensorCollection().setQuadraturePosition(0, 10);
+        mainTalon.getSensorCollection().setQuadraturePosition(0, 0);
     }
 
     /**
@@ -207,6 +209,14 @@ public class Lift extends Subsystem {
 
     public double getEncVelocity() {
         return mainTalon.getSelectedSensorVelocity(0);
+    }
+
+    public void setMotionCruiseVelocity(int velocity) {
+        mainTalon.configMotionCruiseVelocity(velocity, 0);
+    }
+
+    public void setMotionAccelerationVelocity(int velocity) {
+        mainTalon.configMotionAcceleration(velocity, 0);
     }
 
     /**

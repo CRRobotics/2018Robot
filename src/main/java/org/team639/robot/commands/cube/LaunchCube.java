@@ -4,7 +4,8 @@ import edu.wpi.first.wpilibj.command.*;
 import org.team639.lib.commands.ExecuteCommandAndWait;
 import org.team639.robot.Robot;
 
-import static org.team639.robot.Constants.DEFAULT_ACQ_SPEED;
+import static org.team639.robot.Constants.Acquisition.ACQ_LOWER_TIME;
+import static org.team639.robot.Constants.Acquisition.DEFAULT_ACQ_SPEED;
 
 /**
  * Launches a cube
@@ -12,7 +13,7 @@ import static org.team639.robot.Constants.DEFAULT_ACQ_SPEED;
 public class LaunchCube extends CommandGroup {
 
     public LaunchCube() {
-        addSequential(new ConditionalCommand(new ExecuteCommandAndWait(new LowerAcquisition(), 1)) {
+        addSequential(new ConditionalCommand(new ExecuteCommandAndWait(new LowerAcquisition(), ACQ_LOWER_TIME)) {
             /**
              * The Condition to test to determine which Command to run.
              *
@@ -25,6 +26,7 @@ public class LaunchCube extends CommandGroup {
         });
         addSequential(new SetAcquisitionSpinning(DEFAULT_ACQ_SPEED));
         addSequential(new WaitCommand(0.5));
+        addSequential(new SetAcquisitionSpinning(0));
         addSequential(new OpenAcquisition());
         addSequential(new RaiseAcquisition());
     }

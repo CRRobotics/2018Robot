@@ -17,6 +17,7 @@ public class ShiftLow extends Command {
      */
     @Override
     protected void initialize() {
+        driveTrain.setAutoShift(false);
         driveTrain.setCurrentGear(DriveTrain.DriveGear.Low);
     }
 
