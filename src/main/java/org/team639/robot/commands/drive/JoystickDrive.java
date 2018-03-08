@@ -52,7 +52,7 @@ public class JoystickDrive extends Command {
 //        double min = SmartDashboard.getNumber("min", 0.2);
 //        double max = SmartDashboard.getNumber("max", 0.5);
         turnPID = new PID(p, i, d, min, max, rate, tolerance, iCap);
-        driveTrain.setRampRate(0);//.5);
+//        driveTrain.setRampRate(0);//.5);
         //FIXME: doesn't necessarily resend constants
         driveTrain.setCurrentGear(driveTrain.getCurrentGear()); // Resets to default pid values for current gear.
     }
@@ -144,7 +144,12 @@ public class JoystickDrive extends Command {
      */
     public void arcadeDrive(double speed, double turning) {
         speed = speed * 2 / 3; //Math.abs(speed);//speed * 2 / 3;
-        turning /= 3; //Math.abs(turning);
+//        turning /= 3; //Math.abs(turning);
+        double turnMultiplier = 1 - speed;
+        if (turnMultiplier < 1d / 3d) turnMultiplier = 1d / 3d;
+        if (turnMultiplier > 2d / 3d) turnMultiplier = 2d / 3d;
+        turning = turning * turnMultiplier;
+        SmartDashboard.putNumber("turning", turning);
         double rate = SmartDashboard.getNumber("rrate", HIGH_ARCADE_RATE); //driveTrain.getCurrentGear() == DriveTrain.DriveGear.High ? HIGH_ARCADE_RATE : LOW_ARCADE_RATE;
 
 //        if (Math.abs(speed - lastSetpointSpeed) > rate) {

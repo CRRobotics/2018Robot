@@ -5,7 +5,7 @@ package org.team639.robot;
  * Part of 2018Robot.
  */
 public class Constants {
-    public static final boolean REAL = true;
+    public static final boolean REAL = false;
 
     public static class Acquisition {
         public static final double DEFAULT_ACQ_SPEED = 0.4;
