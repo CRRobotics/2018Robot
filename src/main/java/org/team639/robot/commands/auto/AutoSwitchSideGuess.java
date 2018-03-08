@@ -12,12 +12,12 @@ import org.team639.robot.commands.lift.MoveToSetPosition;
  */
 public class AutoSwitchSideGuess extends CommandGroup {
     public AutoSwitchSideGuess() {
-        addSequential(new MoveToSetPosition(LiftPosition.SwitchHeight));
-        addSequential(new AutoDriveForward(101.5), 7);
+//        addSequential(new MoveToSetPosition(LiftPosition.SwitchHeight));
+//        addSequential(new AutoDriveForward(101.5), 7);
+        addSequential(new MoveLiftWhileDriving(101.5, 90, LiftPosition.SwitchHeight));
         StartingPosition pos = Robot.getStartingPosition();
         AutoUtils.OwnedSide side = AutoUtils.getOwnedSide(AutoUtils.GameFeature.SwitchNear);
         if ((pos == StartingPosition.Right && side == AutoUtils.OwnedSide.Right) || (pos == StartingPosition.Left && side == AutoUtils.OwnedSide.Left)) {
-            addSequential(new MoveToSetPosition(LiftPosition.SwitchHeight));
             addSequential(new LaunchCube());
         }
     }
