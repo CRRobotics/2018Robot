@@ -19,6 +19,10 @@ import org.team639.robot.subsystems.DriveTrain;
 import org.team639.robot.subsystems.LEDStrip;
 import org.team639.robot.subsystems.Lift;
 
+import static org.team639.robot.Constants.DriveTrain.HIGH_DRIVE_D;
+import static org.team639.robot.Constants.DriveTrain.HIGH_DRIVE_I;
+import static org.team639.robot.Constants.DriveTrain.HIGH_DRIVE_P;
+
 /**
  * The main robot class.
  */
@@ -143,6 +147,10 @@ public class Robot extends TimedRobot {
 //
 //        VideoSource c = CameraServer.getInstance().startAutomaticCapture();
 //        c.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 30);
+
+        SmartDashboard.putNumber("drive p", HIGH_DRIVE_P);
+        SmartDashboard.putNumber("drive i", HIGH_DRIVE_I);
+        SmartDashboard.putNumber("drive d", HIGH_DRIVE_D);
 
         // Subsystem initializations
         driveTrain = new DriveTrain();
