@@ -92,6 +92,15 @@ public class Constants {
         public static final double ADF_I_CAP = 0.2;
         public static final double ADF_TOLERANCE = 800;
 
+        public static final double DTDA_P = 0.000012;
+        public static final double DTDA_I = 0;
+        public static final double DTDA_D = 0;
+        public static final double DTDA_MIN = 0.09; // 0.045;
+        public static final double DTDA_MAX = 0.5;
+        public static final double DTDA_RATE = 0.005;
+        public static final double DTDA_I_CAP = 0.2;
+        public static final double DTDA_TOLERANCE = 800;
+
         public static final double FANCY_P = 0.02;
         public static final double FANCY_I = 0;
         public static final double FANCY_D = 0;

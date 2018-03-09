@@ -29,7 +29,6 @@ public class AutoDriveForward extends Command {
     private double rTickDiff;
     private double targetLeft;
     private double targetRight;
-    private double minSpeed;
 
     private double angle;
     private boolean useAbsoluteAngle = false;
@@ -77,7 +76,7 @@ public class AutoDriveForward extends Command {
         driveTrain.setSpeedsPercent(0, 0);
         driveTrain.setCurrentControlMode(ControlMode.Velocity);
         // Dominic "DJ" Towns was here.
-        driveTrain.setCurrentGear(DriveTrain.DriveGear.Low);
+        driveTrain.setCurrentGear(DriveTrain.DriveGear.High);
 
 //        double p = SmartDashboard.getNumber("drive p", ADF_P);
 //        double i = SmartDashboard.getNumber("drive i", ADF_I);

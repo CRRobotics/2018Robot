@@ -369,4 +369,8 @@ public class DriveTrain extends Subsystem {
         rightFollower1.setNeutralMode(mode);
         rightFollower2.setNeutralMode(mode);
     }
+
+    public double getFrontDistance() {
+        return 0; // TODO: Actual return based on sensor
+    }
 }
