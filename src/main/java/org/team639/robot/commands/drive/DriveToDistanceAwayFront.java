@@ -1,11 +1,10 @@
-package org.team639.robot.commands.Drive;
+package org.team639.robot.commands.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.math.AngleMath;
 import org.team639.lib.math.PID;
-import org.team639.robot.Constants;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.DriveTrain;
 
@@ -23,6 +22,7 @@ public class DriveToDistanceAwayFront extends Command {
     private double targetDistance;
 
     private double angle;
+    private boolean useAbsoluteAngle = false;
 
     private PID pid;
     private PID turnPID;
@@ -36,6 +36,12 @@ public class DriveToDistanceAwayFront extends Command {
         targetDistance = distance;
     }
 
+    public DriveToDistanceAwayFront(double distance, double angle) {
+        this(distance);
+        useAbsoluteAngle = true;
+        this.angle = angle;
+    }
+
     protected void initialize() {
         done = false;
 
@@ -43,7 +49,7 @@ public class DriveToDistanceAwayFront extends Command {
         driveTrain.setAutoShift(false);
         driveTrain.setCurrentGear(DriveTrain.DriveGear.High);
 
-        angle = driveTrain.getRobotYaw();
+        if (!useAbsoluteAngle) angle = driveTrain.getRobotYaw();
 
         driveTrain.setSpeedsPercent(0, 0);
         driveTrain.setCurrentControlMode(ControlMode.Velocity);
