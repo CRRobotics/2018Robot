@@ -187,7 +187,9 @@ public class Robot extends TimedRobot {
         autoSelector.addDefault("Drive over line", AutoCrossLine.class); // Passing class types to be instantiated later.
         autoSelector.addObject("One Cube Switch", OneCubeSwitch.class);
         autoSelector.addObject("One Cube Scale", OneCubeScale.class);
-        autoSelector.addObject("Switch side chance", AutoSwitchSideGuess.class);
+        autoSelector.addObject("50/50 Switch", AutoSwitchSideGuess.class);
+        autoSelector.addObject("50/50 switch 50/50 scale", SwitchChanceThenScaleChance.class);
+        autoSelector.addObject("50/50 scale", ScaleChance.class);
         SmartDashboard.putData("Auto selector", autoSelector);
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
@@ -225,7 +227,7 @@ public class Robot extends TimedRobot {
         StartingPosition position = startingPosition.getSelected();
         driveTracker.reset(position.x, position.y);
         try { // This try/catch is for the call to Class<? extends Command>.newInstance that constructs the auto (hopefully).
-            auto = new AutoBoilerplate(autoSelector.getSelected().newInstance(), SmartDashboard.getNumber("delay", 0));
+            auto = new AutoBoilerplate(autoSelector.getSelected().newInstance(), SmartDashboard.getNumber("Auto delay", 0));
         } catch (InstantiationException e) {
             e.printStackTrace();
             auto = new AutoCrossLine();
