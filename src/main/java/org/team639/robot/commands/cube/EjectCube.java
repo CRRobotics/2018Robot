@@ -24,6 +24,7 @@ public class EjectCube extends Command {
     @Override
     protected void initialize() {
         cubeAcquisition.setSpeedsPercent(DEFAULT_ACQ_SPEED, DEFAULT_ACQ_SPEED);
+        cubeAcquisition.setPistonMode(CubeAcquisition.PistonMode.Floating);
         cubeAcquisition.setShouldHaveCube(false);
     }
 

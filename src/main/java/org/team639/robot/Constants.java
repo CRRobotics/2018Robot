@@ -8,9 +8,9 @@ public class Constants {
     public static final boolean REAL = false;
 
     public static class Acquisition {
-        public static final double DEFAULT_ACQ_SPEED = 0.4;
+        public static final double DEFAULT_ACQ_SPEED = 0.6;
         public static final double MONITOR_CUBE_TIMEOUT = 1500;
-        public static final double MONITOR_CUBE_SPEED = 0.4;
+        public static final double MONITOR_CUBE_SPEED = 0.5;
 
         public static final double ACQ_RAISE_TIME = 0.75;
         public static final double ACQ_LOWER_TIME = 0.75;

@@ -68,7 +68,7 @@ public class MonitorCube extends Command {
         switch (state) {
             case Watching:
                 if (cubeAcquisition.shouldHaveCube()) {
-                    cubeAcquisition.setSpeedsPercent(-0.2, -0.2);
+                    cubeAcquisition.setSpeedsPercent(-0, -0);
                 } else {
                     cubeAcquisition.setSpeedsPercent(0, 0);
                 }

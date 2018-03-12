@@ -26,18 +26,18 @@ public class OneCubeScale extends CommandGroup {
         addSequential(new AutoDriveForward(235 - 19.25)); // Center at x = +/- 115.5, y = 235
 
         if ((position == StartingPosition.Right && scaleSide == AutoUtils.OwnedSide.Right) || (position == StartingPosition.Left && scaleSide == AutoUtils.OwnedSide.Left)) {
-            double angle = Math.atan2(64.65, side * 25.38);
+            double angle = Math.toDegrees(Math.atan2(64.65, side * 25.38));
             addSequential(new AutoTurnToAngle(angle));
             addSequential(new AutoDriveForward(AngleMath.pythagHypotenuse(64.65, 25.38) - 19.25, angle));
         } else {
             double angle = 90 - side * 90;
             addSequential(new AutoTurnToAngle(angle));
-            addSequential(new AutoDriveForward(210.75 + 19.25,angle));
+            addSequential(new AutoDriveForward(120/*210.75 + 19.25*/, angle));
             addSequential(new AutoTurnToAngle(90));
             addSequential(new AutoDriveForward(64.65 - 20));
         }
 
-        addSequential(new MoveToSetPosition(LiftPosition.ScaleHeight));
+//        addSequential(new MoveToSetPosition(LiftPosition.ScaleHeight)); FIXME: Put back
         addSequential(new LaunchCube());
 
 //
