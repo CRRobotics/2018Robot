@@ -17,12 +17,13 @@ public class ScaleChance extends CommandGroup {
         StartingPosition position = Robot.getStartingPosition();
 
         if ((scaleSide == AutoUtils.OwnedSide.Right && position == StartingPosition.Right) || (scaleSide == AutoUtils.OwnedSide.Left && position == StartingPosition.Left)) {
-            addSequential(new AutoDriveForward(235 - 19.25)); // Center at x = +/- 115.5, y = 235
-            double side = scaleSide == AutoUtils.OwnedSide.Right ? -1 : 1;
-            double angle = Math.toDegrees(Math.atan2(64.65, side * 25.38));
-            addSequential(new AutoTurnToAngle(angle));
-            addSequential(new MoveLiftWhileDriving(AngleMath.pythagHypotenuse(64.65, 25.38) - 19.25, angle, LiftPosition.ScaleHeight));
-            addSequential(new LaunchCube());
+//            addSequential(new AutoDriveForward(235 - 19.25)); // Center at x = +/- 115.5, y = 235
+//            double side = scaleSide == AutoUtils.OwnedSide.Right ? -1 : 1;
+//            double angle = Math.toDegrees(Math.atan2(64.65, side * 25.38));
+//            addSequential(new AutoTurnToAngle(angle));
+//            addSequential(new MoveLiftWhileDriving(AngleMath.pythagHypotenuse(64.65, 25.38) - 19.25, angle, LiftPosition.ScaleHeight));
+//            addSequential(new LaunchCube());
+            addSequential(new SameSideScale());
         } else {
             addSequential(new AutoDriveForward(196));
         }

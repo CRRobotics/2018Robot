@@ -32,7 +32,7 @@ public class OneCubeScale extends CommandGroup {
         } else {
             double angle = 90 - side * 90;
             addSequential(new AutoTurnToAngle(angle));
-            addSequential(new AutoDriveForward(120/*210.75 + 19.25*/, angle));
+            addSequential(new AutoDriveForward(210.75 + 19.25, angle));
             addSequential(new AutoTurnToAngle(90));
             addSequential(new AutoDriveForward(64.65 - 20));
         }

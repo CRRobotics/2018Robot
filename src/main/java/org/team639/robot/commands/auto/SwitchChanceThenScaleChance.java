@@ -17,11 +17,12 @@ public class SwitchChanceThenScaleChance extends CommandGroup {
         StartingPosition position = Robot.getStartingPosition();
 
         if ((position == StartingPosition.Right && switchSide == AutoUtils.OwnedSide.Right) || (position == StartingPosition.Left && switchSide == AutoUtils.OwnedSide.Left)) {
-            addSequential(new MoveLiftWhileDriving(140, 90, LiftPosition.SwitchHeight));
-            double angle = switchSide == AutoUtils.OwnedSide.Right ? 180 : 0;
-            addSequential(new AutoTurnToAngle(angle));
-            addSequential(new AutoDriveForward(39.06 - 19.25)); // TODO: Timeout here
-            addSequential(new LaunchCube());
+//            addSequential(new MoveLiftWhileDriving(140, 90, LiftPosition.SwitchHeight));
+//            double angle = switchSide == AutoUtils.OwnedSide.Right ? 180 : 0;
+//            addSequential(new AutoTurnToAngle(angle));
+//            addSequential(new AutoDriveForward(39.06 - 19.25)); // TODO: Timeout here
+//            addSequential(new LaunchCube());
+            addSequential(new SwitchFromSameSide());
         } else {
             addSequential(new ScaleChance());
         }
