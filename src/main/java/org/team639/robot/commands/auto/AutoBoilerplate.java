@@ -13,7 +13,7 @@ public class AutoBoilerplate extends CommandGroup {
         addSequential(new ZeroYaw());
         addSequential(new CloseAcquisition());
         addSequential(new PrintCommand("Starting boilerplate -- " + auto.getClass().getName()));
-//        addParallel(new ZeroLift(), 1); FIXME: Put back
+        addParallel(new ZeroLift(), 1);
         addSequential(new PrintCommand("zeroed lift"));
         if(delay > 0) addSequential(new WaitCommand(delay));
         addSequential(auto);

@@ -17,11 +17,19 @@ public class CrossFadePattern extends LEDPattern {
         this.fadeTicks = fadeTicks;
     }
 
+    private int mix(int a, int b, float percent) {
+        return (int)(a * (1-percent) + b * percent);
+    }
+
+    private LEDColor mix(LEDColor a, LEDColor b, float percent) {
+        return new LEDColor(mix(a.getRed(), b.getRed(), percent), mix(a.getGreen(), b.getGreen(), percent), mix(a.getBlue(), b.getBlue(), percent));
+    }
+
     private LEDColor[] mix(LEDColor[] a, LEDColor[] b, float percent) {
         if(a.length != b.length) return a;
         LEDColor[] o = new LEDColor[a.length];
         for(int i = 0; i < o.length; i++) {
-
+            o[i] = mix(a[i], b[i], percent);
         }
         return o;
     }
@@ -34,8 +42,8 @@ public class CrossFadePattern extends LEDPattern {
     @Override
     public LEDColor[] start() {
         cTicks = 0;
-
-        return new LEDColor[0];
+        patternB.start();
+        return patternA.start();
     }
 
     /**
@@ -43,7 +51,8 @@ public class CrossFadePattern extends LEDPattern {
      */
     @Override
     public void stop() {
-
+        patternA.stop();
+        patternB.stop();
     }
 
     /**
@@ -53,6 +62,7 @@ public class CrossFadePattern extends LEDPattern {
      */
     @Override
     public LEDColor[] nextPortion() {
-        return new LEDColor[0];
+        cTicks++;
+        return mix(patternA.nextPortion(), patternB.nextPortion(), cTicks / (float)fadeTicks);
     }
 }

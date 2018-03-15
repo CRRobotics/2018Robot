@@ -24,7 +24,7 @@ public class OneCubeSwitch extends CommandGroup {
 
         int side = switchSide == AutoUtils.OwnedSide.Right ? -1 : 1;
 
-//        addSequential(new MoveToSetPosition(LiftPosition.SwitchHeight)); FIXME: put back
+        addSequential(new MoveToSetPosition(LiftPosition.SwitchHeight));
 
         addSequential(new AutoDriveForward(10, 90));
 //        double angle = 90 + Math.toDegrees(Math.atan(4.5 * 12 / 87.5)) * (switchSide == AutoUtils.OwnedSide.Right ? -1 : 1);

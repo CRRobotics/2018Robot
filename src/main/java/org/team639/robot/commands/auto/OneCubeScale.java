@@ -37,8 +37,7 @@ public class OneCubeScale extends CommandGroup {
             addSequential(new AutoDriveForward(64.65 - 20));
         }
 
-//        addSequential(new MoveToSetPosition(LiftPosition.ScaleHeight)); FIXME: Put back
-        addSequential(new LaunchCube());
+        addSequential(new MoveToSetPosition(LiftPosition.ScaleHeight));        addSequential(new LaunchCube());
 
 //
 //        addSequential(new AutoDriveForward(10, 90));

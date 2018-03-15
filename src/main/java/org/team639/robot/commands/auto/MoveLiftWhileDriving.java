@@ -7,7 +7,7 @@ import org.team639.robot.commands.lift.MoveToSetPosition;
 
 public class MoveLiftWhileDriving extends CommandGroup {
     public MoveLiftWhileDriving(double distanceInches, double angle, LiftPosition position) {
-//        addParallel(new MoveToSetPosition(position)); FIXME: Put back
+        addParallel(new MoveToSetPosition(position));
         addParallel(new AutoDriveForward(distanceInches, angle));
     }
 }
