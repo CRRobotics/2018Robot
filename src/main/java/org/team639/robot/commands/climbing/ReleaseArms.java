@@ -15,7 +15,8 @@ public class ReleaseArms extends Command {
      */
     @Override
     protected void initialize() {
-            RobotMap.getClimbPiston().set(true);
+        RobotMap.getClimbPiston().set(true);
+        System.out.println(RobotMap.getClimbPiston().get());
     }
 
     /**

@@ -5,7 +5,7 @@ package org.team639.robot;
  * Part of 2018Robot.
  */
 public class Constants {
-    public static final boolean REAL = false;
+    public static final boolean REAL = true;
 
     public static class Acquisition {
         public static final double DEFAULT_ACQ_SPEED = 0.6;
@@ -83,11 +83,11 @@ public class Constants {
         public static final double TTA_I_CAP = 0.2;
         public static final double TTA_TOLERANCE = 2;
 
-        public static final double ADF_P = 0.000012;
+        public static final double ADF_P = 0.000006;
         public static final double ADF_I = 0;
         public static final double ADF_D = 0;
         public static final double ADF_MIN = 0.09; // 0.045;
-        public static final double ADF_MAX = 0.5;
+        public static final double ADF_MAX = 0.75;
         public static final double ADF_RATE = 0.005;
         public static final double ADF_I_CAP = 0.2;
         public static final double ADF_TOLERANCE = 800;
@@ -133,8 +133,8 @@ public class Constants {
     public static final double LIFT_F = 1023.0 / LIFT_MAX_SPEED;
 
     public static final double LIFT_RATE = .03;
-    public static final double LIFT_MIN = .15;
-    public static final double LIFT_MAX = .6;
+    public static final double LIFT_MIN = .25;
+    public static final double LIFT_MAX = .8;
 
     public static final double LIFT_POS_P = 0.00036;
     public static final double LIFT_POS_I = 0;
@@ -145,7 +145,7 @@ public class Constants {
 
 
     public static final int LIFT_MAX_HEIGHT = 40700; // TODO: THIS IS PROBABLY THE REAL VALUE BUT MAYBE NOT
-    public static final int LIFT_SCALE_HEIGHT = LIFT_MAX_HEIGHT;
+    public static final int LIFT_SCALE_HEIGHT = LIFT_MAX_HEIGHT - 200;
     public static final int LIFT_SWITCH_HEIGHT = 13474;
     public static final int LIFT_EXCHANGE_HEIGHT = 2500;//2807; 950 is mark's guess
     public static final int LIFT_CLIMB_HEIGHT = 0; //TODO FIND HEIGHT
@@ -158,6 +158,6 @@ public class Constants {
 
     public static final double LIFT_ZERO_SPEED = 0.15;
 
-    public static final int LIFT_TOLERANCE = 200;
+    public static final int LIFT_TOLERANCE = 600;
 
 }
