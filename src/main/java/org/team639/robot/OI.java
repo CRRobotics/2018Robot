@@ -15,6 +15,8 @@ import org.team639.robot.commands.lift.MoveToSetPosition;
 import org.team639.robot.commands.lift.ReturnLiftControl;
 import org.team639.robot.commands.lift.ZeroLift;
 
+import static org.team639.lib.controls.LogitechF310.ControllerAxis.LeftTrigger;
+
 /**
  * Operator Interface
  * Manages the interaction between the drive team and the robot
@@ -36,6 +38,13 @@ public class OI {
             @Override
             public boolean get() {
                 return controller.getControllerAxis(LogitechF310.ControllerAxis.RightTrigger) > 0.9 && controller.getRightStickY() > 0.9;
+            }
+        };
+
+        Button driveAcqRaise = new Button() {
+            @Override
+            public boolean get() {
+                return drive.getControllerAxis(LeftTrigger) >= 0.25;
             }
         };
 
@@ -68,6 +77,8 @@ public class OI {
         drive.mapButton(LogitechF310.Buttons.POVUp, new AutoTurnToAngle(90), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.POVRight, new AutoTurnToAngle(0), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.POVDown, new AutoTurnToAngle(270), JoystickManager.MappingType.WhenPressed);
+
+        mapCondition(driveAcqRaise, new ToggleAcquisitionRaised(), JoystickManager.MappingType.WhenPressed);
     }
 
 
