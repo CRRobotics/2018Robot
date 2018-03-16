@@ -8,6 +8,7 @@ import org.team639.robot.commands.auto.FancyTest;
 import org.team639.robot.commands.auto.FancyTest2;
 import org.team639.robot.commands.auto.OneCubeSwitch;
 import org.team639.robot.commands.climbing.ClimberDeploySequence;
+import org.team639.robot.commands.climbing.ReleaseArms;
 import org.team639.robot.commands.cube.*;
 import org.team639.robot.commands.drive.*;
 import org.team639.robot.commands.lift.LiftPosition;
@@ -59,8 +60,8 @@ public class OI {
         controller.mapButton(LogitechF310.Buttons.RightJoyPress, new FloatAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVUp, new RaiseAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVDown, new LowerAcquisition(), JoystickManager.MappingType.WhenPressed);
-        mapCondition(climbTrigger, new ClimberDeploySequence(), JoystickManager.MappingType.WhenPressed);
-        mapCondition(climbTrigger, new RaiseAndClose(), JoystickManager.MappingType.WhenReleased);
+        mapCondition(climbTrigger, new ReleaseArms(), JoystickManager.MappingType.WhenPressed);
+//        mapCondition(climbTrigger, new RaiseAndClose(), JoystickManager.MappingType.WhenReleased);
 
         controller.mapButton(LogitechF310.Buttons.POVRight, new MoveToSetPosition(LiftPosition.ExchangeHeight), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVRight, new ReturnLiftControl(), JoystickManager.MappingType.WhenReleased);
