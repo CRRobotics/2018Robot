@@ -34,58 +34,15 @@ public class OneCubeScale extends CommandGroup {
 //            addSequential(new AutoDriveForward(AngleMath.pythagHypotenuse(64.65, 25.38) - 19.25, angle));
             addSequential(new SameSideScale());
         } else {
-            addSequential(new AutoDriveForward(235 - 19.25), 90);
+            addSequential(new AutoDriveForward(240 - 19.25), 90);
             double angle = 90 - side * 90;
             addSequential(new AutoTurnToAngle(angle));
             addSequential(new AutoDriveForward(200 - 19.25, angle));
             addSequential(new AutoTurnToAngle(90));
-            addSequential(new AutoDriveForward(64.65 - 20 - 7));
+            addSequential(new MoveLiftWhileDriving(59.65 - 20 - 7, 90, LiftPosition.ScaleHeight));
+            addSequential(new LaunchCube());
         }
         addSequential(new WaitCommand(ACQ_RAISE_TIME));
         addSequential(new MoveToSetPosition(LiftPosition.FullyLowered));
-
-//        addSequential(new MoveToSetPosition(LiftPosition.ScaleHeight));
-//        addSequential(new LaunchCube());
-
-//
-//        addSequential(new AutoDriveForward(10, 90));
-//
-//        double angle = Math.toDegrees(Math.atan2(130, -1 * side * (119.19 + side * 4)));
-//
-//        addSequential(new AutoTurnToAngle(angle));
-//        addSequential(new AutoDriveForward(Math.sqrt(Math.pow(130, 2) + Math.pow(-1 * side * (119.19 + side * 4), 2)), angle));
-//
-//        addSequential(new AutoTurnToAngle(90));
-//
-//        if ((position == StartingPosition.Right && scaleSide == AutoUtils.OwnedSide.Right) || (position == StartingPosition.Left && scaleSide == AutoUtils.OwnedSide.Left)) {
-//            // ahhhhh
-//            addSequential(new AutoDriveForward(170));
-//            addSequential(new AutoTurnToAngle(180));
-//            addSequential(new );
-//        } else {
-//            addSequential(new AutoDriveForward(90, 90)); // At y = 230, x = +/- 125.905
-//
-//        }
-
-
-
-//
-//        if ((position == StartingPosition.Right && scaleSide == AutoUtils.OwnedSide.Right) || (position == StartingPosition.Left && scaleSide == AutoUtils.OwnedSide.Left)) {
-//            addSequential(new AutoDriveStart(side * 115.5, 196));
-//            addParallel(new MoveToSetPosition(LiftPosition.ScaleHeight));
-//            addSequential(new AutoDriveFinish(side * 90.12, 288));
-//        } else {
-//            // TODO: go to lift on opposite side
-//            addSequential(new AutoDriveStart(side * 115.5, 196));
-//            addSequential(new AutoDriveSegment(side * 85.5, 226));
-//            addSequential(new AutoDriveSegment(side * -30, 226));
-//
-//            addParallel(new MoveToSetPosition(LiftPosition.ScaleHeight));
-//            addSequential(new AutoDriveFinish(side * -60, 299));
-//
-//            addSequential(new LaunchCube());
-//        }
-//
-//        // TODO: Actually place a cube here.
     }
 }

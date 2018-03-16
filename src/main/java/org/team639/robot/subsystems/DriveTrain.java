@@ -371,6 +371,6 @@ public class DriveTrain extends Subsystem {
     }
 
     public double getFrontDistance() {
-        return 0; // TODO: Actual return based on sensor
+        return 0; // TODO: Actual return based on sensor. Assuming the sensor ever gets put on the robot
     }
 }

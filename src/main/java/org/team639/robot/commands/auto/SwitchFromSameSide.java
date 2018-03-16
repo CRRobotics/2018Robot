@@ -13,7 +13,7 @@ public class SwitchFromSameSide extends CommandGroup {
         addSequential(new MoveLiftWhileDriving(140, 90, LiftPosition.SwitchHeight));
         double angle = switchSide == AutoUtils.OwnedSide.Right ? 180 : 0;
         addSequential(new AutoTurnToAngle(angle));
-        addSequential(new AutoDriveForward(39.06 - 19.25)); // TODO: Timeout here
+        addSequential(new AutoDriveForward(39.06 - 19.25), 3); // TODO: Check timeout
         addSequential(new LaunchCube());
     }
 }

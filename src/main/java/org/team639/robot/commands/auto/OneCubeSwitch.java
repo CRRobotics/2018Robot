@@ -36,6 +36,5 @@ public class OneCubeSwitch extends CommandGroup {
         addSequential(new AutoTurnToAngle(90));
         addSequential(new AutoDriveForward(10, 90), 1.5);
         addSequential(new LaunchCube());
-        // TODO: TEST
     }
 }
