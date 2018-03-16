@@ -78,16 +78,16 @@ public class Constants {
         public static final double TTA_I = 0;
         public static final double TTA_D = 0;
         public static final double TTA_MIN = 0.09;
-        public static final double TTA_MAX = 0.3;
-        public static final double TTA_RATE = 0.01;
+        public static final double TTA_MAX = 0.5;
+        public static final double TTA_RATE = 0.02;
         public static final double TTA_I_CAP = 0.2;
         public static final double TTA_TOLERANCE = 2;
 
-        public static final double ADF_P = 0.000006;
+        public static final double ADF_P = 0.000009;
         public static final double ADF_I = 0;
         public static final double ADF_D = 0;
         public static final double ADF_MIN = 0.09; // 0.045;
-        public static final double ADF_MAX = 0.75;
+        public static final double ADF_MAX = 0.85;
         public static final double ADF_RATE = 0.005;
         public static final double ADF_I_CAP = 0.2;
         public static final double ADF_TOLERANCE = 800;
