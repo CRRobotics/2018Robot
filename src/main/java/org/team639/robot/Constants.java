@@ -127,9 +127,9 @@ public class Constants {
     public static final int LIFT_MAX_SPEED = 1700;
 
     //lift speed pid
-    public static final double LIFT_P = 0; //0.1;
-    public static final double LIFT_I = 0; //0.001;
-    public static final double LIFT_D = 0; //5;
+    public static final double LIFT_P = 0;//0.05;
+    public static final double LIFT_I = 0;//0.005;
+    public static final double LIFT_D = 0;//10;
     public static final double LIFT_F = 1023.0 / LIFT_MAX_SPEED;
 
     public static final double LIFT_RATE = .03;

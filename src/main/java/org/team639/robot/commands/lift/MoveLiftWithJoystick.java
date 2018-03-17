@@ -64,7 +64,7 @@ public class MoveLiftWithJoystick extends Command {
 //        if ((lift.isAtSecondStageLimit() && speed > 0) || (lift.encoderPresent() && (lift.getEncPos() > LIFT_MAX_HEIGHT - LIFT_TOLERANCE) && speed > 0)) speed = 0;
 //        if (lift.isAtLowerLimit() && speed < 0) speed = 0;
 
-        if (speed == 0 /*&& lift.getEncVelocity() < LIFT_THRESHOLD*/) lift.setBrake(true);
+        if (speed == 0 && !lift.isAtLowerLimit()) lift.setBrake(true);
         else lift.setBrake(false);
         SmartDashboard.putNumber("lift speed percent", speed);
         lift.setSpeedPercent(speed);

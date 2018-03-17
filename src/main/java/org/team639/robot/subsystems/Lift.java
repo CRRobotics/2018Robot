@@ -121,6 +121,7 @@ public class Lift extends Subsystem {
      * @param locked Whether or not the first stage should be locked.
      */
     public void setBrake(boolean locked) {
+        //brake.set(true);
         brake.set(!locked);
     }
 
