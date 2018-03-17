@@ -37,9 +37,9 @@ public class OneCubeScale extends CommandGroup {
             addSequential(new AutoDriveForward(240 - 19.25), 90);
             double angle = 90 - side * 90;
             addSequential(new AutoTurnToAngle(angle));
-            addSequential(new AutoDriveForward(200 - 19.25, angle));
+            addSequential(new AutoDriveForward(200 - 19.25 - 4, angle));
             addSequential(new AutoTurnToAngle(90));
-            addSequential(new MoveLiftWhileDriving(59.65 - 20 - 7, 90, LiftPosition.ScaleHeight));
+            addSequential(new MoveLiftWhileDriving(71.65 - 20 - 7, 90, LiftPosition.ScaleHeight));
             addSequential(new LaunchCube());
         }
         addSequential(new WaitCommand(ACQ_RAISE_TIME));

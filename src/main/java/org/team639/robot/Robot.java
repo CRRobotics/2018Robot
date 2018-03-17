@@ -14,6 +14,7 @@ import org.team639.lib.led.patterns.*;
 import org.team639.robot.commands.auto.*;
 import org.team639.robot.commands.drive.DriveMode;
 import org.team639.robot.commands.drive.fancyauto.DriveTracker;
+import org.team639.robot.commands.lift.ZeroLift;
 import org.team639.robot.subsystems.CubeAcquisition;
 import org.team639.robot.subsystems.DriveTrain;
 import org.team639.robot.subsystems.LEDStrip;
@@ -190,7 +191,12 @@ public class Robot extends TimedRobot {
         autoSelector.addObject("50/50 Switch", AutoSwitchSideGuess.class);
         autoSelector.addObject("50/50 switch 50/50 scale", SwitchChanceThenScaleChance.class);
         autoSelector.addObject("50/50 scale", ScaleChance.class);
+        autoSelector.addObject("Scale/switch chance", ScaleThenSwitchChance.class);
+        autoSelector.addObject("ScaleFromSide", ScaleFromSide.class);
+        autoSelector.addObject("side switch chance", SideSwitchChance.class);
         SmartDashboard.putData("Auto selector", autoSelector);
+
+        SmartDashboard.putData("Lower lift", new ZeroLift());
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
     }
@@ -281,7 +287,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("x pos", driveTracker.getX());
         SmartDashboard.putNumber("y pos", driveTracker.getY());
 
-        SmartDashboard.putString("Selected auto mode", autoSelector.getSelected().getName());
+        SmartDashboard.putString("Selected auto mode", autoSelector.getSelected().getSimpleName());
 
 //        SmartDashboard.putNumber("lift pos", lift.getEncPos());
 //        SmartDashboard.putNumber("pdp energy", RobotMap.getPdp().getTotalEnergy());
