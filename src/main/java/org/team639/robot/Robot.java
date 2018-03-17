@@ -203,6 +203,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
+        RobotMap.getClimbPiston().set(false);
 //        ledStrip.changeMode(new LEDSolid(new LEDColor(200, 0, 0), ledStrip.getLength()));
         LEDColor[] arr = {
                 new LEDColor(200, 0, 0),
