@@ -24,20 +24,17 @@ public class OneCubeSwitch extends CommandGroup {
 
         int side = switchSide == AutoUtils.OwnedSide.Right ? -1 : 1;
 
-//        addSequential(new CloseAcquisition());
-//        addParallel(new MoveToSetPosition(LiftPosition.SwitchHeight));
-        addSequential(new MoveToSetPosition(LiftPosition.SwitchHeight));
+//        addSequential(new MoveToSetPosition(LiftPosition.SwitchHeight));
 
         addSequential(new AutoDriveForward(10, 90));
 //        double angle = 90 + Math.toDegrees(Math.atan(4.5 * 12 / 87.5)) * (switchSide == AutoUtils.OwnedSide.Right ? -1 : 1);
         double angle = switchSide == AutoUtils.OwnedSide.Right ? Math.toDegrees(Math.atan2(81.5, (55 - 4))) : Math.toDegrees(Math.atan2(81.5, -1 * (55 + 4)));
         addSequential(new PrintCommand("" + angle));
         addSequential(new AutoTurnToAngle(angle));
-        addSequential(new AutoDriveForward(Math.sqrt(Math.pow(55 + (side * 4), 2) + Math.pow(81.5, 2))), angle);
+//        addSequential(new AutoDriveForward(Math.sqrt(Math.pow(55 + (side * 4), 2) + Math.pow(81.5, 2))), angle);
+        addSequential(new MoveLiftWhileDriving(Math.sqrt(Math.pow(55 + (side * 4), 2) + Math.pow(81.5, 2)), angle, LiftPosition.SwitchHeight));
         addSequential(new AutoTurnToAngle(90));
         addSequential(new AutoDriveForward(10, 90), 1.5);
-        addSequential(new LowerAcquisition());
-        addSequential(new EjectCube());
-        // TODO: TEST
+        addSequential(new LaunchCube());
     }
 }

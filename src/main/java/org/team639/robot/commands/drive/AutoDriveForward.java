@@ -2,7 +2,6 @@ package org.team639.robot.commands.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.team639.lib.math.AngleMath;
 import org.team639.lib.math.PID;
 import org.team639.robot.Robot;
@@ -22,14 +21,10 @@ public class AutoDriveForward extends Command {
 
     private double targetDistance;
     private int targetTicks;
-    private double rSpeed;
-    private double lSpeed;
-    private double startSlow;
     private double lTickDiff;
     private double rTickDiff;
     private double targetLeft;
     private double targetRight;
-    private double minSpeed;
 
     private double angle;
     private boolean useAbsoluteAngle = false;
@@ -77,7 +72,7 @@ public class AutoDriveForward extends Command {
         driveTrain.setSpeedsPercent(0, 0);
         driveTrain.setCurrentControlMode(ControlMode.Velocity);
         // Dominic "DJ" Towns was here.
-        driveTrain.setCurrentGear(DriveTrain.DriveGear.Low);
+        driveTrain.setCurrentGear(DriveTrain.DriveGear.High);
 
 //        double p = SmartDashboard.getNumber("drive p", ADF_P);
 //        double i = SmartDashboard.getNumber("drive i", ADF_I);

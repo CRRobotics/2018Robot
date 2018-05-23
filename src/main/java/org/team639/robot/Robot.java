@@ -14,10 +14,15 @@ import org.team639.lib.led.patterns.*;
 import org.team639.robot.commands.auto.*;
 import org.team639.robot.commands.drive.DriveMode;
 import org.team639.robot.commands.drive.fancyauto.DriveTracker;
+import org.team639.robot.commands.lift.ZeroLift;
 import org.team639.robot.subsystems.CubeAcquisition;
 import org.team639.robot.subsystems.DriveTrain;
 import org.team639.robot.subsystems.LEDStrip;
 import org.team639.robot.subsystems.Lift;
+
+import static org.team639.robot.Constants.DriveTrain.HIGH_DRIVE_D;
+import static org.team639.robot.Constants.DriveTrain.HIGH_DRIVE_I;
+import static org.team639.robot.Constants.DriveTrain.HIGH_DRIVE_P;
 
 /**
  * The main robot class.
@@ -144,6 +149,10 @@ public class Robot extends TimedRobot {
 //        VideoSource c = CameraServer.getInstance().startAutomaticCapture();
 //        c.setVideoMode(VideoMode.PixelFormat.kMJPEG, 320, 240, 30);
 
+        SmartDashboard.putNumber("drive p", HIGH_DRIVE_P);
+        SmartDashboard.putNumber("drive i", HIGH_DRIVE_I);
+        SmartDashboard.putNumber("drive d", HIGH_DRIVE_D);
+
         // Subsystem initializations
         driveTrain = new DriveTrain();
         cubeAcquisition = new CubeAcquisition();
@@ -179,8 +188,15 @@ public class Robot extends TimedRobot {
         autoSelector.addDefault("Drive over line", AutoCrossLine.class); // Passing class types to be instantiated later.
         autoSelector.addObject("One Cube Switch", OneCubeSwitch.class);
         autoSelector.addObject("One Cube Scale", OneCubeScale.class);
-        autoSelector.addObject("Switch side chance", AutoSwitchSideGuess.class);
+        autoSelector.addObject("50/50 Switch", AutoSwitchSideGuess.class);
+        autoSelector.addObject("50/50 switch 50/50 scale", SwitchChanceThenScaleChance.class);
+        autoSelector.addObject("50/50 scale", ScaleChance.class);
+        autoSelector.addObject("Scale/switch chance", ScaleThenSwitchChance.class);
+        autoSelector.addObject("ScaleFromSide", ScaleFromSide.class);
+        autoSelector.addObject("side switch chance", SideSwitchChance.class);
         SmartDashboard.putData("Auto selector", autoSelector);
+
+        SmartDashboard.putData("Lower lift", new ZeroLift());
 
         OI.mapButtons(); // Map all of the buttons on the controller(s)
     }
@@ -193,6 +209,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
+        RobotMap.getClimbPiston().set(false);
 //        ledStrip.changeMode(new LEDSolid(new LEDColor(200, 0, 0), ledStrip.getLength()));
         LEDColor[] arr = {
                 new LEDColor(200, 0, 0),
@@ -217,7 +234,7 @@ public class Robot extends TimedRobot {
         StartingPosition position = startingPosition.getSelected();
         driveTracker.reset(position.x, position.y);
         try { // This try/catch is for the call to Class<? extends Command>.newInstance that constructs the auto (hopefully).
-            auto = new AutoBoilerplate(autoSelector.getSelected().newInstance(), SmartDashboard.getNumber("delay", 0));
+            auto = new AutoBoilerplate(autoSelector.getSelected().newInstance(), SmartDashboard.getNumber("Auto delay", 0));
         } catch (InstantiationException e) {
             e.printStackTrace();
             auto = new AutoCrossLine();
@@ -270,7 +287,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("x pos", driveTracker.getX());
         SmartDashboard.putNumber("y pos", driveTracker.getY());
 
-        SmartDashboard.putString("Selected auto mode", autoSelector.getSelected().getName());
+        SmartDashboard.putString("Selected auto mode", autoSelector.getSelected().getSimpleName());
 
 //        SmartDashboard.putNumber("lift pos", lift.getEncPos());
 //        SmartDashboard.putNumber("pdp energy", RobotMap.getPdp().getTotalEnergy());

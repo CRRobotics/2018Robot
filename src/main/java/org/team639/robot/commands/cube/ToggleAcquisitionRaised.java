@@ -1,13 +1,15 @@
-package org.team639.robot.commands.climbing;
+package org.team639.robot.commands.cube;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.team639.lib.controls.LogitechF310;
-import org.team639.robot.OI;
-import org.team639.robot.RobotMap;
+import org.team639.robot.Robot;
+import org.team639.robot.subsystems.CubeAcquisition;
 
-public class ReleaseArms extends Command {
-    public ReleaseArms(){
+public class ToggleAcquisitionRaised extends Command {
+    private CubeAcquisition cubeAcquisition;
 
+    public ToggleAcquisitionRaised() {
+        cubeAcquisition = Robot.getCubeAcquisition();
+        requires(cubeAcquisition);
     }
 
     /**
@@ -15,8 +17,7 @@ public class ReleaseArms extends Command {
      */
     @Override
     protected void initialize() {
-        RobotMap.getClimbPiston().set(true);
-        System.out.println(RobotMap.getClimbPiston().get());
+        cubeAcquisition.setRaised(!cubeAcquisition.isRaised());
     }
 
     /**
@@ -25,11 +26,6 @@ public class ReleaseArms extends Command {
      * <p>
      * <p>It may be useful for a team to reference the {@link Command#isTimedOut() isTimedOut()}
      * method for time-sensitive commands.
-     * <p>
-     * <p>Returning false will result in the command never ending automatically. It may still be
-     * cancelled manually or interrupted by another command. Returning true will result in the
-     * command executing once and finishing immediately. We recommend using
-     * for this.
      *
      * @return whether this command is finished.
      * @see Command#isTimedOut() isTimedOut()

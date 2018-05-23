@@ -8,12 +8,15 @@ import org.team639.robot.commands.auto.FancyTest;
 import org.team639.robot.commands.auto.FancyTest2;
 import org.team639.robot.commands.auto.OneCubeSwitch;
 import org.team639.robot.commands.climbing.ClimberDeploySequence;
+import org.team639.robot.commands.climbing.ReleaseArms;
 import org.team639.robot.commands.cube.*;
 import org.team639.robot.commands.drive.*;
 import org.team639.robot.commands.lift.LiftPosition;
 import org.team639.robot.commands.lift.MoveToSetPosition;
 import org.team639.robot.commands.lift.ReturnLiftControl;
 import org.team639.robot.commands.lift.ZeroLift;
+
+import static org.team639.lib.controls.LogitechF310.ControllerAxis.LeftTrigger;
 
 /**
  * Operator Interface
@@ -39,6 +42,13 @@ public class OI {
             }
         };
 
+        Button driveAcqRaise = new Button() {
+            @Override
+            public boolean get() {
+                return drive.getControllerAxis(LeftTrigger) >= 0.25;
+            }
+        };
+
         controller.mapButton(LogitechF310.Buttons.LB, new EjectCube(), JoystickManager.MappingType.WhileHeld);
         controller.mapButton(LogitechF310.Buttons.RB, new IntakeCube(), JoystickManager.MappingType.WhileHeld);
         controller.mapButton(LogitechF310.Buttons.A, new OpenAcquisition(), JoystickManager.MappingType.WhenPressed);
@@ -47,10 +57,11 @@ public class OI {
         controller.mapButton(LogitechF310.Buttons.X, new CloseAndIntake(), JoystickManager.MappingType.WhenReleased);
         controller.mapButton(LogitechF310.Buttons.Y, new ZeroLift(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.LeftJoyPress, new ReturnLiftControl(), JoystickManager.MappingType.WhenReleased);
+        controller.mapButton(LogitechF310.Buttons.RightJoyPress, new FloatAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVUp, new RaiseAcquisition(), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVDown, new LowerAcquisition(), JoystickManager.MappingType.WhenPressed);
         mapCondition(climbTrigger, new ClimberDeploySequence(), JoystickManager.MappingType.WhenPressed);
-        mapCondition(climbTrigger, new RaiseAndClose(), JoystickManager.MappingType.WhenReleased);
+//        mapCondition(climbTrigger, new RaiseAndClose(), JoystickManager.MappingType.WhenReleased);
 
         controller.mapButton(LogitechF310.Buttons.POVRight, new MoveToSetPosition(LiftPosition.ExchangeHeight), JoystickManager.MappingType.WhenPressed);
         controller.mapButton(LogitechF310.Buttons.POVRight, new ReturnLiftControl(), JoystickManager.MappingType.WhenReleased);
@@ -68,6 +79,8 @@ public class OI {
         drive.mapButton(LogitechF310.Buttons.POVUp, new AutoTurnToAngle(90), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.POVRight, new AutoTurnToAngle(0), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.POVDown, new AutoTurnToAngle(270), JoystickManager.MappingType.WhenPressed);
+
+        mapCondition(driveAcqRaise, new ToggleAcquisitionRaised(), JoystickManager.MappingType.WhenPressed);
     }
 
 

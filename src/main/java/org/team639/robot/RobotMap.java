@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.*;
+import org.team639.lib.LoggingSolenoid;
 
 import static org.team639.robot.Constants.REAL;
 
@@ -98,16 +99,16 @@ public class RobotMap {
             innerCubeDetector = new DigitalInput(0);
             outerCubeDetector = new AnalogInput(0);
             armsClosed = new DigitalInput(2);
-            cubeRaise = new Solenoid(1);
-            acqOpen1 = new Solenoid(0);
-            acqOpen2 = new Solenoid(7);
+            cubeRaise = new LoggingSolenoid(1);
+            acqOpen1 = new LoggingSolenoid(3);
+            acqOpen2 = new LoggingSolenoid(4);
 
             // Lift
             liftMain = new TalonSRX(6);
             liftFollower = new TalonSRX(7);
 
-            climbPiston = new Solenoid(2);
-            liftBrake = new Solenoid(6);
+            climbPiston = new LoggingSolenoid(2);
+            liftBrake = new LoggingSolenoid(6);
 
             initialized = true;
         }

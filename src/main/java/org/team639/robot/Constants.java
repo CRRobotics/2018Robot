@@ -8,9 +8,9 @@ public class Constants {
     public static final boolean REAL = true;
 
     public static class Acquisition {
-        public static final double DEFAULT_ACQ_SPEED = 0.4;
+        public static final double DEFAULT_ACQ_SPEED = 0.6;
         public static final double MONITOR_CUBE_TIMEOUT = 1500;
-        public static final double MONITOR_CUBE_SPEED = 0.4;
+        public static final double MONITOR_CUBE_SPEED = 0.5;
 
         public static final double ACQ_RAISE_TIME = 0.75;
         public static final double ACQ_LOWER_TIME = 0.75;
@@ -74,23 +74,32 @@ public class Constants {
 
     public static class Auto {
         //Turn To Angle constants
-        public static final double TTA_P = 0.028;
+        public static final double TTA_P = 0.007;
         public static final double TTA_I = 0;
         public static final double TTA_D = 0;
         public static final double TTA_MIN = 0.09;
-        public static final double TTA_MAX = 0.3;
-        public static final double TTA_RATE = 0.01;
+        public static final double TTA_MAX = 0.5;
+        public static final double TTA_RATE = 0.02;
         public static final double TTA_I_CAP = 0.2;
         public static final double TTA_TOLERANCE = 2;
 
-        public static final double ADF_P = 0.000012;
+        public static final double ADF_P = 0.000009;
         public static final double ADF_I = 0;
         public static final double ADF_D = 0;
         public static final double ADF_MIN = 0.09; // 0.045;
-        public static final double ADF_MAX = 0.5;
+        public static final double ADF_MAX = 0.85;
         public static final double ADF_RATE = 0.005;
         public static final double ADF_I_CAP = 0.2;
         public static final double ADF_TOLERANCE = 800;
+
+        public static final double DTDA_P = 0.000012;
+        public static final double DTDA_I = 0;
+        public static final double DTDA_D = 0;
+        public static final double DTDA_MIN = 0.09; // 0.045;
+        public static final double DTDA_MAX = 0.5;
+        public static final double DTDA_RATE = 0.005;
+        public static final double DTDA_I_CAP = 0.2;
+        public static final double DTDA_TOLERANCE = 800;
 
         public static final double FANCY_P = 0.02;
         public static final double FANCY_I = 0;
@@ -118,14 +127,14 @@ public class Constants {
     public static final int LIFT_MAX_SPEED = 1700;
 
     //lift speed pid
-    public static final double LIFT_P = 0; //0.1;
-    public static final double LIFT_I = 0; //0.001;
-    public static final double LIFT_D = 0; //5;
+    public static final double LIFT_P = 0;//0.05;
+    public static final double LIFT_I = 0;//0.005;
+    public static final double LIFT_D = 0;//10;
     public static final double LIFT_F = 1023.0 / LIFT_MAX_SPEED;
 
     public static final double LIFT_RATE = .03;
-    public static final double LIFT_MIN = .15;
-    public static final double LIFT_MAX = .6;
+    public static final double LIFT_MIN = .25;
+    public static final double LIFT_MAX = .8;
 
     public static final double LIFT_POS_P = 0.00036;
     public static final double LIFT_POS_I = 0;
@@ -136,7 +145,7 @@ public class Constants {
 
 
     public static final int LIFT_MAX_HEIGHT = 40700; // TODO: THIS IS PROBABLY THE REAL VALUE BUT MAYBE NOT
-    public static final int LIFT_SCALE_HEIGHT = LIFT_MAX_HEIGHT;
+    public static final int LIFT_SCALE_HEIGHT = LIFT_MAX_HEIGHT - 200;
     public static final int LIFT_SWITCH_HEIGHT = 13474;
     public static final int LIFT_EXCHANGE_HEIGHT = 2500;//2807; 950 is mark's guess
     public static final int LIFT_CLIMB_HEIGHT = 0; //TODO FIND HEIGHT
@@ -149,6 +158,6 @@ public class Constants {
 
     public static final double LIFT_ZERO_SPEED = 0.15;
 
-    public static final int LIFT_TOLERANCE = 200;
+    public static final int LIFT_TOLERANCE = 600;
 
 }

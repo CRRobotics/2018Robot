@@ -63,7 +63,7 @@ public class Lift extends Subsystem {
 //        mainTalon.configMotionAcceleration(LIFT_ACCELERATION, 0);
 
         setPID(LIFT_P, LIFT_I, LIFT_D, LIFT_F);
-        if (encoderPresent()) setCurrentControlMode(ControlMode.Velocity); // TODO: make this velocity again
+        if (encoderPresent()) setCurrentControlMode(ControlMode.Velocity);
         else setCurrentControlMode(ControlMode.PercentOutput);
     }
 
@@ -121,6 +121,7 @@ public class Lift extends Subsystem {
      * @param locked Whether or not the first stage should be locked.
      */
     public void setBrake(boolean locked) {
+        //brake.set(true);
         brake.set(!locked);
     }
 

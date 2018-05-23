@@ -15,12 +15,15 @@ import static org.team639.robot.Constants.Auto.*;
  * Turns the robot to a specified angle.
  * Constants for this routine are in the static Constants.Auto class and are prefixed with TTA_
  */
-public class AutoTurnToAngle extends Command {
+public class AutoTurnTowardsPoint extends Command {
 
     private DriveTrain driveTrain;
 
     private double angle;
     private boolean done;
+
+    private double x;
+    private double y;
 
     private double lSpeed;
     private double rSpeed;
@@ -32,11 +35,13 @@ public class AutoTurnToAngle extends Command {
 
     private boolean prevAutoShiftState;
 
-    public AutoTurnToAngle(double angle) {
+    public AutoTurnTowardsPoint(double x, double y) {
         super("AutoTurnToAngle");
         driveTrain = Robot.getDriveTrain();
         requires(driveTrain);
-        this.angle = angle % 360;
+        this.x = x;
+        this.y = y;
+//        this.angle = angle % 360;
     }
 
     //anthony is a pretty cool guy

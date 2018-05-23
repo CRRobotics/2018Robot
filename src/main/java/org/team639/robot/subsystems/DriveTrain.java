@@ -31,7 +31,7 @@ public class DriveTrain extends Subsystem {
     private double kD;
     private double kF;
 
-    private double rampRate = 0.5;
+    private double rampRate = 0;
 
     private AHRS ahrs;
 
@@ -168,16 +168,17 @@ public class DriveTrain extends Subsystem {
         double l_vel = getLeftEncVelocity();
         double r_vel = getRightEncVelocity();
 
+        double avg_vel = Math.abs((l_vel + r_vel) / 2);
+        double avg_cmd = Math.abs((lSpeed + rSpeed) / 2) * range;
+
         if(autoShift) {
-            if ((l_vel > 0) == (r_vel > 0)) {
-                double avg_vel = Math.abs((l_vel + r_vel) / 2);
+            if (((l_vel > 0) == (r_vel > 0))/* && ((avg_vel > 0) == (avg_cmd > 0))*/) {
                 DriveGear g = getCurrentGear();
                 if (avg_vel > Constants.DriveTrain.IDEAL_SHIFT_SPEED * 1.02 && getCurrentGear() == DriveGear.Low)
                     g = DriveGear.High;
                 if (avg_vel < Constants.DriveTrain.IDEAL_SHIFT_SPEED * .98 && getCurrentGear() == DriveGear.High)
                     g = DriveGear.Low;
                 if (lSpeed < 0 == rSpeed < 0) {
-                    double avg_cmd = Math.abs((lSpeed + rSpeed) / 2) * range;
                     if (avg_cmd < avg_vel && avg_cmd < Constants.DriveTrain.IDEAL_SHIFT_SPEED * .98) g = DriveGear.Low;
                 }
                 setCurrentGear(g);
@@ -368,5 +369,9 @@ public class DriveTrain extends Subsystem {
         rightDrive.setNeutralMode(mode);
         rightFollower1.setNeutralMode(mode);
         rightFollower2.setNeutralMode(mode);
+    }
+
+    public double getFrontDistance() {
+        return 0; // TODO: Actual return based on sensor. Assuming the sensor ever gets put on the robot
     }
 }
