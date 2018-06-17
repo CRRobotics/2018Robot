@@ -80,7 +80,7 @@ public class OI {
         drive.mapButton(LogitechF310.Buttons.POVRight, new AutoTurnToAngle(0), JoystickManager.MappingType.WhenPressed);
         drive.mapButton(LogitechF310.Buttons.POVDown, new AutoTurnToAngle(270), JoystickManager.MappingType.WhenPressed);
 
-        mapCondition(driveAcqRaise, new ToggleAcquisitionRaised(), JoystickManager.MappingType.WhenPressed);
+//        mapCondition(driveAcqRaise, new ToggleAcquisitionRaised(), JoystickManager.MappingType.WhenPressed);
     }
 
 
