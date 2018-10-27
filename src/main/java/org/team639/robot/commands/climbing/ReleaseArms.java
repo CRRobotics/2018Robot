@@ -1,8 +1,6 @@
 package org.team639.robot.commands.climbing;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.team639.lib.controls.LogitechF310;
-import org.team639.robot.OI;
 import org.team639.robot.RobotMap;
 
 public class ReleaseArms extends Command {

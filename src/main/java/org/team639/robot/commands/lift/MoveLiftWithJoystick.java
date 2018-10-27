@@ -3,7 +3,7 @@ package org.team639.robot.commands.lift;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.team639.lib.controls.LogitechF310;
+import org.team639.lib.controls.XBoxController;
 import org.team639.robot.OI;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.Lift;
@@ -48,7 +48,7 @@ public class MoveLiftWithJoystick extends Command {
         double sign = yVal < 0 ? -1 : 1;
         if (Math.abs(yVal) < CONTROLLER_JOYSTICK_DEADZONE) yVal = 0;
         else yVal = (yVal - sign * CONTROLLER_JOYSTICK_DEADZONE) / (1 - CONTROLLER_JOYSTICK_DEADZONE);
-        double multiplier = 1 - (0.8 * OI.controller.getControllerAxis(LogitechF310.ControllerAxis.LeftTrigger));
+        double multiplier = 1 - (0.8 * OI.controller.getControllerAxis(XBoxController.ControllerAxis.LeftTrigger));
         double lift_pos = lift.getEncPos();
         double speed = yVal;
         if (speed < 0) {

@@ -1,5 +1,6 @@
 package org.team639.lib.controls;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -8,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LogitechF310 extends JoystickManager {
+public class XBoxController extends JoystickManager {
 
     private Joystick stick;
     private Map<Buttons, Button> btns;
@@ -40,7 +41,7 @@ public class LogitechF310 extends JoystickManager {
     /**
      * Constructs a new Logitech F310 using port 0
      */
-    public LogitechF310() {
+    public XBoxController() {
         stick = new Joystick(0);
         initBtns();
     }
@@ -50,7 +51,7 @@ public class LogitechF310 extends JoystickManager {
      * Constructs a new Logitech F310 using the specified port
      * @param port The USB port of the gamepad
      */
-    public LogitechF310(int port) {
+    public XBoxController(int port) {
         stick = new Joystick(port);
         initBtns();
     }
@@ -92,25 +93,25 @@ public class LogitechF310 extends JoystickManager {
         btns.put(Buttons.RightStickL, new Button() {
             @Override
             public boolean get() {
-                return LogitechF310.this.getRightStickX() < -.9;
+                return XBoxController.this.getRightStickX() < -.9;
             }
         });
         btns.put(Buttons.RightStickR, new Button() {
             @Override
             public boolean get() {
-                return LogitechF310.this.getRightStickX() > .9;
+                return XBoxController.this.getRightStickX() > .9;
             }
         });
         btns.put(Buttons.RightStickD, new Button() {
             @Override
             public boolean get() {
-                return LogitechF310.this.getRightStickY() < -.9;
+                return XBoxController.this.getRightStickY() < -.9;
             }
         });
         btns.put(Buttons.RightStickU, new Button() {
             @Override
             public boolean get() {
-                return LogitechF310.this.getRightStickY() > .9;
+                return XBoxController.this.getRightStickY() > .9;
             }
         });
     }
@@ -166,7 +167,7 @@ public class LogitechF310 extends JoystickManager {
     @Override
     public void mapButton(ButtonType btn, Command cmd, MappingType type) {
         if (!(btn instanceof Buttons)) {
-            System.out.println("Missing button on LogitechF310. Are you sure you're using the correct enum?");
+            System.out.println("Missing button on XBoxController. Are you sure you're using the correct enum?");
             return;
         }
         Button b = btns.get(btn);
@@ -199,7 +200,7 @@ public class LogitechF310 extends JoystickManager {
     @Override
     public boolean getButtonPressed(ButtonType btn) {
         if (!(btn instanceof Buttons)) {
-            System.out.println("Missing button on LogitechF310. Are you sure you're using the correct enum?");
+            System.out.println("Missing button on XBoxController. Are you sure you're using the correct enum?");
             return false;
         } else {
             return btns.get(btn).get();
@@ -231,18 +232,16 @@ public class LogitechF310 extends JoystickManager {
         return val;
     }
 
-    @Override
     public void setRightRumble(double rumble) {
-
+        stick.setRumble(GenericHID.RumbleType.kRightRumble, rumble);
     }
 
-    @Override
     public void setLeftRumble(double rumble) {
-
+        stick.setRumble(GenericHID.RumbleType.kLeftRumble, rumble);
     }
 
-    @Override
     public void setAllRumble(double rumble) {
-
+        setRightRumble(rumble);
+        setLeftRumble(rumble);
     }
 }

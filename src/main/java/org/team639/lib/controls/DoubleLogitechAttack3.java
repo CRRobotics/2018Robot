@@ -91,4 +91,19 @@ public class DoubleLogitechAttack3 extends JoystickManager {
     public double getControllerAxis(ControllerAxisType axis) {
         return 0;
     }
+
+    @Override
+    public void setRightRumble(double rumble) {
+
+    }
+
+    @Override
+    public void setLeftRumble(double rumble) {
+
+    }
+
+    @Override
+    public void setAllRumble(double rumble) {
+
+    }
 }

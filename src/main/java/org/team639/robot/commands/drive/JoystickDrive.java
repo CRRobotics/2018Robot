@@ -3,7 +3,7 @@ package org.team639.robot.commands.drive;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.team639.lib.controls.LogitechF310;
+import org.team639.lib.controls.XBoxController;
 import org.team639.lib.math.AngleMath;
 import org.team639.lib.math.PID;
 import org.team639.robot.Robot;
@@ -76,7 +76,7 @@ public class JoystickDrive extends Command {
         double speed;
         double angle;
 
-        double scale = 1 - 0.8 * OI.drive.getControllerAxis(LogitechF310.ControllerAxis.RightTrigger);
+        double scale = 1 - 0.8 * OI.drive.getControllerAxis(XBoxController.ControllerAxis.RightTrigger);
         if (scale < 0.2) scale = 0.2;
         mode = Robot.getDriveMode();
         switch (mode) {

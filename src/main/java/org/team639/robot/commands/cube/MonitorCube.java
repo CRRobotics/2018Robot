@@ -3,6 +3,7 @@ package org.team639.robot.commands.cube;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import org.team639.lib.led.patterns.GreenFlashPattern;
+import org.team639.robot.OI;
 import org.team639.robot.Robot;
 import org.team639.robot.subsystems.CubeAcquisition;
 
@@ -42,7 +43,8 @@ public class MonitorCube extends Command {
             new TimedCommand(1){
                 @Override
                 public void initialize() {
-                    Robot.getLedStrip().changeMode(new GreenFlashPattern(Robot.getLedStrip().getLength()));
+                    OI.drive.setAllRumble(1);
+                    OI.controller.setAllRumble(1);
                 }
                 @Override
                 public void interrupted() {
@@ -50,7 +52,8 @@ public class MonitorCube extends Command {
                 }
                 @Override
                 public void end() {
-                    Robot.getLedStrip().changeMode(Robot.getDefaultPattern());
+                    OI.drive.setAllRumble(0);
+                    OI.controller.setAllRumble(0);
                 }
 
             }.start();

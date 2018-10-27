@@ -87,4 +87,10 @@ public abstract class JoystickManager {
         if (angle < 0) angle = 360 + angle;
         return angle;
     }
+
+    public abstract void setRightRumble(double rumble);
+
+    public abstract void setLeftRumble(double rumble);
+
+    public abstract void setAllRumble(double rumble);
 }

@@ -3,12 +3,8 @@ package org.team639.robot;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 import org.team639.lib.controls.JoystickManager;
-import org.team639.lib.controls.LogitechF310;
-import org.team639.robot.commands.auto.FancyTest;
-import org.team639.robot.commands.auto.FancyTest2;
-import org.team639.robot.commands.auto.OneCubeSwitch;
+import org.team639.lib.controls.XBoxController;
 import org.team639.robot.commands.climbing.ClimberDeploySequence;
-import org.team639.robot.commands.climbing.ReleaseArms;
 import org.team639.robot.commands.cube.*;
 import org.team639.robot.commands.drive.*;
 import org.team639.robot.commands.lift.LiftPosition;
@@ -16,7 +12,7 @@ import org.team639.robot.commands.lift.MoveToSetPosition;
 import org.team639.robot.commands.lift.ReturnLiftControl;
 import org.team639.robot.commands.lift.ZeroLift;
 
-import static org.team639.lib.controls.LogitechF310.ControllerAxis.LeftTrigger;
+import static org.team639.lib.controls.XBoxController.ControllerAxis.LeftTrigger;
 
 /**
  * Operator Interface
@@ -25,8 +21,8 @@ import static org.team639.lib.controls.LogitechF310.ControllerAxis.LeftTrigger;
  */
 public class OI {
 
-    public static final JoystickManager drive = new LogitechF310(0); // new DoubleLogitechAttack3(); // new LogitechF310(0);
-    public static final JoystickManager controller = new LogitechF310(1);
+    public static final JoystickManager drive = new XBoxController(0); // new DoubleLogitechAttack3(); // new LogitechF310(0);
+    public static final JoystickManager controller = new XBoxController(1);
 
     /**
      * Maps all of the buttons.
@@ -38,7 +34,7 @@ public class OI {
         Button climbTrigger = new Button() {
             @Override
             public boolean get() {
-                return controller.getControllerAxis(LogitechF310.ControllerAxis.RightTrigger) > 0.9 && controller.getRightStickY() > 0.9;
+                return controller.getControllerAxis(XBoxController.ControllerAxis.RightTrigger) > 0.9 && controller.getRightStickY() > 0.9;
             }
         };
 
@@ -49,36 +45,36 @@ public class OI {
             }
         };
 
-        controller.mapButton(LogitechF310.Buttons.LB, new EjectCube(), JoystickManager.MappingType.WhileHeld);
-        controller.mapButton(LogitechF310.Buttons.RB, new IntakeCube(), JoystickManager.MappingType.WhileHeld);
-        controller.mapButton(LogitechF310.Buttons.A, new OpenAcquisition(), JoystickManager.MappingType.WhenPressed);
-        controller.mapButton(LogitechF310.Buttons.B, new CloseAcquisition(), JoystickManager.MappingType.WhenPressed);
-        controller.mapButton(LogitechF310.Buttons.X, new CloseOnCubeAtFront(), JoystickManager.MappingType.WhenPressed);
-        controller.mapButton(LogitechF310.Buttons.X, new CloseAndIntake(), JoystickManager.MappingType.WhenReleased);
-        controller.mapButton(LogitechF310.Buttons.Y, new ZeroLift(), JoystickManager.MappingType.WhenPressed);
-        controller.mapButton(LogitechF310.Buttons.LeftJoyPress, new ReturnLiftControl(), JoystickManager.MappingType.WhenReleased);
-        controller.mapButton(LogitechF310.Buttons.RightJoyPress, new FloatAcquisition(), JoystickManager.MappingType.WhenPressed);
-        controller.mapButton(LogitechF310.Buttons.POVUp, new RaiseAcquisition(), JoystickManager.MappingType.WhenPressed);
-        controller.mapButton(LogitechF310.Buttons.POVDown, new LowerAcquisition(), JoystickManager.MappingType.WhenPressed);
+        controller.mapButton(XBoxController.Buttons.LB, new EjectCube(), JoystickManager.MappingType.WhileHeld);
+        controller.mapButton(XBoxController.Buttons.RB, new IntakeCube(), JoystickManager.MappingType.WhileHeld);
+        controller.mapButton(XBoxController.Buttons.A, new OpenAcquisition(), JoystickManager.MappingType.WhenPressed);
+        controller.mapButton(XBoxController.Buttons.B, new CloseAcquisition(), JoystickManager.MappingType.WhenPressed);
+        controller.mapButton(XBoxController.Buttons.X, new CloseOnCubeAtFront(), JoystickManager.MappingType.WhenPressed);
+        controller.mapButton(XBoxController.Buttons.X, new CloseAndIntake(), JoystickManager.MappingType.WhenReleased);
+        controller.mapButton(XBoxController.Buttons.Y, new ZeroLift(), JoystickManager.MappingType.WhenPressed);
+        controller.mapButton(XBoxController.Buttons.LeftJoyPress, new ReturnLiftControl(), JoystickManager.MappingType.WhenReleased);
+        controller.mapButton(XBoxController.Buttons.RightJoyPress, new FloatAcquisition(), JoystickManager.MappingType.WhenPressed);
+        controller.mapButton(XBoxController.Buttons.POVUp, new RaiseAcquisition(), JoystickManager.MappingType.WhenPressed);
+        controller.mapButton(XBoxController.Buttons.POVDown, new LowerAcquisition(), JoystickManager.MappingType.WhenPressed);
         mapCondition(climbTrigger, new ClimberDeploySequence(), JoystickManager.MappingType.WhenPressed);
 //        mapCondition(climbTrigger, new RaiseAndClose(), JoystickManager.MappingType.WhenReleased);
 
-        controller.mapButton(LogitechF310.Buttons.POVRight, new MoveToSetPosition(LiftPosition.ExchangeHeight), JoystickManager.MappingType.WhenPressed);
-        controller.mapButton(LogitechF310.Buttons.POVRight, new ReturnLiftControl(), JoystickManager.MappingType.WhenReleased);
+        controller.mapButton(XBoxController.Buttons.POVRight, new MoveToSetPosition(LiftPosition.ExchangeHeight), JoystickManager.MappingType.WhenPressed);
+        controller.mapButton(XBoxController.Buttons.POVRight, new ReturnLiftControl(), JoystickManager.MappingType.WhenReleased);
 
-        controller.mapButton(LogitechF310.Buttons.POVLeft, new MoveToSetPosition(LiftPosition.SwitchHeight), JoystickManager.MappingType.WhenPressed);
-        controller.mapButton(LogitechF310.Buttons.POVLeft, new ReturnLiftControl(), JoystickManager.MappingType.WhenReleased);
+        controller.mapButton(XBoxController.Buttons.POVLeft, new MoveToSetPosition(LiftPosition.SwitchHeight), JoystickManager.MappingType.WhenPressed);
+        controller.mapButton(XBoxController.Buttons.POVLeft, new ReturnLiftControl(), JoystickManager.MappingType.WhenReleased);
 
-        drive.mapButton(LogitechF310.Buttons.RB, new SetAutoShift(true), JoystickManager.MappingType.WhenPressed);
-        drive.mapButton(LogitechF310.Buttons.LB, new ShiftLow(), JoystickManager.MappingType.WhenPressed);
-//        drive.mapButton(LogitechF310.Buttons.Y, new FancyTest(), JoystickManager.MappingType.WhenPressed);
-//        drive.mapButton(LogitechF310.Buttons.A, new FancyTest2(), JoystickManager.MappingType.WhenPressed);
-//        drive.mapButton(LogitechF310.Buttons.B, new ZeroYaw(), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(XBoxController.Buttons.RB, new SetAutoShift(true), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(XBoxController.Buttons.LB, new ShiftLow(), JoystickManager.MappingType.WhenPressed);
+//        drive.mapButton(XBoxController.Buttons.Y, new FancyTest(), JoystickManager.MappingType.WhenPressed);
+//        drive.mapButton(XBoxController.Buttons.A, new FancyTest2(), JoystickManager.MappingType.WhenPressed);
+//        drive.mapButton(XBoxController.Buttons.B, new ZeroYaw(), JoystickManager.MappingType.WhenPressed);
 
-        drive.mapButton(LogitechF310.Buttons.POVLeft, new AutoTurnToAngle(180), JoystickManager.MappingType.WhenPressed);
-        drive.mapButton(LogitechF310.Buttons.POVUp, new AutoTurnToAngle(90), JoystickManager.MappingType.WhenPressed);
-        drive.mapButton(LogitechF310.Buttons.POVRight, new AutoTurnToAngle(0), JoystickManager.MappingType.WhenPressed);
-        drive.mapButton(LogitechF310.Buttons.POVDown, new AutoTurnToAngle(270), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(XBoxController.Buttons.POVLeft, new AutoTurnToAngle(180), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(XBoxController.Buttons.POVUp, new AutoTurnToAngle(90), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(XBoxController.Buttons.POVRight, new AutoTurnToAngle(0), JoystickManager.MappingType.WhenPressed);
+        drive.mapButton(XBoxController.Buttons.POVDown, new AutoTurnToAngle(270), JoystickManager.MappingType.WhenPressed);
 
 //        mapCondition(driveAcqRaise, new ToggleAcquisitionRaised(), JoystickManager.MappingType.WhenPressed);
     }

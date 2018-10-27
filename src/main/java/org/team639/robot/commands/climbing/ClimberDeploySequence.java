@@ -4,8 +4,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.ConditionalCommand;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.team639.lib.commands.ExecuteCommandAndWait;
-import org.team639.lib.controls.LogitechF310;
-import org.team639.robot.OI;
 import org.team639.robot.Robot;
 import org.team639.robot.commands.cube.*;
 
